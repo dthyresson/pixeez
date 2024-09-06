@@ -7,14 +7,18 @@ import type {
 } from 'types/pics'
 
 import { db } from 'src/lib/db'
+import { logger } from 'src/lib/logger'
+import { saveFiles } from 'src/lib/uploads'
 
 export const pics: PicsResolver = async () => {
-  return await db.pic.findMany({
-    orderBy: { id: 'asc' },
+  const p = await db.pic.findMany({
+    orderBy: { id: 'desc' },
     include: {
       album: true,
     },
   })
+
+  return p.map((p) => p.withSignedUrl())
 }
 
 export const pic: PicResolver = async ({ id }) => {
@@ -27,8 +31,13 @@ export const pic: PicResolver = async ({ id }) => {
 }
 
 export const createPic: CreatePicResolver = async ({ input }) => {
+  const processedInput = await saveFiles.forPic(input)
+  const data = {
+    ...processedInput,
+  }
+  logger.debug(data, '>> data')
   return await db.pic.create({
-    data: input,
+    data,
     include: {
       album: true,
     },

@@ -16,9 +16,8 @@ export interface CreateAlbumInput {
 
 export interface CreatePicInput {
     __typename?: "CreatePicInput";
-    albumId: string;
-    original: string;
-    processed: string;
+    albumId: number;
+    original: File;
 }
 
 export interface Mutation {
@@ -54,11 +53,11 @@ export interface UpdateAlbumInput {
 
 export interface UpdatePicInput {
     __typename?: "UpdatePicInput";
-    albumId?: string| null;
-    original?: string| null;
-    processed?: string| null;
+    albumId?: number| null;
+    original?: File| null;
 }
 
+type File = any;
 type JSON = any;
 export type Album = PAlbum;
 export type Pic = PPic;

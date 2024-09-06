@@ -15,15 +15,15 @@ generator client {
 }
 
 model Album {
-  id   String @id @unique @default(uuid())
+  id   Int    @id @default(autoincrement())
   name String @unique
   pics Pic[]
 }
 
 model Pic {
-  id        String @id @unique @default(uuid())
-  album     Album  @relation(fields: [albumId], references: [id])
-  albumId   String
+  id        Int     @id @default(autoincrement())
+  album     Album   @relation(fields: [albumId], references: [id])
+  albumId   Int
   original  String
-  processed String
+  processed String?
 }

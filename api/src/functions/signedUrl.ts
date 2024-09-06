@@ -2,6 +2,7 @@ import type { APIGatewayEvent, Context } from 'aws-lambda'
 
 import type { SignatureValidationArgs } from '@redwoodjs/storage/UrlSigner'
 
+import { logger } from 'src/lib/logger'
 import { urlSigner, fsStorage } from 'src/lib/uploads'
 
 export const handler = async (event: APIGatewayEvent, _context: Context) => {
@@ -9,13 +10,21 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
     event.queryStringParameters as SignatureValidationArgs
   )
 
-  const { contents, type } = await fsStorage.read(fileToReturn)
+  try {
+    const { contents, type } = await fsStorage.read(fileToReturn)
 
-  return {
-    statusCode: 200,
-    headers: {
-      'Content-Type': type,
-    },
-    body: contents,
+    return {
+      statusCode: 200,
+      headers: {
+        'Content-Type': type,
+      },
+      body: contents,
+    }
+  } catch (error) {
+    logger.error(error, 'Error reading file')
+    return {
+      statusCode: 404,
+      body: 'Not found',
+    }
   }
 }

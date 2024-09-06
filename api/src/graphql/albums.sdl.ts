@@ -1,13 +1,13 @@
 export const schema = gql`
   type Album {
-    id: String!
+    id: Int!
     name: String!
     pics: [Pic]!
   }
 
   type Query {
     albums: [Album!]! @requireAuth
-    album(id: String!): Album @requireAuth
+    album(id: Int!): Album @requireAuth
   }
 
   input CreateAlbumInput {
@@ -20,7 +20,7 @@ export const schema = gql`
 
   type Mutation {
     createAlbum(input: CreateAlbumInput!): Album! @requireAuth
-    updateAlbum(id: String!, input: UpdateAlbumInput!): Album! @requireAuth
-    deleteAlbum(id: String!): Album! @requireAuth
+    updateAlbum(id: Int!, input: UpdateAlbumInput!): Album! @requireAuth
+    deleteAlbum(id: Int!): Album! @requireAuth
   }
 `

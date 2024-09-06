@@ -1,32 +1,30 @@
 export const schema = gql`
   type Pic {
-    id: String!
+    id: Int!
     album: Album!
-    albumId: String!
+    albumId: Int!
     original: String!
-    processed: String!
+    processed: String
   }
 
   type Query {
     pics: [Pic!]! @requireAuth
-    pic(id: String!): Pic @requireAuth
+    pic(id: Int!): Pic @requireAuth
   }
 
   input CreatePicInput {
-    albumId: String!
-    original: String!
-    processed: String!
+    albumId: Int!
+    original: File!
   }
 
   input UpdatePicInput {
-    albumId: String
-    original: String
-    processed: String
+    albumId: Int
+    original: File
   }
 
   type Mutation {
     createPic(input: CreatePicInput!): Pic! @requireAuth
-    updatePic(id: String!, input: UpdatePicInput!): Pic! @requireAuth
-    deletePic(id: String!): Pic! @requireAuth
+    updatePic(id: Int!, input: UpdatePicInput!): Pic! @requireAuth
+    deletePic(id: Int!): Pic! @requireAuth
   }
 `

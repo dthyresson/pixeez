@@ -4,10 +4,10 @@
 import { PrismaClient } from '@prisma/client'
 
 import { emitLogLevels, handlePrismaLogging } from '@redwoodjs/api/logger'
-import { storagePrismaExtension } from './uploads'
 
 import { logger } from './logger'
-import { newId, prefixes } from './uuid'
+import { storagePrismaExtension } from './uploads'
+// import { newId, prefixes } from './uuid'
 
 const prismaClient = new PrismaClient({
   log: emitLogLevels(['info', 'warn', 'error']),
@@ -19,23 +19,23 @@ handlePrismaLogging({
   logLevels: ['info', 'warn', 'error'],
 })
 
-const prismaClientWithNewId = prismaClient.$extends({
-  query: {
-    $allOperations({ model, operation, args, query }) {
-      if (operation === 'create') {
-        const prefix = model.toLowerCase() as keyof typeof prefixes
-        args.data = { ...args.data, id: newId(prefix) }
-      } else if (operation === 'createMany') {
-        const prefix = model.toLowerCase() as keyof typeof prefixes
-        args.data = args.data.map((item) => ({
-          ...item,
-          id: newId(prefix),
-        }))
-      }
-      return query(args)
-    },
-  },
-})
+// const prismaClientWithNewId = prismaClient.$extends({
+//   query: {
+//     $allOperations({ model, operation, args, query }) {
+//       if (operation === 'create') {
+//         const prefix = model.toLowerCase() as keyof typeof prefixes
+//         args.data = { ...args.data, id: newId(prefix) }
+//       } else if (operation === 'createMany') {
+//         const prefix = model.toLowerCase() as keyof typeof prefixes
+//         args.data = args.data.map((item) => ({
+//           ...item,
+//           id: newId(prefix),
+//         }))
+//       }
+//       return query(args)
+//     },
+//   },
+// })
 
 /**
  * Global Prisma client extensions should be added here, as $extend
@@ -43,4 +43,4 @@ const prismaClientWithNewId = prismaClient.$extends({
  * export const db = prismaClient.$extend(...)
  * Add any .$on hooks before using $extend
  */
-export const db = prismaClientWithNewId.$extends(storagePrismaExtension)
+export const db = prismaClient.$extends(storagePrismaExtension)

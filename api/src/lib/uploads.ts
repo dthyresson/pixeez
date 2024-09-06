@@ -5,6 +5,7 @@ import { UrlSigner } from '@redwoodjs/storage/UrlSigner'
 const uploadsConfig = createUploadsConfig({
   // Configure your fields here
   // e.g. modelName: { fields: ['fieldWithUpload']}
+  pic: { fields: ['original'] },
 })
 
 export const fsStorage = new FileSystemStorage({

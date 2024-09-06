@@ -1,6 +1,6 @@
 export interface Album {
     __typename?: "Album";
-    id: string;
+    id: number;
     name: string;
     pics: Array<Pic>;
 }
@@ -12,9 +12,8 @@ export interface CreateAlbumInput {
 
 export interface CreatePicInput {
     __typename?: "CreatePicInput";
-    albumId: string;
-    original: string;
-    processed: string;
+    albumId: number;
+    original: File;
 }
 
 export interface Mutation {
@@ -30,10 +29,10 @@ export interface Mutation {
 export interface Pic {
     __typename?: "Pic";
     album: Album;
-    albumId: string;
-    id: string;
+    albumId: number;
+    id: number;
     original: string;
-    processed: string;
+    processed?: string| null;
 }
 
 export interface Query {
@@ -59,9 +58,9 @@ export interface UpdateAlbumInput {
 
 export interface UpdatePicInput {
     __typename?: "UpdatePicInput";
-    albumId?: string| null;
-    original?: string| null;
-    processed?: string| null;
+    albumId?: number| null;
+    original?: File| null;
 }
 
+type File = any;
 type JSON = any;
