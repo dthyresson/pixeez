@@ -3,7 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@redwoodjs/api": "8.0.0",
-    "@redwoodjs/graphql-server": "8.0.0"
+    "@fal-ai/serverless-client": "0.14.2",
+    "@redwoodjs/api": "9.0.0-canary.34",
+    "@redwoodjs/graphql-server": "9.0.0-canary.34",
+    "@redwoodjs/storage": "9.0.0-canary.34",
+    "@unkey/ratelimit": "0.4.4"
   }
 }

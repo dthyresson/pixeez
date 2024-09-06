@@ -1,4 +1,4 @@
-// import { db } from 'api/src/lib/db'
+import { db } from 'api/src/lib/db'
 
 // Manually apply seeds via the `yarn rw prisma db seed` command.
 //
@@ -9,14 +9,9 @@
 
 export default async () => {
   try {
-    // Create your database records here! For example, seed some users:
-    //
-    // const users = [
-    //   { name: 'Alice', email: 'alice@redwoodjs.com },
-    //   { name: 'Bob', email: 'bob@redwoodjs.com },
-    // ]
-    //
-    // await db.user.createMany({ data: users })
+    const albums = [{ name: 'Family' }, { name: 'Work ' }]
+
+    await db.album.createMany({ data: albums })
 
     console.info(
       '\n  No seed data, skipping. See scripts/seed.ts to start seeding your database!\n'

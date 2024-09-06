@@ -1,0 +1,57 @@
+import type {
+  ${pluralPascalName}Resolver,
+  ${singularPascalName}Resolver,
+<% if (crud) { %>  Create${singularPascalName}Resolver,
+  Update${singularPascalName}Resolver,
+  Delete${singularPascalName}Resolver,<% } %>
+} from 'types/${pluralCamelName}'
+
+import { db } from 'src/lib/db'
+
+export const ${pluralCamelName}: ${pluralPascalName}Resolver = async () => {
+  return await db.${singularCamelName}.findMany({
+    orderBy: { ${idName}: 'asc' },
+    <% if (relations.length > 0) { %>include: {
+      <% relations.forEach(relation => { %><%=relation%>: true,
+      <% }) %>
+    },<% } %>
+  })
+}
+
+export const ${singularCamelName}: ${singularPascalName}Resolver = async ({ ${idName} }) => {
+  return await db.${singularCamelName}.findUnique({
+    where: { ${idName} },
+    <% if (relations.length > 0) { %>include: {
+      <% relations.forEach(relation => { %><%=relation%>: true,
+      <% }) %>
+    },<% } %>
+  })
+}
+<% if (crud) { %>
+export const create${singularPascalName}: Create${singularPascalName}Resolver = async ({ input }) => {
+  return await db.${singularCamelName}.create({
+    data: input,
+    <% if (relations.length > 0) { %>include: {
+      <% relations.forEach(relation => { %><%=relation%>: true,
+      <% }) %>
+    },<% } %>
+  })
+}
+
+export const update${singularPascalName}: Update${singularPascalName}Resolver = async ({ ${idName}, input }) => {
+  return await db.${singularCamelName}.update({
+    data: input,
+    where: { ${idName} },
+    <% if (relations.length > 0) { %>include: {
+      <% relations.forEach(relation => { %><%=relation%>: true,
+      <% }) %>
+    },
+    <% } %>
+  })
+}
+
+export const delete${singularPascalName}: Delete${singularPascalName}Resolver = async ({ ${idName} }) => {
+  return await db.${singularCamelName}.delete({
+    where: { ${idName} },
+  })
+}<% } %>

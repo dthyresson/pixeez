@@ -19,3 +19,8 @@
   open = true
 [notifications]
   versionUpdates = ["latest"]
+[generate]
+  tests = false
+  stories = false
+[experimental]
+  useSDLCodeGenForGraphQLTypes = true
