@@ -15,15 +15,34 @@ generator client {
 }
 
 model Album {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  pics Pic[]
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String   @unique
+  pics      Pic[]
 }
 
 model Pic {
-  id        Int     @id @default(autoincrement())
-  album     Album   @relation(fields: [albumId], references: [id])
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  album     Album    @relation(fields: [albumId], references: [id])
   albumId   Int
   original  String
   processed String?
+}
+
+model BackgroundJob {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  attempts  Int       @default(0)
+  handler   String
+  queue     String
+  priority  Int
+  runAt     DateTime?
+  lockedAt  DateTime?
+  lockedBy  String?
+  lastError String?
+  failedAt  DateTime?
 }

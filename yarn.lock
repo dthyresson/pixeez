@@ -4750,6 +4750,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/jobs@npm:9.0.0-canary.34":
+  version: 9.0.0-canary.34
+  resolution: "@redwoodjs/jobs@npm:9.0.0-canary.34"
+  dependencies:
+    "@redwoodjs/cli-helpers": "npm:9.0.0-canary.34"
+    "@redwoodjs/project-config": "npm:9.0.0-canary.34"
+    type-fest: "npm:4.24.0"
+  bin:
+    rw-jobs: ./dist/bins/rw-jobs.js
+    rw-jobs-worker: ./dist/bins/rw-jobs-worker.js
+  checksum: 10c0/b7854c323bbf1a9fb94bd1d3e9c233cee5c88b07d9011899475b49abbb720618959b156d438e057b46644cf396b7cdd21834003e0ce6a176ec53505e9344783c
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/prerender@npm:9.0.0-canary.34":
   version: 9.0.0-canary.34
   resolution: "@redwoodjs/prerender@npm:9.0.0-canary.34"
@@ -6452,6 +6466,7 @@ __metadata:
     "@fal-ai/serverless-client": "npm:0.14.2"
     "@redwoodjs/api": "npm:9.0.0-canary.34"
     "@redwoodjs/graphql-server": "npm:9.0.0-canary.34"
+    "@redwoodjs/jobs": "npm:9.0.0-canary.34"
     "@redwoodjs/storage": "npm:9.0.0-canary.34"
     "@unkey/ratelimit": "npm:0.4.4"
   languageName: unknown
@@ -16963,6 +16978,13 @@ __metadata:
   version: 4.0.8
   resolution: "type-detect@npm:4.0.8"
   checksum: 10c0/8fb9a51d3f365a7de84ab7f73b653534b61b622aa6800aecdb0f1095a4a646d3f5eb295322127b6573db7982afcd40ab492d038cf825a42093a58b1e1353e0bd
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:4.24.0":
+  version: 4.24.0
+  resolution: "type-fest@npm:4.24.0"
+  checksum: 10c0/9770471a397733b17b5a9ce48ee5a4d6c042c84a4858ff4e15abd126f351c61b5fea8b7b5e55bfa34840098a920b915d5ff878db1b3c007a2512a6a9c7f21579
   languageName: node
   linkType: hard
 

@@ -30,14 +30,25 @@ export const Failure = ({ error }: CellFailureProps) => (
 
 export const Success = ({ pics }: CellSuccessProps<PicsQuery>) => {
   return (
-    <ul className="grid grid-cols-3 gap-4">
-      {pics.map((item) => {
-        return (
-          <li key={item.id}>
-            <img src={item.original} alt={item.original} />
-          </li>
-        )
-      })}
-    </ul>
+    <div>
+      <ul className="grid grid-cols-3 gap-4">
+        {pics.map((item) => {
+          return (
+            <li key={item.id}>
+              <img src={item.original} alt={item.original} />
+            </li>
+          )
+        })}
+      </ul>
+      <ul className="grid grid-cols-3 gap-4">
+        {pics.map((item) => {
+          return (
+            <li key={item.id}>
+              <img src={item.processed} alt={item.processed} />
+            </li>
+          )
+        })}
+      </ul>
+    </div>
   )
 }
