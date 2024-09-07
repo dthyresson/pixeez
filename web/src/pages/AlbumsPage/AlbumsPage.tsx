@@ -1,0 +1,16 @@
+import { Metadata } from '@redwoodjs/web'
+
+import AlbumsCell from 'src/components/AlbumsCell'
+
+const AlbumsPage = () => {
+  return (
+    <>
+      <Metadata title="Albums" description="Albums page" />
+
+      <h1 className="mb-4 text-3xl font-bold">Albums</h1>
+      <AlbumsCell />
+    </>
+  )
+}
+
+export default AlbumsPage

@@ -1,15 +1,24 @@
 import { useCallback, useState } from 'react'
 
 import { useDropzone } from 'react-dropzone'
+import type {
+  GetAlbumsForSelectListQuery,
+  GetAlbumsForSelectListQueryVariables,
+  CreatePicsMutation,
+  CreatePicsMutationVariables,
+} from 'types/graphql'
 import type { CreatePicsInput } from 'types/graphql'
 
-import { Form, Label, Submit, SelectField } from '@redwoodjs/forms'
+import { Form, Label, SelectField } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
-import { useMutation, useQuery } from '@redwoodjs/web'
+import { useMutation, useQuery, TypedDocumentNode } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-const GET_ALBUMS_QUERY = gql`
-  query GetAlbumsQuery {
+const GET_ALBUMS_QUERY: TypedDocumentNode<
+  GetAlbumsForSelectListQuery,
+  GetAlbumsForSelectListQueryVariables
+> = gql`
+  query GetAlbumsForSelectListQuery {
     albums {
       id
       name
@@ -17,21 +26,29 @@ const GET_ALBUMS_QUERY = gql`
   }
 `
 
-const CREATE_PICS_MUTATION = gql`
+const CREATE_PICS_MUTATION: TypedDocumentNode<
+  CreatePicsMutation,
+  CreatePicsMutationVariables
+> = gql`
   mutation CreatePicsMutation($input: CreatePicsInput!) {
     createPics(input: $input) {
       id
       original
       processed
+      albumId
     }
   }
 `
 
 const PicsForm = ({ onSubmit, loading, error }) => {
-  const { data, loading: albumsLoading } = useQuery(GET_ALBUMS_QUERY)
+  const { data, loading: albumsLoading } = useQuery<
+    GetAlbumsForSelectListQuery,
+    GetAlbumsForSelectListQueryVariables
+  >(GET_ALBUMS_QUERY)
   const albums = data?.albums || []
 
   const [files, setFiles] = useState([])
+  const [selectedAlbumId, setSelectedAlbumId] = useState('')
 
   const handleSubmit = useCallback(
     (formData, droppedFiles = null) => {
@@ -46,9 +63,9 @@ const PicsForm = ({ onSubmit, loading, error }) => {
   const onDrop = useCallback(
     (acceptedFiles) => {
       setFiles(acceptedFiles)
-      handleSubmit({ albumId: data?.albums[0]?.id }, acceptedFiles)
+      handleSubmit({ albumId: selectedAlbumId }, acceptedFiles)
     },
-    [data?.albums, handleSubmit]
+    [selectedAlbumId, handleSubmit]
   )
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
@@ -72,7 +89,10 @@ const PicsForm = ({ onSubmit, loading, error }) => {
         <SelectField
           name="albumId"
           className="w-full rounded-lg border px-3 py-2 text-gray-700 focus:border-blue-500 focus:outline-none"
+          onChange={(e) => setSelectedAlbumId(e.target.value)}
+          value={selectedAlbumId}
         >
+          <option value="">Select an album</option>
           {albums.map((album) => (
             <option key={album.id} value={album.id}>
               {album.name}
@@ -121,7 +141,7 @@ const UploadsPage = () => {
     onCompleted: (data) => {
       console.log(data)
       toast.success('Pics uploaded successfully')
-      navigate(routes.pics())
+      navigate(routes.album({ id: data.createPics[0].albumId }))
     },
   })
 

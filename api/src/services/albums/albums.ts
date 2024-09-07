@@ -9,21 +9,45 @@ import type {
 import { db } from 'src/lib/db'
 
 export const albums: AlbumsResolver = async () => {
-  return await db.album.findMany({
+  const theAlbums = await db.album.findMany({
     orderBy: { id: 'asc' },
     include: {
       pics: true,
     },
   })
+
+  const albums = theAlbums.map((album) => {
+    return {
+      ...album,
+      pics: album.pics.map((pic) => {
+        return {
+          ...pic.withSignedUrl(),
+        }
+      }),
+    }
+  })
+
+  return albums
 }
 
 export const album: AlbumResolver = async ({ id }) => {
-  return await db.album.findUnique({
+  const theAlbum = await db.album.findUnique({
     where: { id },
     include: {
       pics: true,
     },
   })
+
+  const pics = theAlbum?.pics.map((pic) => {
+    return {
+      ...pic.withSignedUrl(),
+    }
+  })
+
+  return {
+    ...theAlbum,
+    pics,
+  }
 }
 
 export const createAlbum: CreateAlbumResolver = async ({ input }) => {
