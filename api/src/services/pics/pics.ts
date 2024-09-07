@@ -6,6 +6,7 @@ import type {
   UpdatePicResolver,
   DeletePicResolver,
 } from 'types/pics'
+import type { Pic } from 'types/shared-return-types'
 
 import { RemoveImageBackgroundJob } from 'src/jobs/RemoveImageBackgroundJob/RemoveImageBackgroundJob'
 import { db } from 'src/lib/db'
@@ -55,7 +56,7 @@ export const createPic: CreatePicResolver = async ({ input }) => {
 }
 
 export const createPics: CreatePicsResolver = async ({ input }) => {
-  const result = []
+  const result = [] as Pic[]
 
   const savedOriginalFiles = await saveFiles.inList(input.originals)
 
