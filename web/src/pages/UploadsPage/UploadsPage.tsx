@@ -5,8 +5,17 @@ import type { CreatePicsInput } from 'types/graphql'
 
 import { Form, Label, Submit, SelectField } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
-import { useMutation } from '@redwoodjs/web'
+import { useMutation, useQuery } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
+
+const GET_ALBUMS_QUERY = gql`
+  query GetAlbumsQuery {
+    albums {
+      id
+      name
+    }
+  }
+`
 
 const CREATE_PICS_MUTATION = gql`
   mutation CreatePicsMutation($input: CreatePicsInput!) {
@@ -19,33 +28,39 @@ const CREATE_PICS_MUTATION = gql`
 `
 
 const PicsForm = ({ onSubmit, loading, error }) => {
-  const albums = [
-    { id: 1, name: 'Family' },
-    { id: 2, name: 'Work' },
-  ]
+  const { data, loading: albumsLoading } = useQuery(GET_ALBUMS_QUERY)
+  const albums = data?.albums || []
 
   const [files, setFiles] = useState([])
 
-  const onDrop = useCallback((acceptedFiles) => {
-    setFiles(acceptedFiles)
-  }, [])
+  const handleSubmit = useCallback(
+    (formData, droppedFiles = null) => {
+      onSubmit({
+        ...formData,
+        originals: droppedFiles || files,
+      })
+    },
+    [onSubmit, files]
+  )
+
+  const onDrop = useCallback(
+    (acceptedFiles) => {
+      setFiles(acceptedFiles)
+      handleSubmit({ albumId: data?.albums[0]?.id }, acceptedFiles)
+    },
+    [data?.albums, handleSubmit]
+  )
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   if (loading) return <div>Loading...</div>
-
-  const handleSubmit = (data) => {
-    onSubmit({
-      albumId: data.albumId,
-      originals: files,
-    })
-  }
+  if (albumsLoading) return <div>Loading albums...</div>
 
   return (
     <Form
       onSubmit={handleSubmit}
       error={error}
-      className="mx-auto mt-8 max-w-md rounded-lg bg-white p-6 shadow-md"
+      className="mx-auto mt-8 max-w-2xl rounded-lg bg-white p-6 shadow-md"
     >
       <div className="mb-4">
         <Label
@@ -70,7 +85,7 @@ const PicsForm = ({ onSubmit, loading, error }) => {
           name="originals"
           className="mb-2 block text-sm font-bold text-gray-700"
         >
-          Original Pics
+          Pics
         </Label>
         <div
           {...getRootProps()}
@@ -78,10 +93,11 @@ const PicsForm = ({ onSubmit, loading, error }) => {
         >
           <input {...getInputProps()} name="originals" />
           {isDragActive ? (
-            <p>Drop the files here ...</p>
+            <p>Drop your pics here ...</p>
           ) : (
             <p>
-              Drag &apos;n&apos; drop some files here, or click to select files
+              Drag &apos;n&apos; drop your pics here, or click to select some
+              pics
             </p>
           )}
         </div>
@@ -96,9 +112,6 @@ const PicsForm = ({ onSubmit, loading, error }) => {
           </div>
         )}
       </div>
-      <Submit className="focus:shadow-outline w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none">
-        Upload
-      </Submit>
     </Form>
   )
 }
