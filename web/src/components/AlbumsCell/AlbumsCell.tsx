@@ -31,7 +31,10 @@ export const Success = ({ albums }: CellSuccessProps<FindAlbumsQuery>) => {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
       {albums.map((item) => (
-        <div key={item.id} className="rounded-lg bg-gray-100 p-4 shadow-md">
+        <div
+          key={item.id}
+          className="rounded-lg bg-gray-100 p-4 shadow-md dark:bg-gray-800"
+        >
           <Link to={routes.album({ id: item.id })}>
             <p className="text-center font-semibold">{item.name}</p>
           </Link>
