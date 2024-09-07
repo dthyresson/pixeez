@@ -69,6 +69,8 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
     })
 
     result.push(pic.withSignedUrl())
+
+    await later(RemoveImageBackgroundJob, [pic.id])
   }
 
   return result

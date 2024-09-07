@@ -1,6 +1,9 @@
+import { useCallback, useState } from 'react'
+
+import { useDropzone } from 'react-dropzone'
 import type { CreatePicsInput } from 'types/graphql'
 
-import { FileField, Form, Label, Submit, SelectField } from '@redwoodjs/forms'
+import { Form, Label, Submit, SelectField } from '@redwoodjs/forms'
 import { navigate, routes } from '@redwoodjs/router'
 import { useMutation } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
@@ -16,14 +19,31 @@ const CREATE_PICS_MUTATION = gql`
 `
 
 const PicsForm = ({ onSubmit, loading, error }) => {
-  if (loading) return <div>Loading...</div>
   const albums = [
     { id: 1, name: 'Family' },
     { id: 2, name: 'Work' },
   ]
+
+  const [files, setFiles] = useState([])
+
+  const onDrop = useCallback((acceptedFiles) => {
+    setFiles(acceptedFiles)
+  }, [])
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+
+  if (loading) return <div>Loading...</div>
+
+  const handleSubmit = (data) => {
+    onSubmit({
+      albumId: data.albumId,
+      originals: files,
+    })
+  }
+
   return (
     <Form
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       error={error}
       className="mx-auto mt-8 max-w-md rounded-lg bg-white p-6 shadow-md"
     >
@@ -52,11 +72,29 @@ const PicsForm = ({ onSubmit, loading, error }) => {
         >
           Original Pics
         </Label>
-        <FileField
-          name="originals"
-          multiple={true}
-          className="w-full rounded-lg border px-3 py-2 text-gray-700 focus:border-blue-500 focus:outline-none"
-        />
+        <div
+          {...getRootProps()}
+          className="w-full rounded-lg border-2 border-dashed border-gray-300 p-6 text-center"
+        >
+          <input {...getInputProps()} name="originals" />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>
+              Drag &apos;n&apos; drop some files here, or click to select files
+            </p>
+          )}
+        </div>
+        {files.length > 0 && (
+          <div className="mt-2">
+            <p>Selected files:</p>
+            <ul>
+              {files.map((file) => (
+                <li key={file.name}>{file.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
       <Submit className="focus:shadow-outline w-full rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 focus:outline-none">
         Upload
@@ -75,13 +113,15 @@ const UploadsPage = () => {
   })
 
   const onSubmit = (formData: CreatePicsInput) => {
-    console.log(formData)
     const albumId = parseInt(formData.albumId.toString())
-    const input = {
-      albumId,
-      originals: formData.originals,
-    }
-    createPics({ variables: { input } })
+    createPics({
+      variables: {
+        input: {
+          albumId,
+          originals: formData.originals,
+        },
+      },
+    })
   }
 
   return (
