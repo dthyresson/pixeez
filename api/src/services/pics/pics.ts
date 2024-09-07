@@ -2,6 +2,7 @@ import type {
   PicsResolver,
   PicResolver,
   CreatePicResolver,
+  CreatePicsResolver,
   UpdatePicResolver,
   DeletePicResolver,
 } from 'types/pics'
@@ -39,6 +40,7 @@ export const createPic: CreatePicResolver = async ({ input }) => {
   const data = {
     ...processedInput,
   }
+
   logger.debug(data, '>> data')
   const pic = await db.pic.create({
     data,
@@ -50,6 +52,25 @@ export const createPic: CreatePicResolver = async ({ input }) => {
   await later(RemoveImageBackgroundJob, [pic.id])
 
   return pic.withSignedUrl()
+}
+
+export const createPics: CreatePicsResolver = async ({ input }) => {
+  const result = []
+
+  const savedOriginalFiles = await saveFiles.inList(input.originals)
+
+  for (const original of savedOriginalFiles) {
+    const pic = await db.pic.create({
+      data: {
+        original,
+        albumId: input.albumId,
+      },
+    })
+
+    result.push(pic.withSignedUrl())
+  }
+
+  return result
 }
 
 export const updatePic: UpdatePicResolver = async ({ id, input }) => {

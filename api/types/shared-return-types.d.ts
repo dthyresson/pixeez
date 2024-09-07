@@ -20,10 +20,17 @@ export interface CreatePicInput {
     original: File;
 }
 
+export interface CreatePicsInput {
+    __typename?: "CreatePicsInput";
+    albumId: number;
+    originals: File[];
+}
+
 export interface Mutation {
     __typename?: "Mutation";
     createAlbum: PAlbum;
     createPic: PPic;
+    createPics: PPic[];
     deleteAlbum: PAlbum;
     deletePic: PPic;
     updateAlbum: PAlbum;

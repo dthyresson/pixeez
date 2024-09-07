@@ -9,3 +9,10 @@ A tribute to [PicThing](https://pic.ping.gg/login)
 - [ ] Removal in RedwoodJS background jobs
 - [ ] Albums
 
+## TODO
+
+* ui
+* realtime
+* live query update on processed
+* maybe change fields to urls
+* multiple file uploads to album

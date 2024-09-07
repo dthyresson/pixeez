@@ -17,6 +17,11 @@ export const schema = gql`
     original: File!
   }
 
+  input CreatePicsInput {
+    albumId: Int!
+    originals: [File!]!
+  }
+
   input UpdatePicInput {
     albumId: Int
     original: File
@@ -24,6 +29,7 @@ export const schema = gql`
 
   type Mutation {
     createPic(input: CreatePicInput!): Pic! @requireAuth
+    createPics(input: CreatePicsInput!): [Pic!]! @requireAuth
     updatePic(id: Int!, input: UpdatePicInput!): Pic! @requireAuth
     deletePic(id: Int!): Pic! @requireAuth
   }
