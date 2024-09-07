@@ -10,7 +10,7 @@ import { db } from 'src/lib/db'
 
 export const albums: AlbumsResolver = async () => {
   const theAlbums = await db.album.findMany({
-    orderBy: { id: 'asc' },
+    orderBy: { name: 'asc' },
     include: {
       pics: true,
     },
