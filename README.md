@@ -4,13 +4,13 @@ A tribute to [PicThing](https://pic.ping.gg/login)
 
 ## Features
 
-- [x] Upload images using RedwoodJS Storage
-- [x] Background removal using [Rembg on fal.ai](https://fal.ai/models/fal-ai/imageutils/rembg)
-- [x] Removal in RedwoodJS background jobs
 - [x] Albums
-- [x] Image metadata extraction
-- [x] Image description using AI
-- [x] Automatic tagging
+- [x] Upload images using RedwoodJS Storage
+- [x] Background removal using [birefnet on fal.ai](https://fal.ai/models/fal-ai/birefnet)
+- [x] RedwoodJS background jobs for:
+  - Background removal using [birefnet on fal.ai](https://fal.ai/models/fal-ai/birefnet)
+  - Image description using [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption)
+  - Automatic image tagging using [Langbase](https://www.langbase.com/)
 - [x] Search functionality with pagination
 - [x] Dark mode support
 
@@ -67,11 +67,11 @@ Images are automatically tagged based on their AI-generated descriptions, allowi
 
 The application supports both light and dark modes for user preference.
 
-## TODO
+## TODO (maybe)
 
 - [ ] Implement user authentication and authorization
 - [ ] Implement real-time updates for processed images
-- [ ] Optimize performance for large image collections
+- [ ] Copy to clipboard button for image data
 - [ ] Add more advanced image editing features
 
 ## Contributing

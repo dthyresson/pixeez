@@ -21,21 +21,49 @@ const AboutPage = () => {
 
       <h2 className="mb-2 mt-6 text-2xl font-semibold">Features</h2>
       <ul className="mb-4 list-inside list-disc space-y-1">
+        <li>Albums</li>
         <li>Upload images using RedwoodJS Storage</li>
         <li>
           Background removal using{' '}
           <a
-            href="https://fal.ai/models/fal-ai/imageutils/rembg"
+            href="https://fal.ai/models/fal-ai/birefnet"
             className="text-purple-600 hover:underline"
           >
-            Rembg on fal.ai
+            birefnet on fal.ai
           </a>
         </li>
-        <li>Removal in RedwoodJS background jobs</li>
-        <li>Albums</li>
-        <li>Image metadata extraction</li>
-        <li>Image description using AI</li>
-        <li>Automatic tagging</li>
+        <li>
+          RedwoodJS background jobs for:
+          <ul className="ml-6 list-inside list-disc space-y-1">
+            <li>
+              Background removal using{' '}
+              <a
+                href="https://fal.ai/models/fal-ai/birefnet"
+                className="text-purple-600 hover:underline"
+              >
+                birefnet on fal.ai
+              </a>
+            </li>
+            <li>
+              Image description using{' '}
+              <a
+                href="https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption"
+                className="text-purple-600 hover:underline"
+              >
+                florence-2-large on fal.ai
+              </a>
+            </li>
+            <li>
+              Automatic image tagging using{' '}
+              <a
+                href="https://www.langbase.com"
+                className="text-purple-600 hover:underline"
+              >
+                Langbase
+              </a>
+            </li>
+          </ul>
+        </li>
         <li>Search functionality with pagination</li>
         <li>Dark mode support</li>
       </ul>

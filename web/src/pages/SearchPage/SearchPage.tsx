@@ -105,7 +105,7 @@ const SearchPage = () => {
                   pic={pic}
                   albumName={pic.album.name}
                 />
-                <h3 className="font-bold">
+                <h3 className="text-lg font-bold">
                   <Link
                     to={routes.album({ id: pic.album.id })}
                     className="hover:underline"
@@ -113,28 +113,29 @@ const SearchPage = () => {
                     {pic.album.name}
                   </Link>
                 </h3>
-                <p className="text-sm">{pic.description}</p>
-                <p className="text-xs">
-                  <ul className="flex flex-wrap gap-2">
-                    {pic.tags.map((tag) => (
-                      <Link
-                        key={tag.id}
-                        to={routes.tag({ id: tag.id })}
-                        className="rounded-sm bg-purple-500 p-2 text-white hover:bg-purple-600 hover:underline"
-                      >
-                        {tag.name}
-                      </Link>
-                    ))}
-                  </ul>
-                </p>
+                <p className="text-md">{pic.description}</p>
+                <ul className="flex flex-wrap gap-2">
+                  {pic.tags.map((tag) => (
+                    <Link
+                      key={tag.id}
+                      to={routes.tag({ id: tag.id })}
+                      className="rounded-sm bg-purple-500 p-2 text-white hover:bg-purple-600 hover:underline"
+                    >
+                      {tag.name}
+                    </Link>
+                  ))}
+                </ul>
                 <pre className="max-h-24 overflow-y-auto whitespace-pre-wrap break-words text-xs text-gray-600">
                   {formatExif(pic.exif)}
                 </pre>
-                <p className="text-xs text-gray-500">
-                  Created: {new Date(pic.createdAt).toLocaleString()}
-                  <br />
-                  Updated: {new Date(pic.updatedAt).toLocaleString()}
-                </p>
+                <div className="flex justify-between">
+                  <p className="text-xs text-gray-500">
+                    ⏰&nbsp;{new Date(pic.createdAt).toLocaleString()}
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    🕰️&nbsp;{new Date(pic.updatedAt).toLocaleString()}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
