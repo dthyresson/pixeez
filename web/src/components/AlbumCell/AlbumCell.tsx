@@ -32,6 +32,8 @@ const CREATE_PICS_MUTATION = gql`
   }
 `
 
+const MAX_FILES = 20
+
 export const beforeQuery = (props: FindAlbumQueryVariables) => {
   return {
     variables: props,
@@ -79,7 +81,23 @@ export const Success = ({
   })
 
   const onDrop = useCallback(
-    (acceptedFiles) => {
+    (acceptedFiles, rejectedFiles) => {
+      if (rejectedFiles.length > 0) {
+        // Handle rejected files
+        if (rejectedFiles.length > MAX_FILES) {
+          toast.error(`You can only upload up to ${MAX_FILES} files at a time`)
+        } else {
+          const nonImageFiles = rejectedFiles.filter(
+            (file) => !file.file.type.startsWith('image/')
+          )
+          if (nonImageFiles.length > 0) {
+            toast.error('Only image files are allowed')
+          }
+        }
+        return // Exit the function if there are rejected files
+      }
+
+      // Proceed with the mutation only if there are no rejected files
       createPics({
         variables: {
           input: {
@@ -92,7 +110,13 @@ export const Success = ({
     [album.id, createPics]
   )
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: {
+      'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp'],
+    },
+    maxFiles: MAX_FILES,
+  })
 
   return (
     <>
