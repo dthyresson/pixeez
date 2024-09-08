@@ -11,6 +11,7 @@ A tribute to [PicThing](https://pic.ping.gg/login)
 - [x] Image metadata extraction
 - [x] Image description using AI
 - [x] Automatic tagging
+- [x] Search functionality with pagination
 - [x] Dark mode support
 
 ## Technologies Used
@@ -69,7 +70,6 @@ The application supports both light and dark modes for user preference.
 ## TODO
 
 - [ ] Implement user authentication and authorization
-- [ ] Add image search functionality
 - [ ] Implement real-time updates for processed images
 - [ ] Optimize performance for large image collections
 - [ ] Add more advanced image editing features

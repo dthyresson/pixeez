@@ -6,6 +6,7 @@ import { Link, routes } from '@redwoodjs/router'
 import { Metadata, TypedDocumentNode } from '@redwoodjs/web'
 import { useQuery } from '@redwoodjs/web'
 
+import { ImageWithHover } from 'src/components/Image/ImageWithHover'
 const SEARCH_QUERY: TypedDocumentNode<SearchQuery, SearchQueryVariables> = gql`
   query SearchQuery($query: String!, $page: Int!, $limit: Int!) {
     search(query: $query, page: $page, limit: $limit) {
@@ -97,25 +98,25 @@ const SearchPage = () => {
       {data && (
         <>
           <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {data.search.items.map((item) => (
-              <div key={item.id} className="space-y-4 rounded-lg border p-4">
-                <img
-                  src={item.original}
-                  alt={item.description}
-                  className="mb-2  w-full object-cover"
+            {data.search.items.map((pic) => (
+              <div key={pic.id} className="space-y-4 rounded-lg border p-4">
+                <ImageWithHover
+                  key={`tag-${pic.album.id}-pic-${pic.id}`}
+                  pic={pic}
+                  albumName={pic.album.name}
                 />
                 <h3 className="font-bold">
                   <Link
-                    to={routes.album({ id: item.album.id })}
+                    to={routes.album({ id: pic.album.id })}
                     className="hover:underline"
                   >
-                    {item.album.name}
+                    {pic.album.name}
                   </Link>
                 </h3>
-                <p className="text-sm">{item.description}</p>
+                <p className="text-sm">{pic.description}</p>
                 <p className="text-xs">
                   <ul className="flex flex-wrap gap-2">
-                    {item.tags.map((tag) => (
+                    {pic.tags.map((tag) => (
                       <Link
                         key={tag.id}
                         to={routes.tag({ id: tag.id })}
@@ -127,12 +128,12 @@ const SearchPage = () => {
                   </ul>
                 </p>
                 <pre className="max-h-24 overflow-y-auto whitespace-pre-wrap break-words text-xs text-gray-600">
-                  {formatExif(item.exif)}
+                  {formatExif(pic.exif)}
                 </pre>
                 <p className="text-xs text-gray-500">
-                  Created: {new Date(item.createdAt).toLocaleString()}
+                  Created: {new Date(pic.createdAt).toLocaleString()}
                   <br />
-                  Updated: {new Date(item.updatedAt).toLocaleString()}
+                  Updated: {new Date(pic.updatedAt).toLocaleString()}
                 </p>
               </div>
             ))}

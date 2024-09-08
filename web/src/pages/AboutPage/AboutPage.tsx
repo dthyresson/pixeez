@@ -36,6 +36,7 @@ const AboutPage = () => {
         <li>Image metadata extraction</li>
         <li>Image description using AI</li>
         <li>Automatic tagging</li>
+        <li>Search functionality with pagination</li>
         <li>Dark mode support</li>
       </ul>
 
@@ -146,7 +147,6 @@ const AboutPage = () => {
       <h2 className="mb-2 mt-6 text-2xl font-semibold">TODO</h2>
       <ul className="mb-4 list-inside list-disc space-y-1">
         <li>Implement user authentication and authorization</li>
-        <li>Add image search functionality</li>
         <li>Implement real-time updates for processed images</li>
         <li>Optimize performance for large image collections</li>
         <li>Add more advanced image editing features</li>
@@ -160,7 +160,10 @@ const AboutPage = () => {
       <h2 className="mb-2 mt-6 text-2xl font-semibold">License</h2>
       <p className="mb-4">
         This project is open-source and available under the{' '}
-        <a href="#" className="text-purple-600 hover:underline">
+        <a
+          href="https://opensource.org/licenses/MIT"
+          className="text-purple-600 hover:underline"
+        >
           MIT License
         </a>
         .
