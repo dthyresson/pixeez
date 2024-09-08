@@ -110,12 +110,13 @@ export const Success = ({
     [album.id, createPics]
   )
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop,
     accept: {
       'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp'],
     },
     maxFiles: MAX_FILES,
+    noClick: true, // Prevent opening dialog on click of the entire dropzone area
   })
 
   return (
@@ -130,16 +131,13 @@ export const Success = ({
         {album.pics.length === 0 ? (
           <div
             {...getRootProps()}
-            className="mb-4 rounded-lg border-2 border-dashed border-gray-300 p-4 text-center"
+            className="mb-4 rounded-lg border-2 border-dashed border-purple-300 p-4 text-center"
           >
             <input {...getInputProps()} />
             {isDragActive ? (
               <p>Drop your 🖼️ images here ...</p>
             ) : (
-              <p>
-                Drag &apos;n&apos; drop some 🖼️ images here, or click to select
-                some
-              </p>
+              <p>Drag &apos;n&apos; drop some 🖼️ pics here</p>
             )}
           </div>
         ) : (
@@ -151,8 +149,14 @@ export const Success = ({
       </div>
       <div className="mt-4 flex justify-start lg:justify-center">
         <p className="text-sm text-gray-500">
-          You can upload more pics to your {album.name} album ... just drag and
-          drop above
+          You can{' '}
+          <button
+            className="font-inherit mx-1 cursor-pointer border-none bg-transparent p-0 text-purple-500 hover:underline"
+            onClick={open}
+          >
+            upload
+          </button>{' '}
+          pics to your {album.name} album ... or drag &apos;n&apos; drop above
         </p>
       </div>
     </>
