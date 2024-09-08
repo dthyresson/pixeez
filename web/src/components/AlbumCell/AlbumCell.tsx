@@ -28,7 +28,7 @@ const CREATE_PICS_MUTATION = gql`
 export const beforeQuery = (props: FindAlbumQueryVariables) => {
   return {
     variables: props,
-    pollInterval: 2_500,
+    pollInterval: 10_000,
   }
 }
 
