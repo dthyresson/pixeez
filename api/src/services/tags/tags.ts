@@ -12,7 +12,7 @@ export const tags: TagsResolver = async () => {
   return await db.tag.findMany({
     orderBy: { id: 'asc' },
     include: {
-      pic: true,
+      pics: true,
     },
   })
 }
@@ -21,7 +21,7 @@ export const tag: TagResolver = async ({ id }) => {
   return await db.tag.findUnique({
     where: { id },
     include: {
-      pic: true,
+      pics: true,
     },
   })
 }
@@ -30,7 +30,7 @@ export const createTag: CreateTagResolver = async ({ input }) => {
   return await db.tag.create({
     data: input,
     include: {
-      pic: true,
+      pics: true,
     },
   })
 }
@@ -40,7 +40,7 @@ export const updateTag: UpdateTagResolver = async ({ id, input }) => {
     data: input,
     where: { id },
     include: {
-      pic: true,
+      pics: true,
     },
   })
 }

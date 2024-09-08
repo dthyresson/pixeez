@@ -13,6 +13,7 @@
     "@unkey/ratelimit": "0.4.4",
     "exif-parser": "0.1.12",
     "ioredis": "^5",
+    "langbase": "1.1.0",
     "sharp": "0.33.5"
   }
 }

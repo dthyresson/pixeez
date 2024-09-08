@@ -4,8 +4,7 @@ export const schema = gql`
     createdAt: DateTime!
     updatedAt: DateTime!
     name: String!
-    pic: Pic
-    picId: Int
+    pics: [Pic]!
   }
 
   type Query {
@@ -15,12 +14,10 @@ export const schema = gql`
 
   input CreateTagInput {
     name: String!
-    picId: Int
   }
 
   input UpdateTagInput {
     name: String
-    picId: Int
   }
 
   type Mutation {

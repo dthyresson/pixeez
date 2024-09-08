@@ -1,6 +1,7 @@
+import { TagifyPicJob } from 'src/jobs/TagifyPicJob/TagifyPicJob'
 import { db } from 'src/lib/db'
 import { describeImage } from 'src/lib/fal'
-import { jobs } from 'src/lib/jobs'
+import { jobs, later } from 'src/lib/jobs'
 
 export const DescribePicJob = jobs.createJob({
   queue: 'default',
@@ -33,6 +34,11 @@ export const DescribePicJob = jobs.createJob({
     })
 
     jobs.logger.debug({ picId }, 'Pic updated!')
+
+    if (description && description.length > 0) {
+      await later(TagifyPicJob, [picId])
+    }
+
     jobs.logger.info({ picId }, 'DescribePicJob done!')
   },
 })

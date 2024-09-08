@@ -29,7 +29,6 @@ export interface CreatePicsInput {
 export interface CreateTagInput {
     __typename?: "CreateTagInput";
     name: string;
-    picId?: number| null;
 }
 
 export interface Mutation {
@@ -78,7 +77,6 @@ export interface UpdatePicInput {
 export interface UpdateTagInput {
     __typename?: "UpdateTagInput";
     name?: string| null;
-    picId?: number| null;
 }
 
 type File = any;

@@ -25,7 +25,6 @@ export interface CreatePicsInput {
 export interface CreateTagInput {
     __typename?: "CreateTagInput";
     name: string;
-    picId?: number| null;
 }
 
 export interface Mutation {
@@ -53,6 +52,7 @@ export interface Pic {
     id: number;
     original: string;
     processed?: string| null;
+    tags: Tag[];
     width?: number| null;
 }
 
@@ -79,8 +79,7 @@ export interface Tag {
     createdAt: DateTime;
     id: number;
     name: string;
-    pic?: Pic| null;
-    picId?: number| null;
+    pics: Array<Pic>;
     updatedAt: DateTime;
 }
 
@@ -98,7 +97,6 @@ export interface UpdatePicInput {
 export interface UpdateTagInput {
     __typename?: "UpdateTagInput";
     name?: string| null;
-    picId?: number| null;
 }
 
 type File = any;
