@@ -7,7 +7,6 @@ import type {
 } from 'types/tags'
 
 import { db } from 'src/lib/db'
-import { logger } from 'src/lib/logger'
 
 export const tags: TagsResolver = async () => {
   return await db.tag.findMany({
