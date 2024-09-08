@@ -19,7 +19,7 @@ import { toast } from '@redwoodjs/web/toast'
 import { EmptyState } from 'src/components/CellStates/EmptyState'
 import { FailureState } from 'src/components/CellStates/FailureState'
 import { LoadingState } from 'src/components/CellStates/LoadingState'
-import { ImageWithHover } from 'src/components/Image/ImageWithHover'
+import { PicsGrid } from 'src/components/Pics/PicsGrid'
 
 const CREATE_PICS_MUTATION = gql`
   mutation CreatePicsMutation($input: CreatePicsInput!) {
@@ -49,6 +49,10 @@ export const QUERY: TypedDocumentNode<FindAlbumQuery, FindAlbumQueryVariables> =
           id
           original
           withoutBackground
+          album {
+            id
+            name
+          }
         }
       }
     }
@@ -115,18 +119,9 @@ export const Success = ({
             )}
           </div>
         ) : (
-          <div
-            {...getRootProps()}
-            className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
-          >
+          <div {...getRootProps()}>
             <input {...getInputProps()} />
-            {album.pics.map((pic) => (
-              <ImageWithHover
-                key={`album-${album.id}-pic-${pic.id}`}
-                pic={pic as Pic}
-                albumName={album.name}
-              />
-            ))}
+            <PicsGrid pics={album.pics as Pic[]} />
           </div>
         )}
       </div>

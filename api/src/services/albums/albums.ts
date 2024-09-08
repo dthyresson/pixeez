@@ -37,7 +37,7 @@ export const album: AlbumResolver = async ({ id }) => {
   const theAlbum = await db.album.findUnique({
     where: { id },
     include: {
-      pics: { orderBy: { createdAt: 'desc' } },
+      pics: { orderBy: { createdAt: 'desc' }, include: { album: true } },
     },
   })
 

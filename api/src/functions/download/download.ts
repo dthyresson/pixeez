@@ -11,7 +11,7 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
       throw new Error('picId is required')
     }
 
-    const thePic = await pic({ id: parseInt(picId) })
+    const thePic = await pic({ id: picId })
 
     if (!thePic.withoutBackground) {
       throw new Error('processed pic not found')

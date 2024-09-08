@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import type { Album, Pic } from 'types/graphql'
 
-export const ImageWithHover = ({
+export const PicWithHover = ({
   pic,
   albumName,
 }: {
