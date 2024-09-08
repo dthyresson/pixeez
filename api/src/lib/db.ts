@@ -6,7 +6,7 @@ import { PrismaClient } from '@prisma/client'
 import { emitLogLevels, handlePrismaLogging } from '@redwoodjs/api/logger'
 
 import { logger } from './logger'
-import { storagePrismaExtension } from './uploads'
+import { storagePrismaExtension } from './storage'
 // import { newId, prefixes } from './uuid'
 
 const prismaClient = new PrismaClient({

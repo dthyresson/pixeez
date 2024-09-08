@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 import { db } from 'api/src/lib/db'
-import { fsStorage } from 'api/src/lib/uploads'
+import { fsStorage } from 'api/src/lib/storage'
 
 import { getPaths } from '@redwoodjs/project-config'
 
@@ -21,16 +21,16 @@ export default async () => {
     const albums = [{ name: 'Family' }, { name: 'Work ' }]
     await db.album.createMany({ data: albums })
 
-    console.info('delete all pics from uploads directory')
+    console.info('delete all pics from storage directory')
 
-    // get all files in uploads directory
-    const uploadsDir = path.join(getPaths().base, 'uploads')
-    const files = fs.readdirSync(uploadsDir)
+    // get all files in storage directory
+    const storageDir = path.join(getPaths().base, 'storage')
+    const files = fs.readdirSync(storageDir)
 
-    // remove all files in uploads directory
+    // remove all files in storage directory
     files.forEach((file) => {
       console.info(`removing ${file}`)
-      fsStorage.remove(path.join(uploadsDir, file))
+      fsStorage.remove(path.join(storageDir, file))
     })
   } catch (error) {
     console.error(error)

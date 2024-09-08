@@ -4,7 +4,7 @@ import sharp from 'sharp'
 import { db } from 'src/lib/db'
 import { jobs } from 'src/lib/jobs'
 import { logger } from 'src/lib/logger'
-import { fsStorage } from 'src/lib/uploads'
+import { fsStorage } from 'src/lib/storage'
 
 export const ProcessPicMetadataJob = jobs.createJob({
   queue: 'default',

@@ -9,11 +9,11 @@ const uploadsConfig = createUploadsConfig({
 })
 
 export const fsStorage = new FileSystemStorage({
-  baseDir: './uploads',
+  baseDir: './storage',
 })
 
 export const urlSigner = new UrlSigner({
-  secret: process.env.UPLOADS_SECRET,
+  secret: process.env.STORAGE_SECRET,
   endpoint: '/signedUrl',
 })
 

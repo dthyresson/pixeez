@@ -12,7 +12,7 @@ import { CreatePicFanOutJob } from 'src/jobs/CreatePicFanOutJob/CreatePicFanOutJ
 import { db } from 'src/lib/db'
 import { later } from 'src/lib/jobs'
 import { logger } from 'src/lib/logger'
-import { saveFiles } from 'src/lib/uploads'
+import { saveFiles } from 'src/lib/storage'
 
 export const pics: PicsResolver = async () => {
   const p = await db.pic.findMany({
