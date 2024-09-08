@@ -43,14 +43,12 @@ const SearchPage = () => {
 
   const { data, loading, error } = useQuery(SEARCH_QUERY, {
     variables: { query: searchQuery, page, limit },
-    skip: searchQuery.length < 3,
+    // skip: searchQuery.length < 3,
   })
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
-    if (searchQuery.length >= 3) {
-      setPage(1)
-    }
+    setPage(1)
   }
 
   const totalPages = data ? Math.ceil(data.search.count / limit) : 0
@@ -101,7 +99,10 @@ const SearchPage = () => {
         <>
           <div className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
             {data.search.items.map((pic) => (
-              <div key={pic.id} className="space-y-4 rounded-lg border p-4">
+              <div
+                key={pic.id}
+                className="space-y-4 rounded-lg border bg-neutral-100 p-4 dark:bg-neutral-800"
+              >
                 <ImageWithHover
                   key={`tag-${pic.album.id}-pic-${pic.id}`}
                   pic={pic}

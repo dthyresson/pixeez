@@ -13,29 +13,29 @@ const MainLayout = ({ children }: MainLayoutProps) => {
       <div className="container mx-auto p-12">
         <Toaster />
         <main>
-          <nav className="mb-4 flex items-center justify-between border-b border-gray-200 pb-4 dark:border-gray-800">
+          <nav className="mb-4 flex items-center justify-between border-b border-neutral-200 pb-4 dark:border-neutral-800">
             <Link to={routes.albums()}>
               <h1 className="text-3xl font-bold">
                 <span className="text-purple-600">pic</span>
-                <span className="text-gray-300 dark:text-white">thang</span>
+                <span className="text-neutral-300 dark:text-white">thang</span>
               </h1>
             </Link>
             <div className="flex items-center gap-4">
               <Link
-                className="rounded-full bg-gray-200 p-2 dark:bg-gray-700"
+                className="rounded-full bg-neutral-200 p-2 dark:bg-neutral-700"
                 to={routes.search()}
               >
                 🔎
               </Link>
               <Link
-                className="rounded-full bg-gray-200 p-2 dark:bg-gray-700"
+                className="rounded-full bg-neutral-200 p-2 dark:bg-neutral-700"
                 to={routes.tags()}
               >
                 🏷️
               </Link>
 
               <Link
-                className="rounded-full bg-gray-200 p-2 dark:bg-gray-700"
+                className="rounded-full bg-neutral-200 p-2 dark:bg-neutral-700"
                 to={routes.about()}
               >
                 🙋

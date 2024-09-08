@@ -62,7 +62,7 @@ export const Success = ({
 }: CellSuccessProps<FindAlbumQuery, FindAlbumQueryVariables>) => {
   const [createPics] = useMutation(CREATE_PICS_MUTATION, {
     onCompleted: () => {
-      toast.success('Pics uploaded successfully. Background removals queued.', {
+      toast.success('Background removal in progress...', {
         duration: 2_500,
       })
     },
