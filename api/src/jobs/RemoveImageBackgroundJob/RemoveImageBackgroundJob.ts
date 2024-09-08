@@ -3,7 +3,7 @@ import { removeBackground } from 'src/lib/fal'
 import { jobs } from 'src/lib/jobs'
 
 export const RemoveImageBackgroundJob = jobs.createJob({
-  queue: 'default',
+  queue: 'critical',
   priority: 20,
   perform: async (picId: number) => {
     jobs.logger.info({ picId }, 'RemoveImageBackgroundJob is performing...')

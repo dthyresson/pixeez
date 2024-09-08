@@ -4,7 +4,7 @@ import { RemoveImageBackgroundJob } from 'src/jobs/RemoveImageBackgroundJob/Remo
 import { jobs, later } from 'src/lib/jobs'
 
 export const CreatePicFanOutJob = jobs.createJob({
-  queue: 'default',
+  queue: 'critical',
   priority: 10,
   perform: async (picId: number) => {
     jobs.logger.info('CreatePicFanOutJob is performing...')

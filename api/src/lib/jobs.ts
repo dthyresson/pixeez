@@ -13,18 +13,28 @@ export const jobs = new JobManager({
   adapters: {
     prisma: new PrismaAdapter({ db: db as unknown as PrismaClient, logger }),
   },
-  queues: ['default'] as const,
+  queues: ['critical', 'default'] as const,
   logger,
   workers: [
     {
       adapter: 'prisma',
       logger,
-      queue: '*', // watch all queues
+      queue: 'critical',
       count: 1,
       maxAttempts: 24,
       maxRuntime: 14_400,
       deleteFailedJobs: false,
-      sleepDelay: 5,
+      sleepDelay: 3,
+    },
+    {
+      adapter: 'prisma',
+      logger,
+      queue: 'default',
+      count: 1,
+      maxAttempts: 24,
+      maxRuntime: 14_400,
+      deleteFailedJobs: false,
+      sleepDelay: 7,
     },
   ],
 })

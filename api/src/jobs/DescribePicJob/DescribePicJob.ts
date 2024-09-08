@@ -5,7 +5,7 @@ import { jobs, later } from 'src/lib/jobs'
 
 export const DescribePicJob = jobs.createJob({
   queue: 'default',
-  priority: 30,
+  priority: 10,
   perform: async (picId: number) => {
     jobs.logger.info({ picId }, 'DescribePicJob is performing...')
     const pic = await db.pic.findUnique({
@@ -37,6 +37,7 @@ export const DescribePicJob = jobs.createJob({
     jobs.logger.debug({ picId }, 'Pic updated!')
 
     if (description && description.length > 0) {
+      jobs.logger.debug({ picId }, 'Pic has description. Tagging queued ...')
       await later(TagifyPicJob, [picId])
     }
 

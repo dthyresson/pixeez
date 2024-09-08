@@ -4,10 +4,11 @@ import { tagify } from 'src/lib/langbase'
 
 export const TagifyPicJob = jobs.createJob({
   queue: 'default',
-  priority: 40,
+  priority: 30,
   perform: async (picId: number) => {
     try {
       jobs.logger.info({ picId }, 'TagifyPicJob is performing...')
+
       const pic = await db.pic.findUnique({
         where: { id: picId },
       })
@@ -19,15 +20,10 @@ export const TagifyPicJob = jobs.createJob({
 
       if (!pic.description) {
         jobs.logger.warn({ picId }, 'Pic lacks description')
-        throw new Error('Pic lacks description')
+        throw new Error('Pic lacks description. Will be retried.')
       }
 
-      const result = await tagify(pic)
-      jobs.logger.debug({ result }, 'TagifyPicJob result')
-      const tags = result.tags
-
-      jobs.logger.debug({ picId, tags }, 'Tags to connect or create')
-      jobs.logger.debug(tags, '>>>>>>> Tags')
+      const { tags } = await tagify(pic)
 
       if (!tags || tags.length === 0) {
         jobs.logger.warn({ picId }, 'No tags to connect or create')

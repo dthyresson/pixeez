@@ -8,6 +8,7 @@ import { useQuery } from '@redwoodjs/web'
 
 import { EmptyState } from 'src/components/CellStates/EmptyState'
 import { ImageWithHover } from 'src/components/Image/ImageWithHover'
+
 const SEARCH_QUERY: TypedDocumentNode<SearchQuery, SearchQueryVariables> = gql`
   query SearchQuery($query: String!, $page: Int!, $limit: Int!) {
     search(query: $query, page: $page, limit: $limit) {
