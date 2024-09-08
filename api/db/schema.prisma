@@ -23,17 +23,18 @@ model Album {
 }
 
 model Pic {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  album     Album    @relation(fields: [albumId], references: [id], onDelete: Cascade)
-  albumId   Int
-  original  String
-  processed String?
-  width     Int?
-  height    Int?
-  format    String?
-  exif      String?
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  album       Album    @relation(fields: [albumId], references: [id], onDelete: Cascade)
+  albumId     Int
+  original    String
+  processed   String?
+  width       Int?
+  height      Int?
+  format      String?
+  exif        String?
+  description String?
 }
 
 model BackgroundJob {

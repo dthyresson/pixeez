@@ -9,6 +9,7 @@ export const schema = gql`
     height: Int
     format: String
     exif: String
+    description: String
   }
 
   type Query {

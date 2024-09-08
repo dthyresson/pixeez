@@ -1,5 +1,3 @@
-// import type { GlobalContext } from '@redwoodjs/context'
-
 import { db } from 'src/lib/db'
 import { removeBackground } from 'src/lib/fal'
 import { jobs } from 'src/lib/jobs'
@@ -17,11 +15,11 @@ export const RemoveImageBackgroundJob = jobs.createJob({
       return
     }
 
-    const processedPic = await pic.withDataUri()
+    const pidDataUri = await pic.withDataUri()
 
-    jobs.logger.debug({ picId }, 'processedPic to get data uri')
+    jobs.logger.debug({ picId }, 'Pic to get data uri')
 
-    const result = await removeBackground({ imageUrl: processedPic.original })
+    const result = await removeBackground({ imageUrl: pidDataUri.original })
 
     jobs.logger.debug({ picId }, 'Fal processing done!')
 
