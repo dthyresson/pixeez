@@ -9,6 +9,7 @@ import type {
 import type { LiveQueryStorageMechanism } from '@redwoodjs/realtime'
 
 import { db } from 'src/lib/db'
+import { newId } from 'src/lib/uuid'
 
 export const albums: AlbumsResolver = async () => {
   const theAlbums = await db.album.findMany({
@@ -59,7 +60,7 @@ export const createAlbum: CreateAlbumResolver = async (
   const liveQueryStore = context.liveQueryStore as LiveQueryStorageMechanism
 
   const theAlbum = await db.album.create({
-    data: input,
+    data: { ...input, id: newId('album') },
     include: {
       pics: { orderBy: { createdAt: 'desc' } },
     },

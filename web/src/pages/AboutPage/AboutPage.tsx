@@ -66,6 +66,23 @@ const AboutPage = () => {
         </li>
         <li>Search functionality with pagination</li>
         <li>Dark mode support</li>
+        <li>Rate limiting using [Unkey](https://unkey.com/)</li>
+        <li>
+          uuid generation using{' '}
+          <a
+            href="https://www.unkey.com/blog/uuid-ux"
+            className="text-purple-600 hover:underline"
+          >
+            The UX of UUIDs
+          </a>{' '}
+          pattern from{' '}
+          <a
+            href="https://unkey.com/"
+            className="text-purple-600 hover:underline"
+          >
+            Unkey
+          </a>
+        </li>
       </ul>
 
       <h2 className="mb-2 mt-6 text-2xl font-semibold">Technologies Used</h2>

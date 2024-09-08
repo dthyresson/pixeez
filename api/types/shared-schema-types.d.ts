@@ -1,6 +1,6 @@
 export interface Album {
     __typename?: "Album";
-    id: number;
+    id: string;
     name: string;
     pics: Array<Pic>;
 }
@@ -12,13 +12,13 @@ export interface CreateAlbumInput {
 
 export interface CreatePicInput {
     __typename?: "CreatePicInput";
-    albumId: number;
+    albumId: string;
     original: File;
 }
 
 export interface CreatePicsInput {
     __typename?: "CreatePicsInput";
-    albumId: number;
+    albumId: string;
     originals: File[];
 }
 
@@ -59,13 +59,13 @@ export interface PaginatedPics {
 export interface Pic {
     __typename?: "Pic";
     album: Album;
-    albumId: number;
+    albumId: string;
     createdAt: DateTime;
     description?: string| null;
     exif?: string| null;
     format?: string| null;
     height?: number| null;
-    id: number;
+    id: string;
     original: string;
     tags: Tag[];
     updatedAt: DateTime;
@@ -95,7 +95,7 @@ export interface Redwood {
 export interface Tag {
     __typename?: "Tag";
     createdAt: DateTime;
-    id: number;
+    id: string;
     name: string;
     pics: Array<Pic>;
     updatedAt: DateTime;
@@ -108,7 +108,7 @@ export interface UpdateAlbumInput {
 
 export interface UpdatePicInput {
     __typename?: "UpdatePicInput";
-    albumId?: number| null;
+    albumId?: string| null;
     original?: File| null;
 }
 

@@ -1,11 +1,12 @@
 import { db } from 'src/lib/db'
 import { jobs } from 'src/lib/jobs'
 import { tagify } from 'src/lib/langbase'
+import { newId } from 'src/lib/uuid'
 
 export const TagifyPicJob = jobs.createJob({
   queue: 'default',
   priority: 30,
-  perform: async (picId: number) => {
+  perform: async (picId: string) => {
     try {
       jobs.logger.info({ picId }, 'TagifyPicJob is performing...')
 
@@ -37,7 +38,7 @@ export const TagifyPicJob = jobs.createJob({
             tags: {
               connectOrCreate: {
                 where: { name: tag },
-                create: { name: tag },
+                create: { id: newId('tag'), name: tag },
               },
             },
           },

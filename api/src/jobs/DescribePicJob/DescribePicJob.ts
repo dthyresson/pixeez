@@ -6,7 +6,7 @@ import { jobs, later } from 'src/lib/jobs'
 export const DescribePicJob = jobs.createJob({
   queue: 'default',
   priority: 10,
-  perform: async (picId: number) => {
+  perform: async (picId: string) => {
     jobs.logger.info({ picId }, 'DescribePicJob is performing...')
     const pic = await db.pic.findUnique({
       where: { id: picId },

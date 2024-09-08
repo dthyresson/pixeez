@@ -6,6 +6,7 @@ export const nanoid = customAlphabet(
 export const prefixes = {
   album: 'album',
   pic: 'pic',
+  tag: 'tag',
   test: 'test', // <-- for tests only
 } as const
 

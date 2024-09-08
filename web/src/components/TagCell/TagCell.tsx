@@ -14,7 +14,7 @@ import { ImageWithHover } from 'src/components/Image/ImageWithHover'
 
 export const QUERY: TypedDocumentNode<FindTagQuery, FindTagQueryVariables> =
   gql`
-    query FindTagQuery($id: Int!) {
+    query FindTagQuery($id: String!) {
       tag: tag(id: $id) {
         id
         name

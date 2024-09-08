@@ -16,13 +16,13 @@ export interface CreateAlbumInput {
 
 export interface CreatePicInput {
     __typename?: "CreatePicInput";
-    albumId: number;
+    albumId: string;
     original: File;
 }
 
 export interface CreatePicsInput {
     __typename?: "CreatePicsInput";
-    albumId: number;
+    albumId: string;
     originals: File[];
 }
 
@@ -86,7 +86,7 @@ export interface UpdateAlbumInput {
 
 export interface UpdatePicInput {
     __typename?: "UpdatePicInput";
-    albumId?: number| null;
+    albumId?: string| null;
     original?: File| null;
 }
 

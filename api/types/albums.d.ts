@@ -10,9 +10,9 @@ export interface AlbumsResolver {
     (args?: object, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum[]>;
 }
 
-/** SDL: album(id: Int!): Album */
+/** SDL: album(id: String!): Album */
 export interface AlbumResolver {
-    (args: {id: number}, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum| null>;
+    (args: {id: string}, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum| null>;
 }
 
 /** SDL: createAlbum(input: CreateAlbumInput!): Album! */
@@ -20,12 +20,12 @@ export interface CreateAlbumResolver {
     (args: {input: CreateAlbumInput}, obj: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
 }
 
-/** SDL: updateAlbum(id: Int!, input: UpdateAlbumInput!): Album! */
+/** SDL: updateAlbum(id: String!, input: UpdateAlbumInput!): Album! */
 export interface UpdateAlbumResolver {
-    (args: {id: number, input: UpdateAlbumInput}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
+    (args: {id: string, input: UpdateAlbumInput}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
 }
 
-/** SDL: deleteAlbum(id: Int!): Album! */
+/** SDL: deleteAlbum(id: String!): Album! */
 export interface DeleteAlbumResolver {
-    (args: {id: number}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
+    (args: {id: string}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
 }

@@ -13,6 +13,8 @@ A tribute to [PicThing](https://pic.ping.gg/login)
   - Automatic image tagging using [Langbase](https://www.langbase.com/)
 - [x] Search functionality with pagination
 - [x] Dark mode support
+- [x] Rate limiting using [Unkey](https://unkey.com/)
+- [x] uuid generation using [The UX of UUIDs](https://www.unkey.com/blog/uuid-ux) pattern   from [Unkey](https://unkey.com/)
 
 ## Technologies Used
 

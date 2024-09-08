@@ -15,7 +15,7 @@ generator client {
 }
 
 model Album {
-  id        Int      @id @default(autoincrement())
+  id        String   @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String   @unique
@@ -23,11 +23,11 @@ model Album {
 }
 
 model Pic {
-  id                Int      @id @default(autoincrement())
+  id                String   @id
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
   album             Album    @relation(fields: [albumId], references: [id], onDelete: Cascade)
-  albumId           Int
+  albumId           String
   original          String
   withoutBackground String?
   width             Int?
@@ -39,7 +39,7 @@ model Pic {
 }
 
 model Tag {
-  id        Int      @id @default(autoincrement())
+  id        String   @id
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name      String   @unique

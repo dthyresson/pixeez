@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { SearchQuery, SearchQueryVariables } from 'types/graphql'
+import { SearchQuery, SearchQueryVariables, Pic } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
 import { Metadata, TypedDocumentNode } from '@redwoodjs/web'
@@ -107,7 +107,7 @@ const SearchPage = () => {
               >
                 <ImageWithHover
                   key={`tag-${pic.album.id}-pic-${pic.id}`}
-                  pic={pic}
+                  pic={pic as Pic}
                   albumName={pic.album.name}
                 />
                 <h3 className="text-lg font-bold">

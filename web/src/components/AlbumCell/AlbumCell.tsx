@@ -41,7 +41,7 @@ export const beforeQuery = (props: FindAlbumQueryVariables) => {
 
 export const QUERY: TypedDocumentNode<FindAlbumQuery, FindAlbumQueryVariables> =
   gql`
-    query FindAlbumQuery($id: Int!) {
+    query FindAlbumQuery($id: String!) {
       album: album(id: $id) {
         id
         name

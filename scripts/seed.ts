@@ -3,6 +3,7 @@ import path from 'path'
 
 import { db } from 'api/src/lib/db'
 import { fsStorage } from 'api/src/lib/storage'
+import { newId } from 'api/src/lib/uuid'
 
 import { getPaths } from '@redwoodjs/project-config'
 
@@ -23,7 +24,9 @@ export default async () => {
       { name: 'Screenshots' },
       { name: 'Projects' },
     ]
-    await db.album.createMany({ data: albums })
+    await db.album.createMany({
+      data: albums.map((album) => ({ id: newId('album'), ...album })),
+    })
 
     console.info('delete all pics from storage directory')
 
