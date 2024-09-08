@@ -9,8 +9,8 @@ type MainLayoutProps = {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <div className="h-full dark:bg-black dark:text-white">
-      <div className="container mx-auto p-12">
+    <div className="flex min-h-screen flex-col dark:bg-black dark:text-white">
+      <div className="container mx-auto flex-grow p-12">
         <Toaster />
         <main>
           <nav className="mb-4 flex items-center justify-between border-b border-neutral-200 pb-4 dark:border-neutral-800">
@@ -46,6 +46,16 @@ const MainLayout = ({ children }: MainLayoutProps) => {
           {children}
         </main>
       </div>
+      <footer className="container mx-auto border-t border-neutral-200 p-4 dark:border-neutral-800">
+        <div className="flex justify-between gap-2">
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            Made with ❤️ by <a href="https://www.thyresson.io">DT</a>
+          </p>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            <a href="https://github.com/dthyresson/pic-thang">View on GitHub</a>
+          </p>
+        </div>
+      </footer>
     </div>
   )
 }
