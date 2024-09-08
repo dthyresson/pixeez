@@ -37,9 +37,13 @@ export interface Pic {
     __typename?: "Pic";
     album: Album;
     albumId: number;
+    exif?: string| null;
+    format?: string| null;
+    height?: number| null;
     id: number;
     original: string;
     processed?: string| null;
+    width?: number| null;
 }
 
 export interface Query {

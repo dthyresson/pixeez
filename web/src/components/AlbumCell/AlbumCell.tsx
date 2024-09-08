@@ -143,12 +143,12 @@ const ImageWithHover = ({ pic, albumName }) => {
   }
 
   return (
-    <div className="relative h-64 overflow-hidden">
+    <div className="relative">
       <img
         src={isHovered ? pic.original : pic.processed || pic.original}
         alt={`${albumName} - ${pic.id}`}
         loading="lazy"
-        className="h-full w-full object-cover"
+        className="h-full w-full object-contain"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       />

@@ -30,6 +30,10 @@ model Pic {
   albumId   Int
   original  String
   processed String?
+  width     Int?
+  height    Int?
+  format    String?
+  exif      String?
 }
 
 model BackgroundJob {

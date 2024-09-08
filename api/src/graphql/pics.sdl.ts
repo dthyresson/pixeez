@@ -5,6 +5,10 @@ export const schema = gql`
     albumId: Int!
     original: String!
     processed: String
+    width: Int
+    height: Int
+    format: String
+    exif: String
   }
 
   type Query {
