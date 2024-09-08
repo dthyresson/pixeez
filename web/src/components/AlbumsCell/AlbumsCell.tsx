@@ -15,6 +15,9 @@ import type {
   TypedDocumentNode,
 } from '@redwoodjs/web'
 
+import { Error } from 'src/components/CellStates/Error'
+import { Spinner } from 'src/components/CellStates/Spinner'
+
 export const QUERY: TypedDocumentNode<
   FindAlbumsQuery,
   FindAlbumsQueryVariables
@@ -39,13 +42,11 @@ const CREATE_ALBUM_MUTATION: TypedDocumentNode<
   }
 `
 
-export const Loading = () => <div>Loading...</div>
-
 export const Empty = () => <div>Empty</div>
 
-export const Failure = ({ error }: CellFailureProps) => (
-  <div style={{ color: 'red' }}>Error: {error?.message}</div>
-)
+export const Failure = ({ error }: CellFailureProps) => <Error error={error} />
+
+export const Loading = () => <Spinner />
 
 const CreateAlbumForm = ({ onSubmit, error }) => {
   const [newAlbumName, setNewAlbumName] = useState('')

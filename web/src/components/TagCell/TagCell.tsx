@@ -7,6 +7,8 @@ import type {
   TypedDocumentNode,
 } from '@redwoodjs/web'
 
+import { Error } from 'src/components/CellStates/Error'
+import { Spinner } from 'src/components/CellStates/Spinner'
 import { ImageWithHover } from 'src/components/Image/ImageWithHover'
 
 export const QUERY: TypedDocumentNode<FindTagQuery, FindTagQueryVariables> =
@@ -29,13 +31,13 @@ export const QUERY: TypedDocumentNode<FindTagQuery, FindTagQueryVariables> =
     }
   `
 
-export const Loading = () => <div>Loading...</div>
-
 export const Empty = () => <div>Empty</div>
 
 export const Failure = ({ error }: CellFailureProps<FindTagQueryVariables>) => (
-  <div style={{ color: 'red' }}>Error: {error?.message}</div>
+  <Error error={error} />
 )
+
+export const Loading = () => <Spinner />
 
 export const Success = ({
   tag,

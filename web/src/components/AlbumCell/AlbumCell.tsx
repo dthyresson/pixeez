@@ -12,6 +12,8 @@ import type {
 } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
+import { Error } from 'src/components/CellStates/Error'
+import { Spinner } from 'src/components/CellStates/Spinner'
 import { ImageWithHover } from 'src/components/Image/ImageWithHover'
 
 const CREATE_PICS_MUTATION = gql`
@@ -28,7 +30,7 @@ const CREATE_PICS_MUTATION = gql`
 export const beforeQuery = (props: FindAlbumQueryVariables) => {
   return {
     variables: props,
-    pollInterval: 10_000,
+    pollInterval: 2_000,
   }
 }
 
@@ -47,15 +49,13 @@ export const QUERY: TypedDocumentNode<FindAlbumQuery, FindAlbumQueryVariables> =
     }
   `
 
-export const Loading = () => <div>Loading...</div>
-
 export const Empty = () => <div>Empty</div>
+
+export const Loading = () => <Spinner />
 
 export const Failure = ({
   error,
-}: CellFailureProps<FindAlbumQueryVariables>) => (
-  <div style={{ color: 'red' }}>Error: {error?.message}</div>
-)
+}: CellFailureProps<FindAlbumQueryVariables>) => <Error error={error} />
 
 export const Success = ({
   album,
