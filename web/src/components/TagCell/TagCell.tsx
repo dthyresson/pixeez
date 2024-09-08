@@ -1,4 +1,4 @@
-import type { FindTagQuery, FindTagQueryVariables } from 'types/graphql'
+import type { FindTagQuery, FindTagQueryVariables, Pic } from 'types/graphql'
 
 import { Metadata } from '@redwoodjs/web'
 import type {
@@ -25,7 +25,7 @@ export const QUERY: TypedDocumentNode<FindTagQuery, FindTagQueryVariables> =
             name
           }
           original
-          processed
+          withoutBackground
           description
         }
       }
@@ -52,7 +52,7 @@ export const Success = ({
           {tag.pics.map((pic) => (
             <ImageWithHover
               key={`tag-${pic.album.id}-pic-${pic.id}`}
-              pic={pic}
+              pic={pic as Pic}
               albumName={pic.album.name}
             />
           ))}

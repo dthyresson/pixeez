@@ -67,10 +67,10 @@ export interface Pic {
     height?: number| null;
     id: number;
     original: string;
-    processed?: string| null;
     tags: Tag[];
     updatedAt: DateTime;
     width?: number| null;
+    withoutBackground?: string| null;
 }
 
 export interface Query {

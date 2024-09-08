@@ -23,11 +23,17 @@ export const RemoveImageBackgroundJob = jobs.createJob({
     const result = await removeBackground({ imageUrl: pidDataUri.original })
 
     jobs.logger.debug({ picId }, 'Fal processing done!')
+    const withoutBackground = result['image']?.['url']
+
+    if (!withoutBackground) {
+      jobs.logger.error({ picId }, 'Fal processing failed')
+      return
+    }
 
     await db.pic.update({
       where: { id: picId },
       data: {
-        processed: result['image']['url'],
+        withoutBackground,
       },
     })
 

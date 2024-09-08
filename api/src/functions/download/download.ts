@@ -13,13 +13,13 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
 
     const thePic = await pic({ id: parseInt(picId) })
 
-    if (!thePic.processed) {
+    if (!thePic.withoutBackground) {
       throw new Error('processed pic not found')
     }
 
     logger.info({ pic: thePic }, 'found pic')
 
-    const response = await fetch(thePic.processed)
+    const response = await fetch(thePic.withoutBackground)
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)

@@ -15,7 +15,7 @@ const SEARCH_QUERY: TypedDocumentNode<SearchQuery, SearchQueryVariables> = gql`
       items {
         id
         original
-        processed
+        withoutBackground
         description
         exif
         height

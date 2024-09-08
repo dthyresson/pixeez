@@ -1,7 +1,11 @@
 import { useCallback } from 'react'
 
 import { useDropzone } from 'react-dropzone'
-import type { FindAlbumQuery, FindAlbumQueryVariables } from 'types/graphql'
+import type {
+  FindAlbumQuery,
+  FindAlbumQueryVariables,
+  Pic,
+} from 'types/graphql'
 
 import { Metadata } from '@redwoodjs/web'
 import { useMutation } from '@redwoodjs/web'
@@ -22,7 +26,7 @@ const CREATE_PICS_MUTATION = gql`
     createPics(input: $input) {
       id
       original
-      processed
+      withoutBackground
       albumId
     }
   }
@@ -44,7 +48,7 @@ export const QUERY: TypedDocumentNode<FindAlbumQuery, FindAlbumQueryVariables> =
         pics {
           id
           original
-          processed
+          withoutBackground
         }
       }
     }
@@ -119,7 +123,7 @@ export const Success = ({
             {album.pics.map((pic) => (
               <ImageWithHover
                 key={`album-${album.id}-pic-${pic.id}`}
-                pic={pic}
+                pic={pic as Pic}
                 albumName={album.name}
               />
             ))}

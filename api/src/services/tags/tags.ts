@@ -23,7 +23,6 @@ export const tags: TagsResolver = async () => {
 }
 
 export const tag: TagResolver = async ({ id }) => {
-  logger.info({ id }, '>>>> id ')
   const theTag = await db.tag.findUnique({
     where: { id },
     include: {
@@ -38,7 +37,6 @@ export const tag: TagResolver = async ({ id }) => {
     },
   })
 
-  logger.info({ theTag }, '>>>> theTag ')
   const pics = theTag?.pics.map((pic) => {
     return {
       ...pic.withSignedUrl(),
