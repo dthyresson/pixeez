@@ -4,6 +4,7 @@ import { tagify } from 'src/lib/langbase'
 
 export const TagifyPicJob = jobs.createJob({
   queue: 'default',
+  priority: 40,
   perform: async (picId: number) => {
     try {
       jobs.logger.info({ picId }, 'TagifyPicJob is performing...')

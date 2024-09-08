@@ -8,6 +8,7 @@ import { fsStorage } from 'src/lib/uploads'
 
 export const ProcessPicMetadataJob = jobs.createJob({
   queue: 'default',
+  priority: 50,
   perform: async (picId: number) => {
     jobs.logger.info('ProcessPicMetadataJob is performing...')
 

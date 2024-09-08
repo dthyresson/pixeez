@@ -14,8 +14,10 @@ const SEARCH_QUERY: TypedDocumentNode<SearchQuery, SearchQueryVariables> = gql`
         id
         original
         processed
-        exif
         description
+        exif
+        height
+        width
         createdAt
         updatedAt
         album {
@@ -125,9 +127,18 @@ const SearchPage = () => {
                     </Link>
                   ))}
                 </ul>
-                <pre className="max-h-24 overflow-y-auto whitespace-pre-wrap break-words text-xs text-gray-600">
-                  {formatExif(pic.exif)}
-                </pre>
+                {pic.height && pic.width && (
+                  <div>
+                    <p className="text-xs text-gray-500">
+                      📐&nbsp;{pic.height} x {pic.width}
+                    </p>
+                  </div>
+                )}
+                {pic.exif && (
+                  <pre className="max-h-24 overflow-y-auto whitespace-pre-wrap break-words text-xs text-gray-600">
+                    {formatExif(pic.exif)}
+                  </pre>
+                )}
                 <div className="flex justify-between">
                   <p className="text-xs text-gray-500">
                     ⏰&nbsp;{new Date(pic.createdAt).toLocaleString()}

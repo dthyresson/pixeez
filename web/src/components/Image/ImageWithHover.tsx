@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState } from 'react'
 
 export const ImageWithHover = ({ pic, albumName }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false)
 
   const handleDownloadClick = (e) => {
-    e.stopPropagation();
-  };
+    e.stopPropagation()
+  }
 
   return (
     <div className="relative">
@@ -13,9 +13,10 @@ export const ImageWithHover = ({ pic, albumName }) => {
         src={isHovered ? pic.original : pic.processed || pic.original}
         alt={`${albumName} - ${pic.id}`}
         loading="lazy"
-        className="h-full w-full object-contain"
+        className="h-full min-h-48 w-full object-contain"
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)} />
+        onMouseLeave={() => setIsHovered(false)}
+      />
       {pic.processed && (
         <a
           href={`/.redwood/functions/download?picId=${pic.id}`}
@@ -27,5 +28,5 @@ export const ImageWithHover = ({ pic, albumName }) => {
         </a>
       )}
     </div>
-  );
-};
+  )
+}

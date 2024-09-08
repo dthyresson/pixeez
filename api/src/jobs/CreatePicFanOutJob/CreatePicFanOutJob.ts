@@ -5,6 +5,7 @@ import { jobs, later } from 'src/lib/jobs'
 
 export const CreatePicFanOutJob = jobs.createJob({
   queue: 'default',
+  priority: 10,
   perform: async (picId: number) => {
     jobs.logger.info('CreatePicFanOutJob is performing...')
 
