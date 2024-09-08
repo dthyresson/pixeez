@@ -67,6 +67,41 @@ Images are automatically tagged based on their AI-generated descriptions, allowi
 
 The application supports both light and dark modes for user preference.
 
+### Flow Diagram
+
+```mermaid
+graph TD
+    A[User uploads image] --> B[createPic mutation]
+    B --> C[Save image to storage]
+    C --> D[Create Pic record in database]
+    D --> E[Enqueue fan out jobs]
+    E --> F[Remove Background Job]
+    E --> G[Extract Metadata Job]
+    E --> H[Generate Description Job]
+    H --> I[Tag Image Job]
+
+    F --> J[Update Pic with removed background]
+    G --> K[Update Pic with metadata]
+    H --> L[Update Pic with description]
+    I --> M[Update Pic with tags]
+```
+
+This diagram illustrates the flow from image upload to the completion of all background jobs. Here's a brief explanation of each step:
+
+1. User uploads an image
+2. The `createPic` mutation is called
+3. The image is saved to storage
+4. A new Pic record is created in the database
+5. Background jobs are enqueued
+6. Three jobs run in parallel:
+   - Remove Background Job
+   - Extract Metadata Job
+   - Generate Description Job
+7. The Tag Image Job runs after the Generate Description Job completes
+8. Each job updates the Pic record with its respective results
+
+This flow diagram provides a clear visual representation of the image processing pipeline in your application.
+
 ## TODO (maybe)
 
 - [ ] Implement user authentication and authorization
