@@ -13,10 +13,20 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
   try {
     const { contents, type } = await fsStorage.read(fileToReturn)
 
+    // Generate an ETag from the file contents
+    const etag = Buffer.from(contents).toString('base64').substring(0, 27)
+
     return {
       statusCode: 200,
       headers: {
         'Content-Type': type,
+        'Cache-Control': 'public, max-age=31536000, immutable',
+        ETag: `"${etag}"`,
+        Date: new Date().toUTCString(),
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Methods': '*',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Max-Age': '86400',
       },
       body: contents,
     }
