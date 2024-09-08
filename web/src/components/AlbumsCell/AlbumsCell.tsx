@@ -69,9 +69,9 @@ const CreateAlbumForm = ({ onSubmit, error }) => {
       />
       <button
         type="submit"
-        className="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 dark:bg-blue-700 dark:hover:bg-blue-800"
+        className="rounded-md bg-purple-700 px-4 py-2 text-white hover:bg-purple-500 dark:text-white"
       >
-        Create Album
+        🆕&nbsp;Create Album
       </button>
       {error && <p className="mt-2 text-red-500">{error}</p>}
     </form>
@@ -100,22 +100,24 @@ export const Success = ({ albums }: CellSuccessProps<FindAlbumsQuery>) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-8">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {albums.map((item) => (
           <div
             key={item.id}
-            className="rounded-lg bg-gray-100 p-4 shadow-md dark:bg-gray-800"
+            className="rounded-lg bg-purple-700 p-4 text-white shadow-md hover:bg-purple-600"
           >
             <Link to={routes.album({ id: item.id })}>
               <p className="text-center font-semibold dark:text-white">
-                {item.name}
+                📚&nbsp;{item.name}
               </p>
             </Link>
           </div>
         ))}
       </div>
-      <CreateAlbumForm onSubmit={handleCreateAlbum} error={error} />
+      <div className="flex justify-start lg:justify-center">
+        <CreateAlbumForm onSubmit={handleCreateAlbum} error={error} />
+      </div>
     </div>
   )
 }
