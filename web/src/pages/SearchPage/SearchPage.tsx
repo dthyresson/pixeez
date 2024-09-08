@@ -7,7 +7,7 @@ import { Metadata, TypedDocumentNode } from '@redwoodjs/web'
 import { useQuery } from '@redwoodjs/web'
 
 import { EmptyState } from 'src/components/CellStates/EmptyState'
-import { ImageWithHover } from 'src/components/Image/ImageWithHover'
+import { PicWithHover } from 'src/components/Pics/PicWithHover'
 
 const SEARCH_QUERY: TypedDocumentNode<SearchQuery, SearchQueryVariables> = gql`
   query SearchQuery($query: String!, $page: Int!, $limit: Int!) {
@@ -103,9 +103,9 @@ const SearchPage = () => {
             {data.search.items.map((pic) => (
               <div
                 key={pic.id}
-                className="space-y-4 rounded-lg border bg-neutral-100 p-4 dark:bg-neutral-800"
+                className="space-y-4 rounded-lg border border-purple-300 bg-neutral-100 p-4 dark:bg-neutral-800"
               >
-                <ImageWithHover
+                <PicWithHover
                   key={`tag-${pic.album.id}-pic-${pic.id}`}
                   pic={pic as Pic}
                   albumName={pic.album.name}
