@@ -91,9 +91,7 @@ export const Success = ({
       />
 
       <div>
-        <h2 className="mb-4 text-xl font-bold text-purple-600">
-          {album.name} Album
-        </h2>
+        <h2 className="mb-4 text-xl font-bold">{album.name} Album</h2>
         {album.pics.length === 0 ? (
           <div
             {...getRootProps()}

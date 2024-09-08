@@ -23,6 +23,13 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             <div className="flex items-center gap-4">
               <Link
                 className="rounded-full bg-gray-200 p-2 dark:bg-gray-700"
+                to={routes.tags()}
+              >
+                🏷️
+              </Link>
+
+              <Link
+                className="rounded-full bg-gray-200 p-2 dark:bg-gray-700"
                 to={routes.about()}
               >
                 🙋

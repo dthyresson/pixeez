@@ -7,7 +7,7 @@ const AlbumsPage = () => {
     <>
       <Metadata title="Albums" description="Albums page" />
 
-      <h1 className="mb-4 text-xl font-bold text-purple-600">Albums</h1>
+      <h1 className="mb-4 text-xl font-bold">Albums</h1>
       <AlbumsCell />
     </>
   )

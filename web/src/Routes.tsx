@@ -9,6 +9,8 @@ const Routes = () => {
         <Route path="/" page={AlbumsPage} name="albums" />
         <Route path="/album/{id:Int}" page={AlbumPage} name="album" />
         <Route path="/about" page={AboutPage} name="about" />
+        <Route path="/tag/{id:Int}" page={TagPage} name="tag" />
+        <Route path="/tags" page={TagsPage} name="tags" />
       </Set>
       <Route notfound page={NotFoundPage} />
     </Router>
