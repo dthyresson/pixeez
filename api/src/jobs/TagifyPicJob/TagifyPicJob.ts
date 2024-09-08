@@ -1,6 +1,6 @@
 import { db } from 'src/lib/db'
 import { jobs } from 'src/lib/jobs'
-import { tagify } from 'src/lib/langbase'
+import { tagify } from 'src/lib/langbase/tagify'
 import { newId } from 'src/lib/uuid'
 
 export const TagifyPicJob = jobs.createJob({

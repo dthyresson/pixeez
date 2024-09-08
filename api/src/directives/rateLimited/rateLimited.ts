@@ -5,7 +5,7 @@ import {
 } from '@redwoodjs/graphql-server'
 
 import { logger } from 'src/lib/logger'
-import { Ratelimiter } from 'src/lib/unkey'
+import { Ratelimiter } from 'src/lib/unkey/ratelimiter'
 
 export const schema = gql`
   """

@@ -1,5 +1,5 @@
 import { db } from 'src/lib/db'
-import { removeBackground } from 'src/lib/fal'
+import { removeBackground } from 'src/lib/fal/removeBackground'
 import { jobs } from 'src/lib/jobs'
 
 export const RemoveImageBackgroundJob = jobs.createJob({

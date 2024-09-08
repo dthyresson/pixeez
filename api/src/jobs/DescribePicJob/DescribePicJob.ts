@@ -1,6 +1,6 @@
 import { TagifyPicJob } from 'src/jobs/TagifyPicJob/TagifyPicJob'
 import { db } from 'src/lib/db'
-import { describeImage } from 'src/lib/fal'
+import { describeImage } from 'src/lib/fal/describeImage'
 import { jobs, later } from 'src/lib/jobs'
 
 export const DescribePicJob = jobs.createJob({
