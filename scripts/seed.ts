@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 
 import { db } from 'api/src/lib/db'
+import { fsStorage } from 'api/src/lib/uploads'
 
 import { getPaths } from '@redwoodjs/project-config'
 
@@ -21,11 +22,16 @@ export default async () => {
     await db.album.createMany({ data: albums })
 
     console.info('delete all pics from uploads directory')
-    const uploadsDir = path.join(getPaths().base, 'uploads')
-    fs.rmSync(uploadsDir, { recursive: true, force: true })
 
-    // create uploads directory
-    fs.mkdirSync(uploadsDir)
+    // get all files in uploads directory
+    const uploadsDir = path.join(getPaths().base, 'uploads')
+    const files = fs.readdirSync(uploadsDir)
+
+    // remove all files in uploads directory
+    files.forEach((file) => {
+      console.info(`removing ${file}`)
+      fsStorage.remove(path.join(uploadsDir, file))
+    })
   } catch (error) {
     console.error(error)
   }
