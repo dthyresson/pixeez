@@ -18,7 +18,11 @@ export default async () => {
     console.info('delete all albums')
     await db.album.deleteMany()
 
-    const albums = [{ name: 'Family' }, { name: 'Work ' }]
+    const albums = [
+      { name: 'Photos' },
+      { name: 'Screenshots' },
+      { name: 'Projects' },
+    ]
     await db.album.createMany({ data: albums })
 
     console.info('delete all pics from storage directory')

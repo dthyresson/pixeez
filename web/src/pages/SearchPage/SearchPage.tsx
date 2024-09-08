@@ -6,6 +6,7 @@ import { Link, routes } from '@redwoodjs/router'
 import { Metadata, TypedDocumentNode } from '@redwoodjs/web'
 import { useQuery } from '@redwoodjs/web'
 
+import { EmptyState } from 'src/components/CellStates/EmptyState'
 import { ImageWithHover } from 'src/components/Image/ImageWithHover'
 const SEARCH_QUERY: TypedDocumentNode<SearchQuery, SearchQueryVariables> = gql`
   query SearchQuery($query: String!, $page: Int!, $limit: Int!) {
@@ -151,26 +152,30 @@ const SearchPage = () => {
               </div>
             ))}
           </div>
-
-          <div className="flex items-center justify-between">
-            <button
-              onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-              disabled={page === 1}
-              className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-800 dark:text-white hover:dark:bg-purple-700"
-            >
-              Previous
-            </button>
-            <span>
-              Page {page} of {totalPages}
-            </span>
-            <button
-              onClick={() => setPage((prev) => Math.min(prev + 1, totalPages))}
-              disabled={page === totalPages}
-              className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-800 dark:text-white hover:dark:bg-purple-700"
-            >
-              Next
-            </button>
-          </div>
+          {data.search.items.length === 0 && <EmptyState />}
+          {data.search.items.length > 0 && (
+            <div className="flex items-center justify-between">
+              <button
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+                disabled={page === 1}
+                className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-800 dark:text-white hover:dark:bg-purple-700"
+              >
+                Previous
+              </button>
+              <span>
+                Page {page} of {totalPages}
+              </span>
+              <button
+                onClick={() =>
+                  setPage((prev) => Math.min(prev + 1, totalPages))
+                }
+                disabled={page === totalPages}
+                className="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300 disabled:opacity-50 dark:bg-gray-800 dark:text-white hover:dark:bg-purple-700"
+              >
+                Next
+              </button>
+            </div>
+          )}
         </>
       )}
     </>

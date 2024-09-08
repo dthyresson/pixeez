@@ -12,8 +12,9 @@ import type {
 } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
-import { Error } from 'src/components/CellStates/Error'
-import { Spinner } from 'src/components/CellStates/Spinner'
+import { EmptyState } from 'src/components/CellStates/EmptyState'
+import { FailureState } from 'src/components/CellStates/FailureState'
+import { LoadingState } from 'src/components/CellStates/LoadingState'
 import { ImageWithHover } from 'src/components/Image/ImageWithHover'
 
 const CREATE_PICS_MUTATION = gql`
@@ -49,13 +50,13 @@ export const QUERY: TypedDocumentNode<FindAlbumQuery, FindAlbumQueryVariables> =
     }
   `
 
-export const Empty = () => <div>Empty</div>
+export const Empty = () => <EmptyState />
 
-export const Loading = () => <Spinner />
+export const Loading = () => <LoadingState />
 
 export const Failure = ({
   error,
-}: CellFailureProps<FindAlbumQueryVariables>) => <Error error={error} />
+}: CellFailureProps<FindAlbumQueryVariables>) => <FailureState error={error} />
 
 export const Success = ({
   album,

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export const Error = ({ error }) => {
+export const FailureState = ({ error }) => {
   const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {

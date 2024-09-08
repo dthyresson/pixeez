@@ -8,8 +8,9 @@ import type {
   TypedDocumentNode,
 } from '@redwoodjs/web'
 
-import { Error } from 'src/components/CellStates/Error'
-import { Spinner } from 'src/components/CellStates/Spinner'
+import { EmptyState } from 'src/components/CellStates/EmptyState'
+import { FailureState } from 'src/components/CellStates/FailureState'
+import { LoadingState } from 'src/components/CellStates/LoadingState'
 
 export const beforeQuery = (props: TagsQueryVariables) => {
   return {
@@ -30,11 +31,13 @@ export const QUERY: TypedDocumentNode<TagsQuery, TagsQueryVariables> = gql`
   }
 `
 
-export const Empty = () => <div>Empty</div>
+export const Empty = () => <EmptyState />
 
-export const Failure = ({ error }: CellFailureProps) => <Error error={error} />
+export const Failure = ({ error }: CellFailureProps) => (
+  <FailureState error={error} />
+)
 
-export const Loading = () => <Spinner />
+export const Loading = () => <LoadingState />
 
 export const Success = ({ tags }: CellSuccessProps<TagsQuery>) => {
   const picCounts = tags.map((tag) => tag.pics.length)
