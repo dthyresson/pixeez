@@ -41,10 +41,26 @@ export interface Mutation {
     updateTag: Tag;
 }
 
+export interface PaginatedItems {
+    __typename?: "PaginatedItems";
+    count: number;
+    limit: number;
+    page: number;
+}
+
+export interface PaginatedPics {
+    __typename?: "PaginatedPics";
+    count: number;
+    items?: Array<Pic| null>| null;
+    limit: number;
+    page: number;
+}
+
 export interface Pic {
     __typename?: "Pic";
     album: Album;
     albumId: number;
+    createdAt: DateTime;
     description?: string| null;
     exif?: string| null;
     format?: string| null;
@@ -53,6 +69,7 @@ export interface Pic {
     original: string;
     processed?: string| null;
     tags: Tag[];
+    updatedAt: DateTime;
     width?: number| null;
 }
 
@@ -63,6 +80,7 @@ export interface Query {
     pic?: Pic| null;
     pics: Pic[];
     redwood?: Redwood| null;
+    search?: PaginatedPics| null;
     tag?: Tag| null;
     tags: Tag[];
 }
@@ -100,5 +118,5 @@ export interface UpdateTagInput {
 }
 
 type File = any;
-type JSON = any;
 type DateTime = any;
+type JSON = any;

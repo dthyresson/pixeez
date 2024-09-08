@@ -1,6 +1,8 @@
 export const schema = gql`
   type Pic {
     id: Int!
+    createdAt: DateTime!
+    updatedAt: DateTime!
     album: Album!
     albumId: Int!
     original: String!

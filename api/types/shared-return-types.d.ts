@@ -45,6 +45,21 @@ export interface Mutation {
     updateTag: PTag;
 }
 
+export interface PaginatedItems {
+    __typename?: "PaginatedItems";
+    count: number;
+    limit: number;
+    page: number;
+}
+
+export interface PaginatedPics {
+    __typename?: "PaginatedPics";
+    count: number;
+    items?: Array<PPic| null>| null;
+    limit: number;
+    page: number;
+}
+
 export interface Query {
     __typename?: "Query";
     album?: PAlbum| null;
@@ -52,6 +67,7 @@ export interface Query {
     pic?: PPic| null;
     pics: PPic[];
     redwood?: Redwood| null;
+    search?: PaginatedPics| null;
     tag?: PTag| null;
     tags: PTag[];
 }
