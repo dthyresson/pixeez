@@ -31,6 +31,9 @@ export const tag: TagResolver = async ({ id }) => {
         orderBy: {
           createdAt: 'desc',
         },
+        include: {
+          album: true,
+        },
       },
     },
   })

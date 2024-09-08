@@ -8,6 +8,13 @@ import type {
   TypedDocumentNode,
 } from '@redwoodjs/web'
 
+export const beforeQuery = (props: TagsQueryVariables) => {
+  return {
+    variables: props,
+    pollInterval: 10_000,
+  }
+}
+
 export const QUERY: TypedDocumentNode<TagsQuery, TagsQueryVariables> = gql`
   query TagsQuery {
     tags {

@@ -7,6 +7,8 @@ import type {
   TypedDocumentNode,
 } from '@redwoodjs/web'
 
+import { ImageWithHover } from 'src/components/Image/ImageWithHover'
+
 export const QUERY: TypedDocumentNode<FindTagQuery, FindTagQueryVariables> =
   gql`
     query FindTagQuery($id: Int!) {
@@ -15,6 +17,10 @@ export const QUERY: TypedDocumentNode<FindTagQuery, FindTagQueryVariables> =
         name
         pics {
           id
+          album {
+            id
+            name
+          }
           original
           processed
           description
@@ -41,7 +47,11 @@ export const Success = ({
         <h1 className="mb-4 text-2xl font-bold">{tag.name}</h1>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
           {tag.pics.map((pic) => (
-            <img key={pic.id} src={pic.original} alt={pic.description} />
+            <ImageWithHover
+              key={`tag-${pic.album.id}-pic-${pic.id}`}
+              pic={pic}
+              albumName={pic.album.name}
+            />
           ))}
         </div>
       </div>

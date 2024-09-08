@@ -34,9 +34,11 @@ export const schema = gql`
   }
 
   type Mutation {
-    createPic(input: CreatePicInput!): Pic! @requireAuth
-    createPics(input: CreatePicsInput!): [Pic!]! @requireAuth
-    updatePic(id: Int!, input: UpdatePicInput!): Pic! @requireAuth
-    deletePic(id: Int!): Pic! @requireAuth
+    createPic(input: CreatePicInput!): Pic!
+      @rateLimited(identifier: "createPic")
+    createPics(input: CreatePicsInput!): [Pic!]!
+      @rateLimited(identifier: "createPics")
+    updatePic(id: Int!, input: UpdatePicInput!): Pic! @blocked
+    deletePic(id: Int!): Pic! @blocked
   }
 `

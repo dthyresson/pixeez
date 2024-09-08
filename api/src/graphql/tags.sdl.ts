@@ -21,8 +21,8 @@ export const schema = gql`
   }
 
   type Mutation {
-    createTag(input: CreateTagInput!): Tag! @requireAuth
-    updateTag(id: Int!, input: UpdateTagInput!): Tag! @requireAuth
-    deleteTag(id: Int!): Tag! @requireAuth
+    createTag(input: CreateTagInput!): Tag! @blocked
+    updateTag(id: Int!, input: UpdateTagInput!): Tag! @blocked
+    deleteTag(id: Int!): Tag! @blocked
   }
 `

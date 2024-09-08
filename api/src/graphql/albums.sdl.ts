@@ -19,8 +19,9 @@ export const schema = gql`
   }
 
   type Mutation {
-    createAlbum(input: CreateAlbumInput!): Album! @requireAuth
-    updateAlbum(id: Int!, input: UpdateAlbumInput!): Album! @requireAuth
-    deleteAlbum(id: Int!): Album! @requireAuth
+    createAlbum(input: CreateAlbumInput!): Album!
+      @rateLimited(identifier: "createAlbum")
+    updateAlbum(id: Int!, input: UpdateAlbumInput!): Album! @blocked
+    deleteAlbum(id: Int!): Album! @blocked
   }
 `
