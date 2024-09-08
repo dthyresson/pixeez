@@ -29,7 +29,7 @@ export const ImageWithHover = ({
         <a
           href={`/.redwood/functions/download?picId=${pic.id}`}
           download={`${pic.original.replace(/\s+/g, '_')}.jpg`}
-          className="absolute bottom-2 right-2 rounded bg-neutral-200 px-2 py-1 text-sm text-white  dark:bg-neutral-900"
+          className="absolute bottom-2 right-2 rounded bg-neutral-400 px-2 py-1 text-sm text-white dark:bg-neutral-700"
           onClickCapture={handleDownloadClick}
         >
           💾

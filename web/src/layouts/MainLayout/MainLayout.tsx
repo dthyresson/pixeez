@@ -22,23 +22,28 @@ const MainLayout = ({ children }: MainLayoutProps) => {
             </Link>
             <div className="flex items-center gap-4">
               <Link
-                className="rounded-full bg-neutral-200 p-2 dark:bg-neutral-700"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 text-lg dark:bg-neutral-700"
                 to={routes.search()}
               >
-                🔎
+                <span className="inline-flex items-center justify-center">
+                  🔎
+                </span>
               </Link>
               <Link
-                className="rounded-full bg-neutral-200 p-2 dark:bg-neutral-700"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-700"
                 to={routes.tags()}
               >
-                🏷️
+                <span className="inline-flex items-center justify-center">
+                  🏷️
+                </span>
               </Link>
-
               <Link
-                className="rounded-full bg-neutral-200 p-2 dark:bg-neutral-700"
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-700"
                 to={routes.about()}
               >
-                🙋
+                <span className="inline-flex items-center justify-center">
+                  🙋
+                </span>
               </Link>
               <DarkModeToggle />
             </div>
