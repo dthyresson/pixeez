@@ -20,7 +20,15 @@ const MainLayout = ({ children }: MainLayoutProps) => {
                 <span className="text-gray-300 dark:text-white">thang</span>
               </h1>
             </Link>
-            <DarkModeToggle />
+            <div className="flex items-center gap-4">
+              <Link
+                className="rounded-full bg-gray-200 p-2 dark:bg-gray-700"
+                to={routes.about()}
+              >
+                🙋
+              </Link>
+              <DarkModeToggle />
+            </div>
           </nav>
           {children}
         </main>
