@@ -7,6 +7,7 @@ import type {
 } from 'types/tags'
 
 import { db } from 'src/lib/db'
+import { newId } from 'src/lib/uuid'
 
 export const tags: TagsResolver = async () => {
   return await db.tag.findMany({
@@ -50,7 +51,7 @@ export const tag: TagResolver = async ({ id }) => {
 
 export const createTag: CreateTagResolver = async ({ input }) => {
   const tag = await db.tag.create({
-    data: input,
+    data: { id: newId('tag'), ...input },
     include: {
       pics: {
         orderBy: {

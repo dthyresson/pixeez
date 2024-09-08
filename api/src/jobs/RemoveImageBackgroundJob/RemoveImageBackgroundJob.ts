@@ -5,7 +5,7 @@ import { jobs } from 'src/lib/jobs'
 export const RemoveImageBackgroundJob = jobs.createJob({
   queue: 'critical',
   priority: 20,
-  perform: async (picId: number) => {
+  perform: async (picId: string) => {
     jobs.logger.info({ picId }, 'RemoveImageBackgroundJob is performing...')
     const pic = await db.pic.findUnique({
       where: { id: picId },
