@@ -8,6 +8,13 @@ import type {
   TypedDocumentNode,
 } from '@redwoodjs/web'
 
+export const beforeQuery = (props: FindAlbumQueryVariables) => {
+  return {
+    variables: props,
+    pollInterval: 2_500,
+  }
+}
+
 export const QUERY: TypedDocumentNode<FindAlbumQuery, FindAlbumQueryVariables> =
   gql`
     query FindAlbumQuery($id: Int!) {

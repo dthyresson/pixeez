@@ -17,7 +17,7 @@ export interface AlbumResolver {
 
 /** SDL: createAlbum(input: CreateAlbumInput!): Album! */
 export interface CreateAlbumResolver {
-    (args: {input: CreateAlbumInput}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
+    (args: {input: CreateAlbumInput}, obj: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
 }
 
 /** SDL: updateAlbum(id: Int!, input: UpdateAlbumInput!): Album! */

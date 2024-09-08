@@ -1,4 +1,9 @@
+import fs from 'fs'
+import path from 'path'
+
 import { db } from 'api/src/lib/db'
+
+import { getPaths } from '@redwoodjs/project-config'
 
 // Manually apply seeds via the `yarn rw prisma db seed` command.
 //
@@ -9,13 +14,18 @@ import { db } from 'api/src/lib/db'
 
 export default async () => {
   try {
-    const albums = [{ name: 'Family' }, { name: 'Work ' }]
+    console.info('delete all albums')
+    await db.album.deleteMany()
 
+    const albums = [{ name: 'Family' }, { name: 'Work ' }]
     await db.album.createMany({ data: albums })
 
-    console.info(
-      '\n  No seed data, skipping. See scripts/seed.ts to start seeding your database!\n'
-    )
+    console.info('delete all pics from uploads directory')
+    const uploadsDir = path.join(getPaths().base, 'uploads')
+    fs.rmSync(uploadsDir, { recursive: true, force: true })
+
+    // create uploads directory
+    fs.mkdirSync(uploadsDir)
   } catch (error) {
     console.error(error)
   }

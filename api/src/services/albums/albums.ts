@@ -6,13 +6,15 @@ import type {
   DeleteAlbumResolver,
 } from 'types/albums'
 
+import type { LiveQueryStorageMechanism } from '@redwoodjs/realtime'
+
 import { db } from 'src/lib/db'
 
 export const albums: AlbumsResolver = async () => {
   const theAlbums = await db.album.findMany({
     orderBy: { name: 'asc' },
     include: {
-      pics: true,
+      pics: { orderBy: { createdAt: 'desc' } },
     },
   })
 
@@ -34,7 +36,7 @@ export const album: AlbumResolver = async ({ id }) => {
   const theAlbum = await db.album.findUnique({
     where: { id },
     include: {
-      pics: true,
+      pics: { orderBy: { createdAt: 'desc' } },
     },
   })
 
@@ -50,13 +52,23 @@ export const album: AlbumResolver = async ({ id }) => {
   }
 }
 
-export const createAlbum: CreateAlbumResolver = async ({ input }) => {
-  return await db.album.create({
+export const createAlbum: CreateAlbumResolver = async (
+  { input },
+  { context }
+) => {
+  const liveQueryStore = context.liveQueryStore as LiveQueryStorageMechanism
+
+  const theAlbum = await db.album.create({
     data: input,
     include: {
-      pics: true,
+      pics: { orderBy: { createdAt: 'desc' } },
     },
   })
+
+  const key = `Album:${theAlbum.id}`
+  liveQueryStore.invalidate(key)
+
+  return theAlbum
 }
 
 export const updateAlbum: UpdateAlbumResolver = async ({ id, input }) => {
@@ -64,7 +76,7 @@ export const updateAlbum: UpdateAlbumResolver = async ({ id, input }) => {
     data: input,
     where: { id },
     include: {
-      pics: true,
+      pics: { orderBy: { createdAt: 'desc' } },
     },
   })
 }

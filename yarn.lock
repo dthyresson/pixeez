@@ -1826,6 +1826,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@envelop/live-query@npm:7.0.0":
+  version: 7.0.0
+  resolution: "@envelop/live-query@npm:7.0.0"
+  dependencies:
+    "@graphql-tools/utils": "npm:^10.0.0"
+    "@n1ru4l/graphql-live-query": "npm:^0.10.0"
+    "@n1ru4l/graphql-live-query-patch": "npm:^0.7.0"
+    "@n1ru4l/in-memory-live-query-store": "npm:^0.10.0"
+    tslib: "npm:^2.5.0"
+  peerDependencies:
+    "@envelop/core": ^5.0.0
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+  checksum: 10c0/b158af86ffd56fd54306aac39ad541de115f346bbf32ee9ec51e1feb383e45b4bdfd5a91ab3eca8a1fae05ed1d75cad6ceeeb6945e4f72b1bc5ac14a8fdc20c9
+  languageName: node
+  linkType: hard
+
 "@envelop/on-resolve@npm:4.1.0":
   version: 4.1.0
   resolution: "@envelop/on-resolve@npm:4.1.0"
@@ -3331,7 +3347,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-tools/utils@npm:^8.8.0":
+"@graphql-tools/utils@npm:^8.5.2, @graphql-tools/utils@npm:^8.8.0":
   version: 8.13.1
   resolution: "@graphql-tools/utils@npm:8.13.1"
   dependencies:
@@ -3387,6 +3403,30 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-yoga/plugin-defer-stream@npm:3.6.3":
+  version: 3.6.3
+  resolution: "@graphql-yoga/plugin-defer-stream@npm:3.6.3"
+  dependencies:
+    "@graphql-tools/utils": "npm:^10.0.0"
+  peerDependencies:
+    graphql: ^15.2.0 || ^16.0.0
+    graphql-yoga: ^5.6.3
+  checksum: 10c0/a11b637fd6b215859d2aefe1ce097181b5ef1dc72f67af32ba719fb50cbe2e3199e728813ecce7ce60c96dfed8090236357469036fd47cc8ac68cee86bc23ba6
+  languageName: node
+  linkType: hard
+
+"@graphql-yoga/plugin-graphql-sse@npm:3.6.3":
+  version: 3.6.3
+  resolution: "@graphql-yoga/plugin-graphql-sse@npm:3.6.3"
+  dependencies:
+    graphql-sse: "npm:^2.0.0"
+  peerDependencies:
+    graphql: ^15.2.0 || ^16.0.0
+    graphql-yoga: ^5.6.3
+  checksum: 10c0/43da8c14b8af07ca0d4e059f07d210f623bb3535863b8d0951b6dc3d67529241a616f9522c0379d119f521120f3233fa056f8d1e7764ef23cfeb4ad7c1a06d88
+  languageName: node
+  linkType: hard
+
 "@graphql-yoga/plugin-persisted-operations@npm:3.6.3":
   version: 3.6.3
   resolution: "@graphql-yoga/plugin-persisted-operations@npm:3.6.3"
@@ -3398,7 +3438,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-yoga/subscription@npm:^5.0.1":
+"@graphql-yoga/redis-event-target@npm:3.0.1":
+  version: 3.0.1
+  resolution: "@graphql-yoga/redis-event-target@npm:3.0.1"
+  dependencies:
+    "@graphql-yoga/typed-event-target": "npm:^3.0.0"
+    "@whatwg-node/events": "npm:^0.1.0"
+  peerDependencies:
+    ioredis: ^5.0.6
+  checksum: 10c0/501db555950800eac29257ab413c2e73fbf3524d4b5b30c69a4de7c74071e2a756ed0a6405c3b7614ba931972bc8e89bec491593d327f558a5ec6ea82f88ed87
+  languageName: node
+  linkType: hard
+
+"@graphql-yoga/subscription@npm:5.0.1, @graphql-yoga/subscription@npm:^5.0.1":
   version: 5.0.1
   resolution: "@graphql-yoga/subscription@npm:5.0.1"
   dependencies:
@@ -3442,6 +3494,13 @@ __metadata:
   version: 2.0.3
   resolution: "@humanwhocodes/object-schema@npm:2.0.3"
   checksum: 10c0/80520eabbfc2d32fe195a93557cef50dfe8c8905de447f022675aaf66abc33ae54098f5ea78548d925aa671cd4ab7c7daa5ad704fe42358c9b5e7db60f80696c
+  languageName: node
+  linkType: hard
+
+"@ioredis/commands@npm:^1.1.1":
+  version: 1.2.0
+  resolution: "@ioredis/commands@npm:1.2.0"
+  checksum: 10c0/a5d3c29dd84d8a28b7c67a441ac1715cbd7337a7b88649c0f17c345d89aa218578d2b360760017c48149ef8a70f44b051af9ac0921a0622c2b479614c4f65b36
   languageName: node
   linkType: hard
 
@@ -3815,6 +3874,39 @@ __metadata:
     strict-event-emitter: "npm:^0.2.4"
     web-encoding: "npm:^1.1.5"
   checksum: 10c0/0343a93711b60c321c40733d6bf2720a736d8e0730f5d0d9916ee4a24abfcfca4a83d1e4b2e21c3affef4fc61f04588104be002fbc8258dc4b0d202c384ade33
+  languageName: node
+  linkType: hard
+
+"@n1ru4l/graphql-live-query-patch@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@n1ru4l/graphql-live-query-patch@npm:0.7.0"
+  dependencies:
+    "@repeaterjs/repeater": "npm:^3.0.4"
+  peerDependencies:
+    graphql: ^15.4.0 || ^16.0.0
+  checksum: 10c0/a7ee5825a277e5240a1908cf830c3d55f114a6d8fec520dc155081f170241c50b92309169a6cc79f66087b97f0aaad8895573b2c346fd7671402c6ce3dd81452
+  languageName: node
+  linkType: hard
+
+"@n1ru4l/graphql-live-query@npm:0.10.0, @n1ru4l/graphql-live-query@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@n1ru4l/graphql-live-query@npm:0.10.0"
+  peerDependencies:
+    graphql: ^15.4.0 || ^16.0.0
+  checksum: 10c0/972bea6d6e4dcc443e15c19f2da373fc01f7e6c8d366569075dc89dc94e55da5a4029d0e8cff289d208c43edcca5e112fe286c6601717ab42d428fc3d5c2dfae
+  languageName: node
+  linkType: hard
+
+"@n1ru4l/in-memory-live-query-store@npm:0.10.0, @n1ru4l/in-memory-live-query-store@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@n1ru4l/in-memory-live-query-store@npm:0.10.0"
+  dependencies:
+    "@graphql-tools/utils": "npm:^8.5.2"
+    "@n1ru4l/graphql-live-query": "npm:0.10.0"
+    "@repeaterjs/repeater": "npm:^3.0.4"
+  peerDependencies:
+    graphql: ^15.4.0 || ^16.0.0
+  checksum: 10c0/c2b4c1c09fa68ac7bd776166a86d361ac6e2659028391e7c3cca25943e966d1d035271141e28d0a519d50409cc07728df163d01ee26cacf403f59a6dcf2d4243
   languageName: node
   linkType: hard
 
@@ -4353,7 +4445,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redwoodjs/api-server@npm:9.0.0-canary.34":
+"@redwoodjs/api-server@npm:9.0.0-canary.34, @redwoodjs/api-server@npm:9.0.0-canary.34+eb8ecf3f8":
   version: 9.0.0-canary.34
   resolution: "@redwoodjs/api-server@npm:9.0.0-canary.34"
   dependencies:
@@ -4794,6 +4886,29 @@ __metadata:
     smol-toml: "npm:1.3.0"
     string-env-interpolation: "npm:1.0.1"
   checksum: 10c0/ac95e4d61e26e3bc38a259e756f5297a081100b3c1dc3690972b61724f9c433222820c36e98007ccc9d87d71bea4e3d97aac154cc35ebaea03efd493546b6503
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/realtime@npm:9.0.0-canary.34+eb8ecf3f8":
+  version: 9.0.0-canary.34
+  resolution: "@redwoodjs/realtime@npm:9.0.0-canary.34"
+  dependencies:
+    "@envelop/live-query": "npm:7.0.0"
+    "@graphql-tools/schema": "npm:10.0.5"
+    "@graphql-tools/utils": "npm:10.5.3"
+    "@graphql-yoga/plugin-defer-stream": "npm:3.6.3"
+    "@graphql-yoga/plugin-graphql-sse": "npm:3.6.3"
+    "@graphql-yoga/redis-event-target": "npm:3.0.1"
+    "@graphql-yoga/subscription": "npm:5.0.1"
+    "@n1ru4l/graphql-live-query": "npm:0.10.0"
+    "@n1ru4l/in-memory-live-query-store": "npm:0.10.0"
+    graphql: "npm:16.9.0"
+  peerDependencies:
+    ioredis: ^5.3.2
+  peerDependenciesMeta:
+    ioredis:
+      optional: true
+  checksum: 10c0/5735986fc6e3b124b2bd7b633a75d4d9c978d36603c9375679d8d1ac1258738b104d89c716a155d51aafa86e2598081c19c2c45ef4a902f7c2b12ca38681b26f
   languageName: node
   linkType: hard
 
@@ -6465,10 +6580,13 @@ __metadata:
   dependencies:
     "@fal-ai/serverless-client": "npm:0.14.2"
     "@redwoodjs/api": "npm:9.0.0-canary.34"
+    "@redwoodjs/api-server": "npm:9.0.0-canary.34+eb8ecf3f8"
     "@redwoodjs/graphql-server": "npm:9.0.0-canary.34"
     "@redwoodjs/jobs": "npm:9.0.0-canary.34"
+    "@redwoodjs/realtime": "npm:9.0.0-canary.34+eb8ecf3f8"
     "@redwoodjs/storage": "npm:9.0.0-canary.34"
     "@unkey/ratelimit": "npm:0.4.4"
+    ioredis: "npm:^5"
   languageName: unknown
   linkType: soft
 
@@ -7829,6 +7947,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cluster-key-slot@npm:^1.1.0":
+  version: 1.1.2
+  resolution: "cluster-key-slot@npm:1.1.2"
+  checksum: 10c0/d7d39ca28a8786e9e801eeb8c770e3c3236a566625d7299a47bb71113fb2298ce1039596acb82590e598c52dbc9b1f088c8f587803e697cb58e1867a95ff94d3
+  languageName: node
+  linkType: hard
+
 "co@npm:^4.6.0":
   version: 4.6.0
   resolution: "co@npm:4.6.0"
@@ -8585,6 +8710,13 @@ __metadata:
   version: 1.0.0
   resolution: "delayed-stream@npm:1.0.0"
   checksum: 10c0/d758899da03392e6712f042bec80aa293bbe9e9ff1b2634baae6a360113e708b91326594c8a486d475c69d6259afb7efacdc3537bfcda1c6c648e390ce601b19
+  languageName: node
+  linkType: hard
+
+"denque@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "denque@npm:2.1.0"
+  checksum: 10c0/f9ef81aa0af9c6c614a727cb3bd13c5d7db2af1abf9e6352045b86e85873e629690f6222f4edd49d10e4ccf8f078bbeec0794fafaf61b659c0589d0c511ec363
   languageName: node
   linkType: hard
 
@@ -10700,7 +10832,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"graphql-sse@npm:2.5.3":
+"graphql-sse@npm:2.5.3, graphql-sse@npm:^2.0.0":
   version: 2.5.3
   resolution: "graphql-sse@npm:2.5.3"
   peerDependencies:
@@ -11197,6 +11329,23 @@ __metadata:
   dependencies:
     loose-envify: "npm:^1.0.0"
   checksum: 10c0/5af133a917c0bcf65e84e7f23e779e7abc1cd49cb7fdc62d00d1de74b0d8c1b5ee74ac7766099fb3be1b05b26dfc67bab76a17030d2fe7ea2eef867434362dfc
+  languageName: node
+  linkType: hard
+
+"ioredis@npm:^5":
+  version: 5.4.1
+  resolution: "ioredis@npm:5.4.1"
+  dependencies:
+    "@ioredis/commands": "npm:^1.1.1"
+    cluster-key-slot: "npm:^1.1.0"
+    debug: "npm:^4.3.4"
+    denque: "npm:^2.1.0"
+    lodash.defaults: "npm:^4.2.0"
+    lodash.isarguments: "npm:^3.1.0"
+    redis-errors: "npm:^1.2.0"
+    redis-parser: "npm:^3.0.0"
+    standard-as-callback: "npm:^2.1.0"
+  checksum: 10c0/5d28b7c89a3cab5b76d75923d7d4ce79172b3a1ca9be690133f6e8e393a7a4b4ffd55513e618bbb5504fed80d9e1395c9d9531a7c5c5c84aa4c4e765cca75456
   languageName: node
   linkType: hard
 
@@ -12829,10 +12978,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.defaults@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "lodash.defaults@npm:4.2.0"
+  checksum: 10c0/d5b77aeb702caa69b17be1358faece33a84497bcca814897383c58b28a2f8dfc381b1d9edbec239f8b425126a3bbe4916223da2a576bb0411c2cefd67df80707
+  languageName: node
+  linkType: hard
+
 "lodash.includes@npm:^4.3.0":
   version: 4.3.0
   resolution: "lodash.includes@npm:4.3.0"
   checksum: 10c0/7ca498b9b75bf602d04e48c0adb842dfc7d90f77bcb2a91a2b2be34a723ad24bc1c8b3683ec6b2552a90f216c723cdea530ddb11a3320e08fa38265703978f4b
+  languageName: node
+  linkType: hard
+
+"lodash.isarguments@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "lodash.isarguments@npm:3.1.0"
+  checksum: 10c0/5e8f95ba10975900a3920fb039a3f89a5a79359a1b5565e4e5b4310ed6ebe64011e31d402e34f577eca983a1fc01ff86c926e3cbe602e1ddfc858fdd353e62d8
   languageName: node
   linkType: hard
 
@@ -15161,6 +15324,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"redis-errors@npm:^1.0.0, redis-errors@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "redis-errors@npm:1.2.0"
+  checksum: 10c0/5b316736e9f532d91a35bff631335137a4f974927bb2fb42bf8c2f18879173a211787db8ac4c3fde8f75ed6233eb0888e55d52510b5620e30d69d7d719c8b8a7
+  languageName: node
+  linkType: hard
+
+"redis-parser@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "redis-parser@npm:3.0.0"
+  dependencies:
+    redis-errors: "npm:^1.0.0"
+  checksum: 10c0/ee16ac4c7b2a60b1f42a2cdaee22b005bd4453eb2d0588b8a4939718997ae269da717434da5d570fe0b05030466eeb3f902a58cf2e8e1ca058bf6c9c596f632f
+  languageName: node
+  linkType: hard
+
 "reflect.getprototypeof@npm:^1.0.4":
   version: 1.0.6
   resolution: "reflect.getprototypeof@npm:1.0.6"
@@ -16186,6 +16365,13 @@ __metadata:
     as-table: "npm:^1.0.36"
     get-source: "npm:^2.0.12"
   checksum: 10c0/e17357d0a532d303138899b910ab660572009a1f4cde1cbf73b99416957a2378e6e1c791b3c31b043cf7c5f37647da1dd114e66c9203f23c65b34f783665405b
+  languageName: node
+  linkType: hard
+
+"standard-as-callback@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "standard-as-callback@npm:2.1.0"
+  checksum: 10c0/012677236e3d3fdc5689d29e64ea8a599331c4babe86956bf92fc5e127d53f85411c5536ee0079c52c43beb0026b5ce7aa1d834dd35dd026e82a15d1bcaead1f
   languageName: node
   linkType: hard
 

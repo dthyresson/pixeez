@@ -8,7 +8,7 @@ type MainLayoutProps = {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <div className="h-screen dark:bg-black dark:text-white">
+    <div className="h-full dark:bg-black dark:text-white">
       <div className="container mx-auto p-12">
         <Toaster />
         <div className="mb-4 flex justify-end">

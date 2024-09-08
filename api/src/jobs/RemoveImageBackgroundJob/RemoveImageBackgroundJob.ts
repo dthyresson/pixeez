@@ -1,3 +1,5 @@
+// import type { GlobalContext } from '@redwoodjs/context'
+
 import { db } from 'src/lib/db'
 import { removeBackground } from 'src/lib/fal'
 import { jobs } from 'src/lib/jobs'

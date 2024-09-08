@@ -8,7 +8,7 @@ import type {
 } from 'types/pics'
 import type { Pic } from 'types/shared-return-types'
 
-import { RemoveImageBackgroundJob } from 'src/jobs/RemoveImageBackgroundJob/RemoveImageBackgroundJob'
+import { CreatePicFanOutJob } from 'src/jobs/CreatePicFanOutJob/CreatePicFanOutJob'
 import { db } from 'src/lib/db'
 import { later } from 'src/lib/jobs'
 import { logger } from 'src/lib/logger'
@@ -50,7 +50,7 @@ export const createPic: CreatePicResolver = async ({ input }) => {
     },
   })
 
-  await later(RemoveImageBackgroundJob, [pic.id])
+  await later(CreatePicFanOutJob, [pic.id])
 
   return pic.withSignedUrl()
 }
@@ -70,7 +70,7 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
 
     result.push(pic.withSignedUrl())
 
-    await later(RemoveImageBackgroundJob, [pic.id])
+    await later(CreatePicFanOutJob, [pic.id])
   }
 
   return result

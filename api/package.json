@@ -5,9 +5,12 @@
   "dependencies": {
     "@fal-ai/serverless-client": "0.14.2",
     "@redwoodjs/api": "9.0.0-canary.34",
+    "@redwoodjs/api-server": "9.0.0-canary.34+eb8ecf3f8",
     "@redwoodjs/graphql-server": "9.0.0-canary.34",
     "@redwoodjs/jobs": "9.0.0-canary.34",
+    "@redwoodjs/realtime": "9.0.0-canary.34+eb8ecf3f8",
     "@redwoodjs/storage": "9.0.0-canary.34",
-    "@unkey/ratelimit": "0.4.4"
+    "@unkey/ratelimit": "0.4.4",
+    "ioredis": "^5"
   }
 }
