@@ -7,7 +7,6 @@ import { emitLogLevels, handlePrismaLogging } from '@redwoodjs/api/logger'
 
 import { logger } from './logger'
 import { storagePrismaExtension } from './storage'
-// import { newId, prefixes } from './uuid'
 
 const prismaClient = new PrismaClient({
   log: emitLogLevels(['info', 'warn', 'error']),
@@ -18,24 +17,6 @@ handlePrismaLogging({
   logger,
   logLevels: ['info', 'warn', 'error'],
 })
-
-// const prismaClientWithNewId = prismaClient.$extends({
-//   query: {
-//     $allOperations({ model, operation, args, query }) {
-//       if (operation === 'create') {
-//         const prefix = model.toLowerCase() as keyof typeof prefixes
-//         args.data = { ...args.data, id: newId(prefix) }
-//       } else if (operation === 'createMany') {
-//         const prefix = model.toLowerCase() as keyof typeof prefixes
-//         args.data = args.data.map((item) => ({
-//           ...item,
-//           id: newId(prefix),
-//         }))
-//       }
-//       return query(args)
-//     },
-//   },
-// })
 
 /**
  * Global Prisma client extensions should be added here, as $extend
