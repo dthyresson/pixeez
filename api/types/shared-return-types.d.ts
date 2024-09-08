@@ -1,4 +1,4 @@
-import type { Album as PAlbum, Pic as PPic } from "@prisma/client";
+import type { Album as PAlbum, Pic as PPic, Tag as PTag } from "@prisma/client";
 
 // You may very reasonably ask yourself, 'what is this file?' and why do I need it.
 
@@ -26,15 +26,24 @@ export interface CreatePicsInput {
     originals: File[];
 }
 
+export interface CreateTagInput {
+    __typename?: "CreateTagInput";
+    name: string;
+    picId?: number| null;
+}
+
 export interface Mutation {
     __typename?: "Mutation";
     createAlbum: PAlbum;
     createPic: PPic;
     createPics: PPic[];
+    createTag: PTag;
     deleteAlbum: PAlbum;
     deletePic: PPic;
+    deleteTag: PTag;
     updateAlbum: PAlbum;
     updatePic: PPic;
+    updateTag: PTag;
 }
 
 export interface Query {
@@ -44,6 +53,8 @@ export interface Query {
     pic?: PPic| null;
     pics: PPic[];
     redwood?: Redwood| null;
+    tag?: PTag| null;
+    tags: PTag[];
 }
 
 export interface Redwood {
@@ -64,7 +75,14 @@ export interface UpdatePicInput {
     original?: File| null;
 }
 
+export interface UpdateTagInput {
+    __typename?: "UpdateTagInput";
+    name?: string| null;
+    picId?: number| null;
+}
+
 type File = any;
 type JSON = any;
 export type Album = PAlbum;
 export type Pic = PPic;
+export type Tag = PTag;

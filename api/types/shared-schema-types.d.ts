@@ -22,15 +22,24 @@ export interface CreatePicsInput {
     originals: File[];
 }
 
+export interface CreateTagInput {
+    __typename?: "CreateTagInput";
+    name: string;
+    picId?: number| null;
+}
+
 export interface Mutation {
     __typename?: "Mutation";
     createAlbum: Album;
     createPic: Pic;
     createPics: Pic[];
+    createTag: Tag;
     deleteAlbum: Album;
     deletePic: Pic;
+    deleteTag: Tag;
     updateAlbum: Album;
     updatePic: Pic;
+    updateTag: Tag;
 }
 
 export interface Pic {
@@ -54,6 +63,8 @@ export interface Query {
     pic?: Pic| null;
     pics: Pic[];
     redwood?: Redwood| null;
+    tag?: Tag| null;
+    tags: Tag[];
 }
 
 export interface Redwood {
@@ -61,6 +72,16 @@ export interface Redwood {
     currentUser?: JSON| null;
     prismaVersion?: string| null;
     version?: string| null;
+}
+
+export interface Tag {
+    __typename?: "Tag";
+    createdAt: DateTime;
+    id: number;
+    name: string;
+    pic?: Pic| null;
+    picId?: number| null;
+    updatedAt: DateTime;
 }
 
 export interface UpdateAlbumInput {
@@ -74,5 +95,12 @@ export interface UpdatePicInput {
     original?: File| null;
 }
 
+export interface UpdateTagInput {
+    __typename?: "UpdateTagInput";
+    name?: string| null;
+    picId?: number| null;
+}
+
 type File = any;
 type JSON = any;
+type DateTime = any;

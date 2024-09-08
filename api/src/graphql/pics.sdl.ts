@@ -10,6 +10,7 @@ export const schema = gql`
     format: String
     exif: String
     description: String
+    tags: [Tag!]!
   }
 
   type Query {
