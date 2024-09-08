@@ -11,7 +11,6 @@ import type { Pic } from 'types/shared-return-types'
 import { CreatePicFanOutJob } from 'src/jobs/CreatePicFanOutJob/CreatePicFanOutJob'
 import { db } from 'src/lib/db'
 import { later } from 'src/lib/jobs'
-import { logger } from 'src/lib/logger'
 import { saveFiles } from 'src/lib/storage'
 
 export const pics: PicsResolver = async () => {
@@ -42,7 +41,6 @@ export const createPic: CreatePicResolver = async ({ input }) => {
     ...processedInput,
   }
 
-  logger.debug(data, '>> data')
   const pic = await db.pic.create({
     data,
     include: {
