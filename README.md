@@ -19,6 +19,7 @@ A tribute to [PicThing](https://pic.ping.gg/login)
 - [x] uuid generation using [The UX of UUIDs](https://www.unkey.com/blog/uuid-ux) pattern   from [Unkey](https://unkey.com/)
 - [x] custom generator templates for SDL Codegen and Cells with custom lifecycle components
 - [x] QR code on server startup for easy mobile app access
+- [x] About page generation script `about.ts` with project README details with flow diagram
 
 ## Technologies Used
 
@@ -80,23 +81,29 @@ graph TD
     A[User uploads image] --> B[createPic mutation]
     B --> C[Save image to storage]
     C --> D[Create Pic record in database]
-    D --> E[Enqueue fan out jobs]
+    D --> E[Enqueue CreatePicFanOutJob]
     E --> F[Remove Background Job]
     E --> G[Extract Metadata Job]
-    E --> H[Generate Description Job]
+    E --> H[Describe Pic Job]
     H --> I[Tag Image Job]
 
-    F --> J[Update Pic with removed background]
-    J --> K[Send onBackgroundRemoved webhook]
-    K --> L[Invalidate Album live query]
+    F --> J[Use fal.ai birefnet API]
+    J --> K[Update Pic with removed background]
+    K --> L[Send onBackgroundRemoved webhook]
+    L --> M[Invalidate Album live query]
 
-    G --> M[Update Pic with metadata]
+    G --> N[Use sharp for image metadata]
+    G --> O[Use exif-parser for EXIF data]
+    N --> P[Update Pic with metadata]
+    O --> P
 
-    H --> N[Update Pic with description]
+    H --> Q[Use fal.ai florence-2-large API]
+    Q --> R[Update Pic with description]
 
-    I --> O[Update Pic with tags]
-    O --> P[Send onTagsCreated webhook]
-    P --> Q[Invalidate Tags live query]
+    I --> S[Use Langbase PIPE for auto tagging]
+    S --> T[Update Pic with tags]
+    T --> U[Send onTagsCreated webhook]
+    U --> V[Invalidate Tags live query]
 ```
 
 This diagram illustrates the flow from image upload to the completion of all background jobs. Here's a brief explanation of each step:
@@ -105,15 +112,67 @@ This diagram illustrates the flow from image upload to the completion of all bac
 2. The `createPic` mutation is called
 3. The image is saved to storage
 4. A new Pic record is created in the database
-5. Background jobs are enqueued
-6. Three jobs run in parallel:
+5. The CreatePicFanOutJob is enqueued
+6. Three jobs are enqueued by the CreatePicFanOutJob:
    - Remove Background Job
+   - Describe Pic Job
    - Extract Metadata Job
-   - Generate Description Job
-7. The Tag Image Job runs after the Generate Description Job completes
+7. The Tag Image Job runs after the Describe Pic Job completes
 8. Each job updates the Pic record with its respective results
+9. Webhooks are sent after background removal and tag creation to invalidate live queries
 
-This flow diagram provides a clear visual representation of the image processing pipeline in your application.
+Note: In the "Use Langbase for tagging" step, the application uses a custom prompt that is shown in `prompts/tagify-image-description.md`. This prompt instructs the AI to generate tags based on the image description, following specific rules for tag creation.
+
+### Job Queues and Priorities
+
+The application uses RedwoodJS's job system to orchestrate the flow of image processing tasks. Different queues and priorities are used to ensure efficient processing:
+
+- The CreatePicFanOutJob runs on the 'critical' queue with priority 10.
+
+```10:13:api/src/jobs/CreatePicFanOutJob/CreatePicFanOutJob.ts
+export const CreatePicFanOutJob = jobs.createJob({
+  queue: 'critical',
+  priority: 10,
+  perform: async (picId: string) => {
+```
+
+- The Remove Background Job runs on the 'critical' queue with priority 20.
+
+```13:16:api/src/jobs/RemoveImageBackgroundJob/RemoveImageBackgroundJob.ts
+export const RemoveImageBackgroundJob = jobs.createJob({
+  queue: 'critical',
+  priority: 20,
+  perform: async (picId: string) => {
+```
+
+- The Describe Pic Job runs on the 'default' queue with priority 20.
+
+```10:13:api/src/jobs/DescribePicJob/DescribePicJob.ts
+export const DescribePicJob = jobs.createJob({
+  queue: 'default',
+  priority: 20,
+  perform: async (picId: string) => {
+```
+
+- The Tag Image Job runs on the 'default' queue with priority 10.
+
+```12:15:api/src/jobs/TagifyPicJob/TagifyPicJob.ts
+export const TagifyPicJob = jobs.createJob({
+  queue: 'default',
+  priority: 10,
+  perform: async (picId: string) => {
+```
+
+- The Extract Metadata Job runs on the 'default' queue with priority 30.
+
+```15:18:api/src/jobs/ProcessPicMetadataJob/ProcessPicMetadataJob.ts
+export const ProcessPicMetadataJob = jobs.createJob({
+  queue: 'default',
+  priority: 30,
+  perform: async (picId: string) => {
+```
+
+This setup allows for efficient resource utilization and ensures that critical jobs like background removal are processed quickly. The use of different queues and priorities ensures that faster jobs don't get blocked behind longer-running tasks. The use of webhooks for live query invalidation ensures that the UI stays up-to-date as jobs complete, providing a responsive user experience.
 
 ## TODO (maybe)
 
@@ -125,6 +184,6 @@ This flow diagram provides a clear visual representation of the image processing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## License
+## Note
 
-This project is open-source and available under the [MIT License](LICENSE).
+The About page is automatically generated using the `about.ts` script. This script reads the `README.md` file and generates a React component that is then used to render the About page. The flow diagram is generated using [Mermaid](https://mermaid.js.org/).

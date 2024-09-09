@@ -1,4 +1,7 @@
+
 import { Metadata } from '@redwoodjs/web'
+import ReactMarkdown from 'react-markdown'
+import { Mermaid } from 'mdx-mermaid/Mermaid'
 
 const AboutPage = () => {
   return (
@@ -7,213 +10,27 @@ const AboutPage = () => {
         title="About PicThang"
         description="About PicThang - A tribute to PicThing"
       />
-
-      <h1 className="mb-4 text-3xl font-bold">About PicThang</h1>
-      <p className="mb-4">
-        A tribute to{' '}
-        <a
-          href="https://pic.ping.gg/login"
-          className="text-purple-600 hover:underline"
+      <div className="prose dark:prose-invert max-w-none">
+        <ReactMarkdown
+          components={{
+            h1: ({ node, ...props }) => <h1 className="text-3xl font-bold my-4" {...props} />,
+            h2: ({ node, ...props }) => <h2 className="text-2xl font-semibold my-4" {...props} />,
+            h3: ({ node, ...props }) => <h3 className="text-xl font-medium my-4" {...props} />,
+            ul: ({ node, ...props }) => <ul className="list-disc pl-5 my-4" {...props} />,
+            ol: ({ node, ...props }) => <ol className="list-decimal pl-5 my-4" {...props} />,
+            p: ({ node, ...props }) => <p className="my-4" {...props} />,
+            code: ({ node, inline, className, children, ...props }) => {
+              const match = /language-(\w+)/.exec(className || '')
+              if (!inline && match && match[1] === 'mermaid') {
+                return <Mermaid chart={String(children).replace(/\\n/g, '\n')} />
+              }
+              return <code className="bg-purple-200 dark:text-white dark:bg-purple-800 rounded p-1 my-2" {...props}>{children}</code>
+            },
+          }}
         >
-          PicThing
-        </a>
-      </p>
-
-      <h2 className="mb-2 mt-6 text-2xl font-semibold">Features</h2>
-      <ul className="mb-4 list-inside list-disc space-y-1">
-        <li>Albums</li>
-        <li>Upload images using RedwoodJS Storage</li>
-        <li>
-          Background removal using{' '}
-          <a
-            href="https://fal.ai/models/fal-ai/birefnet"
-            className="text-purple-600 hover:underline"
-          >
-            birefnet on fal.ai
-          </a>
-        </li>
-        <li>
-          RedwoodJS background jobs for:
-          <ul className="ml-6 list-inside list-disc space-y-1">
-            <li>
-              Background removal using{' '}
-              <a
-                href="https://fal.ai/models/fal-ai/birefnet"
-                className="text-purple-600 hover:underline"
-              >
-                birefnet on fal.ai
-              </a>
-            </li>
-            <li>
-              Image description using{' '}
-              <a
-                href="https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption"
-                className="text-purple-600 hover:underline"
-              >
-                florence-2-large on fal.ai
-              </a>
-            </li>
-            <li>
-              Automatic image tagging using{' '}
-              <a
-                href="https://www.langbase.com"
-                className="text-purple-600 hover:underline"
-              >
-                Langbase
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li>Real-time live query updates for processed images and tags</li>
-        <li>Search functionality with pagination</li>
-        <li>Download background removed image via function</li>
-        <li>Dark mode support</li>
-        <li>Rate limiting using [Unkey](https://unkey.com/)</li>
-        <li>
-          uuid generation using{' '}
-          <a
-            href="https://www.unkey.com/blog/uuid-ux"
-            className="text-purple-600 hover:underline"
-          >
-            The UX of UUIDs
-          </a>{' '}
-          pattern from{' '}
-          <a
-            href="https://unkey.com/"
-            className="text-purple-600 hover:underline"
-          >
-            Unkey
-          </a>
-        </li>
-      </ul>
-
-      <h2 className="mb-2 mt-6 text-2xl font-semibold">Technologies Used</h2>
-      <ul className="mb-4 list-inside list-disc space-y-1">
-        <li>
-          <a
-            href="https://redwoodjs.com/"
-            className="text-purple-600 hover:underline"
-          >
-            RedwoodJS
-          </a>{' '}
-          for the full stack framework with jobs, storage, uploads, and more
-        </li>
-        <li>
-          <a
-            href="https://tailwindcss.com/"
-            className="text-purple-600 hover:underline"
-          >
-            Tailwind CSS
-          </a>{' '}
-          for styling
-        </li>
-        <li>
-          <a
-            href="https://www.prisma.io/"
-            className="text-purple-600 hover:underline"
-          >
-            Prisma
-          </a>{' '}
-          for the database ORM
-        </li>
-        <li>
-          <a
-            href="https://graphql.org/"
-            className="text-purple-600 hover:underline"
-          >
-            GraphQL
-          </a>{' '}
-          for the API
-        </li>
-        <li>
-          <a href="https://fal.ai/" className="text-purple-600 hover:underline">
-            Fal.ai
-          </a>{' '}
-          for AI-powered background removal and image description
-        </li>
-        <li>
-          <a
-            href="https://langbase.com/"
-            className="text-purple-600 hover:underline"
-          >
-            Langbase
-          </a>{' '}
-          for composable AI models used to generate image tags
-        </li>
-        <li>
-          <a
-            href="https://unkey.com/"
-            className="text-purple-600 hover:underline"
-          >
-            Unkey
-          </a>{' '}
-          for rate limiting
-        </li>
-        <li>
-          <a
-            href="https://cursor.com/"
-            className="text-purple-600 hover:underline"
-          >
-            Cursor
-          </a>{' '}
-          for AI-powered code generation
-        </li>
-      </ul>
-
-      <h2 className="mb-2 mt-6 text-2xl font-semibold">Key Features</h2>
-      <h3 className="mb-2 mt-4 text-xl font-semibold">
-        Image Upload and Processing
-      </h3>
-      <p className="mb-2">
-        Images can be uploaded to albums and are automatically processed in the
-        background. The processing includes:
-      </p>
-      <ol className="mb-4 list-inside list-decimal space-y-1">
-        <li>Metadata extraction (EXIF data, dimensions, format)</li>
-        <li>Background removal</li>
-        <li>AI-powered image description</li>
-        <li>Automatic tagging based on the description</li>
-      </ol>
-
-      <h3 className="mb-2 mt-4 text-xl font-semibold">Album Management</h3>
-      <p className="mb-4">
-        Users can create and manage multiple albums to organize their images.
-      </p>
-
-      <h3 className="mb-2 mt-4 text-xl font-semibold">Tagging System</h3>
-      <p className="mb-4">
-        Images are automatically tagged based on their AI-generated
-        descriptions, allowing for easy categorization and searching.
-      </p>
-
-      <h3 className="mb-2 mt-4 text-xl font-semibold">Dark Mode</h3>
-      <p className="mb-4">
-        The application supports both light and dark modes for user preference.
-      </p>
-
-      <h2 className="mb-2 mt-6 text-2xl font-semibold">TODO</h2>
-      <ul className="mb-4 list-inside list-disc space-y-1">
-        <li>Implement user authentication and authorization</li>
-        <li>Optimize performance for large image collections</li>
-        <li>Add more advanced image editing features</li>
-      </ul>
-
-      <h2 className="mb-2 mt-6 text-2xl font-semibold">Contributing</h2>
-      <p className="mb-4">
-        Contributions are welcome! Please feel free to submit a Pull Request.
-      </p>
-
-      <h2 className="mb-2 mt-6 text-2xl font-semibold">License</h2>
-      <p className="mb-4">
-        This project is open-source and available under the{' '}
-        <a
-          href="https://opensource.org/licenses/MIT"
-          className="text-purple-600 hover:underline"
-        >
-          MIT License
-        </a>
-        .
-      </p>
+          {"# PicThang\n\nA tribute to [PicThing](https://pic.ping.gg/login)\n\n## Features\n\n- [x] Albums\n- [x] Upload images using RedwoodJS Storage\n- [x] Background removal using [birefnet on fal.ai](https://fal.ai/models/fal-ai/birefnet)\n- [x] RedwoodJS background jobs for:\n  - Background removal using [birefnet on fal.ai](https://fal.ai/models/fal-ai/birefnet)\n  - Image description using [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption)\n  - Automatic image tagging using [Langbase](https://www.langbase.com/)\n- [x] Real-time live query updates for processed images and tags\n- [x] Search functionality with pagination\n- [x] Download background removed image via function\n- [x] Dark mode support\n- [x] Rate limiting using [Unkey](https://unkey.com/)\n- [x] uuid generation using [The UX of UUIDs](https://www.unkey.com/blog/uuid-ux) pattern   from [Unkey](https://unkey.com/)\n- [x] custom generator templates for SDL Codegen and Cells with custom lifecycle components\n- [x] QR code on server startup for easy mobile app access\n- [x] About page generation script `about.ts` with project README details with flow diagram\n\n## Technologies Used\n\n- [RedwoodJS](https://redwoodjs.com/) for the full stack framework with jobs, storage, uploads, and more\n- [Tailwind CSS](https://tailwindcss.com/) for styling\n- [Prisma](https://www.prisma.io/) for the database ORM\n- [GraphQL](https://graphql.org/) for the API\n- [Fal.ai](https://fal.ai/) for AI-powered background removal and image description\n- [Langbase](https://langbase.com/) for composable AI models used to generate image tags\n- [Unkey](https://unkey.com/) for rate limiting\n- [Cursor](https://cursor.com/) for AI-powered code generation\n\n## Getting Started\n\n1. Clone the repository\n2. Install dependencies: `yarn install`\n3. Set up your environment variables (see `.env.example`)\n4. Run database migrations: `yarn rw prisma migrate dev`\n5. Start the development server: `yarn rw dev`\n\n## Project Structure\n\n- `api`: Backend API code\n- `web`: Frontend web application\n- `scripts`: Utility scripts\n- `api/src/services`: GraphQL resolvers and business logic\n- `api/src/graphql`: GraphQL schema definitions\n- `api/src/jobs`: Background job definitions\n- `web/src/components`: React components\n- `web/src/pages`: Page components and routing\n\n## Key Features\n\n### Image Upload and Processing\n\nImages can be uploaded to albums and are automatically processed in the background. The processing includes:\n\n1. Metadata extraction (EXIF data, dimensions, format)\n2. Background removal\n3. AI-powered image description\n4. Automatic tagging based on the description\n\n### Album Management\n\nUsers can create and manage multiple albums to organize their images.\n\n### Tagging System\n\nImages are automatically tagged based on their AI-generated descriptions, allowing for easy categorization and searching.\n\n### Dark Mode\n\nThe application supports both light and dark modes for user preference.\n\n### Flow Diagram\n\n```mermaid\ngraph TD\n    A[User uploads image] --> B[createPic mutation]\n    B --> C[Save image to storage]\n    C --> D[Create Pic record in database]\n    D --> E[Enqueue CreatePicFanOutJob]\n    E --> F[Remove Background Job]\n    E --> G[Extract Metadata Job]\n    E --> H[Describe Pic Job]\n    H --> I[Tag Image Job]\n\n    F --> J[Use fal.ai birefnet API]\n    J --> K[Update Pic with removed background]\n    K --> L[Send onBackgroundRemoved webhook]\n    L --> M[Invalidate Album live query]\n\n    G --> N[Use sharp for image metadata]\n    G --> O[Use exif-parser for EXIF data]\n    N --> P[Update Pic with metadata]\n    O --> P\n\n    H --> Q[Use fal.ai florence-2-large API]\n    Q --> R[Update Pic with description]\n\n    I --> S[Use Langbase PIPE for auto tagging]\n    S --> T[Update Pic with tags]\n    T --> U[Send onTagsCreated webhook]\n    U --> V[Invalidate Tags live query]\n```\n\nThis diagram illustrates the flow from image upload to the completion of all background jobs. Here's a brief explanation of each step:\n\n1. User uploads an image\n2. The `createPic` mutation is called\n3. The image is saved to storage\n4. A new Pic record is created in the database\n5. The CreatePicFanOutJob is enqueued\n6. Three jobs are enqueued by the CreatePicFanOutJob:\n   - Remove Background Job\n   - Describe Pic Job\n   - Extract Metadata Job\n7. The Tag Image Job runs after the Describe Pic Job completes\n8. Each job updates the Pic record with its respective results\n9. Webhooks are sent after background removal and tag creation to invalidate live queries\n\nNote: In the \"Use Langbase for tagging\" step, the application uses a custom prompt that is shown in `prompts/tagify-image-description.md`. This prompt instructs the AI to generate tags based on the image description, following specific rules for tag creation.\n\n### Job Queues and Priorities\n\nThe application uses RedwoodJS's job system to orchestrate the flow of image processing tasks. Different queues and priorities are used to ensure efficient processing:\n\n- The CreatePicFanOutJob runs on the 'critical' queue with priority 10.\n\n```10:13:api/src/jobs/CreatePicFanOutJob/CreatePicFanOutJob.ts\nexport const CreatePicFanOutJob = jobs.createJob({\n  queue: 'critical',\n  priority: 10,\n  perform: async (picId: string) => {\n```\n\n- The Remove Background Job runs on the 'critical' queue with priority 20.\n\n```13:16:api/src/jobs/RemoveImageBackgroundJob/RemoveImageBackgroundJob.ts\nexport const RemoveImageBackgroundJob = jobs.createJob({\n  queue: 'critical',\n  priority: 20,\n  perform: async (picId: string) => {\n```\n\n- The Describe Pic Job runs on the 'default' queue with priority 20.\n\n```10:13:api/src/jobs/DescribePicJob/DescribePicJob.ts\nexport const DescribePicJob = jobs.createJob({\n  queue: 'default',\n  priority: 20,\n  perform: async (picId: string) => {\n```\n\n- The Tag Image Job runs on the 'default' queue with priority 10.\n\n```12:15:api/src/jobs/TagifyPicJob/TagifyPicJob.ts\nexport const TagifyPicJob = jobs.createJob({\n  queue: 'default',\n  priority: 10,\n  perform: async (picId: string) => {\n```\n\n- The Extract Metadata Job runs on the 'default' queue with priority 30.\n\n```15:18:api/src/jobs/ProcessPicMetadataJob/ProcessPicMetadataJob.ts\nexport const ProcessPicMetadataJob = jobs.createJob({\n  queue: 'default',\n  priority: 30,\n  perform: async (picId: string) => {\n```\n\nThis setup allows for efficient resource utilization and ensures that critical jobs like background removal are processed quickly. The use of different queues and priorities ensures that faster jobs don't get blocked behind longer-running tasks. The use of webhooks for live query invalidation ensures that the UI stays up-to-date as jobs complete, providing a responsive user experience.\n\n## TODO (maybe)\n\n- [ ] Implement user authentication and authorization\n- [ ] Copy to clipboard button for image data\n- [ ] Add more advanced image editing features\n\n## Contributing\n\nContributions are welcome! Please feel free to submit a Pull Request.\n\n## Note\n\nThe About page is automatically generated using the `about.ts` script. This script reads the `README.md` file and generates a React component that is then used to render the About page. The flow diagram is generated using [Mermaid](https://mermaid.js.org/).\n"}
+        </ReactMarkdown>
+      </div>
     </>
   )
 }
