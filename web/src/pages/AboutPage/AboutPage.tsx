@@ -193,7 +193,6 @@ const AboutPage = () => {
       <h2 className="mb-2 mt-6 text-2xl font-semibold">TODO</h2>
       <ul className="mb-4 list-inside list-disc space-y-1">
         <li>Implement user authentication and authorization</li>
-        <li>Implement real-time updates for processed images</li>
         <li>Optimize performance for large image collections</li>
         <li>Add more advanced image editing features</li>
       </ul>
