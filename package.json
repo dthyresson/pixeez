@@ -27,6 +27,7 @@
     "@apollo/client/rehackt": "0.1.0"
   },
   "scripts": {
+    "jobs": "yarn rw jobs work",
     "live": "ngrok http --domain=redwoodjs.ngrok.dev 8910"
   }
 }
