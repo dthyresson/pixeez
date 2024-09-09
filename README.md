@@ -10,7 +10,15 @@ Spoiler: It can! 😀
 
 Is this project different? Yes. The background removal is done  using [birefnet on fal.ai](https://fal.ai/models/fal-ai/birefnet) and there is no image CDN and isn't as fast (but still pretty fast given the processing is done in background jobs).
 
-Automatic image tagging is done using [Langbase](https://langbase.com/) having generated a description first via [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption). There's currently no user management or photos associated with the account. It can't copy paste yet either -- but it can download.
+The UX is different from what I can tell. I added albums to manage pics and a search and a "tag-cloud-heat-map" UI to show pics by tag.
+
+Instead of toggling the background removal on and off, I made it so you can download the background removed version or hover to see the original.
+
+We have automatic image tagging using [Langbase](https://langbase.com/) [tagify-image-description PIPE](https://langbase.com/dthyresson/tagify-image-description) and based on a generated description via [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption).
+
+We have automatic image tagging using [Langbase](https://langbase.com/) [PIPE]() and  based on a generated description via [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption).
+
+There's currently no user management or photos associated with the account. It can't copy paste yet either -- but it can download.
 
 That said, it has a great set features and showcases the power of RedwoodJS for Jobs, Storage, Uploads, GraphQL, Realtime, and more.
 
