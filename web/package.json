@@ -11,6 +11,7 @@
     ]
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "@redwoodjs/forms": "9.0.0-canary.34",
     "@redwoodjs/router": "9.0.0-canary.34",
     "@redwoodjs/web": "9.0.0-canary.34",

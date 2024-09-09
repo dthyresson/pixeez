@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { ArrowDownOnSquareIcon } from '@heroicons/react/24/solid'
 import type { Album, Pic } from 'types/graphql'
 
 export const PicWithHover = ({
@@ -32,7 +33,7 @@ export const PicWithHover = ({
           className="absolute bottom-2 right-2 rounded bg-neutral-400 px-2 py-1 text-sm text-white dark:bg-neutral-700"
           onClickCapture={handleDownloadClick}
         >
-          💾
+          <ArrowDownOnSquareIcon className="h-4 w-4 text-neutral-200" />
         </a>
       )}
     </div>

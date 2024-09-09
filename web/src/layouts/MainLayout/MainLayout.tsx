@@ -1,3 +1,9 @@
+import {
+  MagnifyingGlassIcon,
+  TagIcon,
+  HandRaisedIcon,
+} from '@heroicons/react/24/solid'
+
 import { Link, routes } from '@redwoodjs/router'
 import { Toaster } from '@redwoodjs/web/toast'
 
@@ -18,22 +24,22 @@ const NavBar = () => {
       </Link>
       <div className="flex items-center gap-4">
         <Link
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 text-lg dark:bg-neutral-700"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-300 text-lg hover:bg-neutral-400 dark:bg-neutral-300 dark:hover:bg-neutral-400"
           to={routes.search()}
         >
-          <span className="inline-flex items-center justify-center">🔎</span>
+          <MagnifyingGlassIcon className="h-4 w-4 text-purple-600" />
         </Link>
         <Link
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-700"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-300 text-lg hover:bg-neutral-400 dark:bg-neutral-300 dark:hover:bg-neutral-400"
           to={routes.tags()}
         >
-          <span className="inline-flex items-center justify-center">🏷️</span>
+          <TagIcon className="h-4 w-4 text-purple-600" />
         </Link>
         <Link
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-200 dark:bg-neutral-700"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-300 text-lg hover:bg-neutral-400 dark:bg-neutral-300 dark:hover:bg-neutral-400"
           to={routes.about()}
         >
-          <span className="inline-flex items-center justify-center">🙋</span>
+          <HandRaisedIcon className="h-4 w-4 text-purple-600" />
         </Link>
         <DarkModeToggle />
       </div>

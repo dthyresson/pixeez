@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { PhotoIcon } from '@heroicons/react/24/solid'
 import type {
   Album,
   FindAlbumsQuery,
@@ -66,7 +67,7 @@ const CreateAlbumForm = ({ onSubmit, error }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4">
+    <form onSubmit={handleSubmit} className="mb-4 flex items-center">
       <input
         type="text"
         value={newAlbumName}
@@ -76,9 +77,10 @@ const CreateAlbumForm = ({ onSubmit, error }) => {
       />
       <button
         type="submit"
-        className="rounded-md bg-purple-700 px-4 py-2 text-white hover:bg-purple-500 dark:text-white"
+        className="flex items-center rounded-md bg-purple-700 px-4 py-2 text-white hover:bg-purple-500 dark:text-white"
       >
-        Create Album
+        <PhotoIcon className="mr-2 h-4 w-4" />
+        <span>Create Album</span>
       </button>
       {error && <p className="mt-2 text-red-500">{error}</p>}
     </form>

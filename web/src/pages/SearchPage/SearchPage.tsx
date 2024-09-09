@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+import { MagnifyingGlassIcon } from '@heroicons/react/24/solid'
 import { SearchQuery, SearchQueryVariables, Pic } from 'types/graphql'
 
 import { Link, routes } from '@redwoodjs/router'
@@ -71,7 +72,7 @@ const SearchPage = () => {
       <Metadata title="Search" description="Search page" />
       <h2 className="mb-4 text-2xl font-bold">Search</h2>
 
-      <form onSubmit={handleSearch} className="mb-4">
+      <form onSubmit={handleSearch} className="mb-4 flex items-center">
         <input
           type="text"
           value={searchQuery}
@@ -81,10 +82,11 @@ const SearchPage = () => {
         />
         <button
           type="submit"
-          className="rounded bg-purple-500 px-4 py-2 text-white"
+          className="flex items-center rounded bg-purple-500 px-4 py-2 text-white"
           disabled={searchQuery.length < 3}
         >
-          🔎&nbsp;Search
+          <MagnifyingGlassIcon className="mr-2 h-4 w-4" />
+          <span>Search</span>
         </button>
       </form>
 
