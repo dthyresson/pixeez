@@ -22,12 +22,12 @@ export interface CreateAlbumResolver {
 
 /** SDL: updateAlbum(id: ID!, input: UpdateAlbumInput!): Album! */
 export interface UpdateAlbumResolver {
-    (args: {id: ID, input: UpdateAlbumInput}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
+    (args: {id: ID, input: UpdateAlbumInput}, obj: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
 }
 
 /** SDL: deleteAlbum(id: ID!): Album! */
 export interface DeleteAlbumResolver {
-    (args: {id: ID}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
+    (args: {id: ID}, obj: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum>;
 }
 
 type ID = any;

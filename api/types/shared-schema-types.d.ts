@@ -2,6 +2,7 @@ export interface Album {
     __typename?: "Album";
     id: ID;
     name: string;
+    picCount: number;
     pics: Array<Pic>;
 }
 

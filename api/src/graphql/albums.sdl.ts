@@ -3,6 +3,7 @@ export const schema = gql`
     id: ID!
     name: String!
     pics: [Pic]!
+    picCount: Int!
   }
 
   type Query {

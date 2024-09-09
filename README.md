@@ -59,6 +59,7 @@ That said, it has a great set features and showcases the power of RedwoodJS for 
 3. Set up your environment variables (see `.env.example`)
 4. Run database migrations: `yarn rw prisma migrate dev`
 5. Start the development server: `yarn rw dev`
+6. Run jobs: `yarn rw jobs work`
 
 ## Project Structure
 

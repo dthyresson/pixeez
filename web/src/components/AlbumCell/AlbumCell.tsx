@@ -5,6 +5,7 @@ import type {
   FindAlbumQuery,
   FindAlbumQueryVariables,
   Pic,
+  Album,
 } from 'types/graphql'
 
 import { Metadata } from '@redwoodjs/web'
@@ -55,6 +56,7 @@ export const QUERY: TypedDocumentNode<FindAlbumQuery, FindAlbumQueryVariables> =
             name
           }
         }
+        picCount
       }
     }
   `
@@ -118,6 +120,10 @@ export const Success = ({
     noClick: true, // Prevent opening dialog on click of the entire dropzone area
   })
 
+  const picCountLabel = (album: Album) => {
+    return album.picCount === 1 ? '1 pic' : `${album.picCount} pics`
+  }
+
   return (
     <>
       <Metadata
@@ -126,7 +132,12 @@ export const Success = ({
       />
 
       <div>
-        <h2 className="mb-4 text-xl font-bold">{album.name} Album</h2>
+        <h2 className="mb-4 text-xl font-bold">
+          {album.name} Album{' '}
+          <span className="text-sm text-purple-500">
+            {picCountLabel(album as Album)}
+          </span>
+        </h2>
         {album.pics.length === 0 ? (
           <div
             {...getRootProps()}

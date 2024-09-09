@@ -16,6 +16,7 @@ export const albums: AlbumsResolver = async () => {
     orderBy: { name: 'asc' },
     include: {
       pics: { orderBy: { createdAt: 'desc' } },
+      _count: { select: { pics: true } },
     },
   })
 
@@ -27,6 +28,7 @@ export const albums: AlbumsResolver = async () => {
           ...pic.withSignedUrl(),
         }
       }),
+      picCount: album._count.pics || 0,
     }
   })
 
@@ -38,6 +40,7 @@ export const album: AlbumResolver = async ({ id }) => {
     where: { id },
     include: {
       pics: { orderBy: { createdAt: 'desc' }, include: { album: true } },
+      _count: { select: { pics: true } },
     },
   })
 
@@ -50,6 +53,7 @@ export const album: AlbumResolver = async ({ id }) => {
   return {
     ...theAlbum,
     pics,
+    picCount: theAlbum?._count.pics || 0,
   }
 }
 
@@ -63,6 +67,51 @@ export const createAlbum: CreateAlbumResolver = async (
     data: { ...input, id: newId('album') },
     include: {
       pics: { orderBy: { createdAt: 'desc' } },
+      _count: { select: { pics: true } },
+    },
+  })
+
+  const keys = ['Query.albums']
+  liveQueryStore.invalidate(keys)
+
+  return {
+    ...theAlbum,
+    picCount: theAlbum?._count.pics || 0,
+  }
+}
+
+export const updateAlbum: UpdateAlbumResolver = async (
+  { id, input },
+  { context }
+) => {
+  const liveQueryStore = context.liveQueryStore as LiveQueryStorageMechanism
+
+  const theAlbum = await db.album.update({
+    data: input,
+    where: { id },
+    include: {
+      pics: { orderBy: { createdAt: 'desc' } },
+      _count: { select: { pics: true } },
+    },
+  })
+
+  const keys = [`Album:${theAlbum.id}`, 'Query.albums']
+  liveQueryStore.invalidate(keys)
+
+  return {
+    ...theAlbum,
+    picCount: theAlbum?._count.pics || 0,
+  }
+}
+
+export const deleteAlbum: DeleteAlbumResolver = async ({ id }, { context }) => {
+  const liveQueryStore = context.liveQueryStore as LiveQueryStorageMechanism
+
+  const theAlbum = await db.album.delete({
+    where: { id },
+    include: {
+      pics: { orderBy: { createdAt: 'desc' } },
+      _count: { select: { pics: true } },
     },
   })
 
@@ -70,20 +119,4 @@ export const createAlbum: CreateAlbumResolver = async (
   liveQueryStore.invalidate(keys)
 
   return theAlbum
-}
-
-export const updateAlbum: UpdateAlbumResolver = async ({ id, input }) => {
-  return await db.album.update({
-    data: input,
-    where: { id },
-    include: {
-      pics: { orderBy: { createdAt: 'desc' } },
-    },
-  })
-}
-
-export const deleteAlbum: DeleteAlbumResolver = async ({ id }) => {
-  return await db.album.delete({
-    where: { id },
-  })
 }
