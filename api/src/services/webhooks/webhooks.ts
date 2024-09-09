@@ -13,7 +13,12 @@ export const onBackgroundRemoved: OnBackgroundRemovedResolver = async (
   { input },
   { context }
 ) => {
-  const { id } = input
+  const { id, secret } = input
+
+  if (secret !== process.env.WEBHOOK_SECRET) {
+    logger.error('Invalid secret')
+    throw new ValidationError('Invalid secret')
+  }
 
   const liveQueryStore = context.liveQueryStore as LiveQueryStorageMechanism
 
@@ -45,7 +50,12 @@ export const onTagsCreated: OnTagsCreatedResolver = async (
   { input },
   { context }
 ) => {
-  const { id } = input
+  const { id, secret } = input
+
+  if (secret !== process.env.WEBHOOK_SECRET) {
+    logger.error('Invalid secret')
+    throw new ValidationError('Invalid secret')
+  }
 
   const liveQueryStore = context.liveQueryStore as LiveQueryStorageMechanism
 

@@ -1,10 +1,12 @@
 export const schema = gql`
   input OnBackgroundRemovedInput {
     id: ID!
+    secret: String!
   }
 
   input OnTagsCreatedInput {
     id: ID!
+    secret: String!
   }
 
   type Mutation {

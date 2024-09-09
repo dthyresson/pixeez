@@ -46,11 +46,13 @@ export interface Mutation {
 export interface OnBackgroundRemovedInput {
     __typename?: "OnBackgroundRemovedInput";
     id: ID;
+    secret: string;
 }
 
 export interface OnTagsCreatedInput {
     __typename?: "OnTagsCreatedInput";
     id: ID;
+    secret: string;
 }
 
 export interface PaginatedItems {

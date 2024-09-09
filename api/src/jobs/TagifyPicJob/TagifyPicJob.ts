@@ -64,6 +64,7 @@ export const TagifyPicJob = jobs.createJob({
           variables: {
             input: {
               id: picId,
+              secret: process.env.WEBHOOK_SECRET,
             },
           },
         }),
