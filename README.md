@@ -16,6 +16,7 @@ A tribute to [PicThing](https://pic.ping.gg/login)
 - [x] Dark mode support
 - [x] Rate limiting using [Unkey](https://unkey.com/)
 - [x] uuid generation using [The UX of UUIDs](https://www.unkey.com/blog/uuid-ux) pattern   from [Unkey](https://unkey.com/)
+-[x] custom generator templates for SDL Codegen and Cells with custom lifecycle components
 
 ## Technologies Used
 

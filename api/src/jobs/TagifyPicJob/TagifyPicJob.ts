@@ -3,6 +3,8 @@ import { jobs } from 'src/lib/jobs'
 import { tagify } from 'src/lib/langbase/tagify'
 import { newId } from 'src/lib/uuid'
 
+import { executeGraphQLQuery } from '../utils'
+
 /**
  * The TagifyPicJob is on the default queue to tagify the picture
  * its priority is higher than the describe job
@@ -56,37 +58,20 @@ export const TagifyPicJob = jobs.createJob({
         { picId },
         '>>>>>> Sending webhook to refresh tags live query for pic'
       )
-      const webhookResponse = await fetch(`http://localhost:8911/graphql`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          query: `
-          mutation OnTagsCreated($input: OnTagsCreatedInput!) {
-            onTagsCreated(input: $input) {
-              id
-            }
+      const query = `
+        mutation OnTagsCreated($input: OnTagsCreatedInput!) {
+          onTagsCreated(input: $input) {
+            id
           }
-        `,
-          variables: {
-            input: {
-              id: picId,
-              secret: process.env.WEBHOOK_SECRET,
-            },
-          },
-        }),
-      })
+        }
+      `
 
-      if (!webhookResponse.ok) {
-        jobs.logger.error({ picId, webhookResponse }, '>>>>>> Webhook failed')
+      try {
+        await executeGraphQLQuery({ query, inputVariables: { id: picId } })
+        jobs.logger.debug({ picId }, '>>>>>> Webhook sent')
+      } catch (error) {
+        jobs.logger.error({ picId, error }, '>>>>>> Webhook failed')
       }
-
-      jobs.logger.debug(
-        { picId, body: webhookResponse.body },
-        '>>>>>> Webhook sent'
-      )
 
       jobs.logger.info({ picId }, 'TagifyPicJob done!')
     } catch (error) {
