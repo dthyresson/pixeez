@@ -16,7 +16,7 @@ Instead of toggling the background removal on and off, I made it so you can down
 
 We have automatic image tagging using [Langbase](https://langbase.com/) [tagify-image-description PIPE](https://langbase.com/dthyresson/tagify-image-description) and based on a generated description via [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption).
 
-We have automatic image tagging using [Langbase](https://langbase.com/) [PIPE]() and  based on a generated description via [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption).
+We have automatic image tagging using [Langbase](https://langbase.com/) [tagify-image-description PIPE](https://langbase.com/dthyresson/tagify-image-description) and based on a generated description via [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption).
 
 There's currently no user management or photos associated with the account. It can't copy paste yet either -- but it can download.
 
