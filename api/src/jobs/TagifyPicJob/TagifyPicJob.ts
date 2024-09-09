@@ -1,9 +1,8 @@
+import { executeGraphQLWebhook, OnTagsCreatedWebhook } from 'src/jobs/webhooks'
 import { db } from 'src/lib/db'
 import { jobs } from 'src/lib/jobs'
 import { tagify } from 'src/lib/langbase/tagify'
 import { newId } from 'src/lib/uuid'
-
-import { executeGraphQLQuery } from '../utils'
 
 /**
  * The TagifyPicJob is on the default queue to tagify the picture
@@ -54,15 +53,10 @@ export const TagifyPicJob = jobs.createJob({
       })
 
       // send webhook to refresh tags live query for pic
-      const query = `
-        mutation OnTagsCreated($input: OnTagsCreatedInput!) {
-          onTagsCreated(input: $input) {
-            id
-          }
-        }
-      `
-
-      await executeGraphQLQuery({ query, inputVariables: { id: picId } })
+      await executeGraphQLWebhook({
+        query: OnTagsCreatedWebhook,
+        inputVariables: { id: picId },
+      })
 
       jobs.logger.info({ picId }, 'TagifyPicJob done!')
     } catch (error) {

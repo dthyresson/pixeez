@@ -1,8 +1,10 @@
+import {
+  executeGraphQLWebhook,
+  OnBackgroundRemovedWebhook,
+} from 'src/jobs/webhooks'
 import { db } from 'src/lib/db'
 import { removeBackground } from 'src/lib/fal/removeBackground'
 import { jobs } from 'src/lib/jobs'
-
-import { executeGraphQLQuery } from '../utils'
 
 /**
  * The RemoveImageBackgroundJob is critical because it performs the main background removal
@@ -45,15 +47,10 @@ export const RemoveImageBackgroundJob = jobs.createJob({
     jobs.logger.debug({ picId }, 'Pic updated!')
 
     // send webhook to refresh album live query for pics
-    const query = `
-          mutation OnBackgroundRemoved($input: OnBackgroundRemovedInput!) {
-            onBackgroundRemoved(input: $input) {
-              id
-            }
-          }
-      `
-
-    await executeGraphQLQuery({ query, inputVariables: { id: picId } })
+    await executeGraphQLWebhook({
+      query: OnBackgroundRemovedWebhook,
+      inputVariables: { id: picId },
+    })
 
     jobs.logger.info({ picId }, 'RemoveImageBackgroundJob done!')
   },

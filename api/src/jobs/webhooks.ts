@@ -1,6 +1,22 @@
 import { jobs } from 'src/lib/jobs'
 
-export const executeGraphQLQuery = async ({
+export const OnBackgroundRemovedWebhook = `
+  mutation OnBackgroundRemoved($input: OnBackgroundRemovedInput!) {
+    onBackgroundRemoved(input: $input) {
+      id
+    }
+  }
+`
+
+export const OnTagsCreatedWebhook = `
+mutation OnTagsCreated($input: OnTagsCreatedInput!) {
+  onTagsCreated(input: $input) {
+    id
+  }
+}
+`
+
+export const executeGraphQLWebhook = async ({
   query,
   inputVariables,
 }: {
