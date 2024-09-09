@@ -1,10 +1,10 @@
 export const schema = gql`
   type Pic {
-    id: String!
+    id: ID!
     createdAt: DateTime!
     updatedAt: DateTime!
     album: Album!
-    albumId: String!
+    albumId: ID!
     original: String!
     withoutBackground: String
     width: Int
@@ -17,21 +17,21 @@ export const schema = gql`
 
   type Query {
     pics: [Pic!]! @requireAuth
-    pic(id: String!): Pic @requireAuth
+    pic(id: ID!): Pic @requireAuth
   }
 
   input CreatePicInput {
-    albumId: String!
+    albumId: ID!
     original: File!
   }
 
   input CreatePicsInput {
-    albumId: String!
+    albumId: ID!
     originals: [File!]!
   }
 
   input UpdatePicInput {
-    albumId: String
+    albumId: ID
     original: File
   }
 
@@ -40,7 +40,7 @@ export const schema = gql`
       @rateLimited(identifier: "createPic")
     createPics(input: CreatePicsInput!): [Pic!]!
       @rateLimited(identifier: "createPics")
-    updatePic(id: String!, input: UpdatePicInput!): Pic! @blocked
-    deletePic(id: String!): Pic! @blocked
+    updatePic(id: ID!, input: UpdatePicInput!): Pic! @blocked
+    deletePic(id: ID!): Pic! @blocked
   }
 `

@@ -1,6 +1,6 @@
 export const schema = gql`
   type Tag {
-    id: String!
+    id: ID!
     createdAt: DateTime!
     updatedAt: DateTime!
     name: String!
@@ -9,7 +9,7 @@ export const schema = gql`
 
   type Query {
     tags: [Tag!]! @requireAuth
-    tag(id: String!): Tag @requireAuth
+    tag(id: ID!): Tag @requireAuth
   }
 
   input CreateTagInput {
@@ -22,7 +22,7 @@ export const schema = gql`
 
   type Mutation {
     createTag(input: CreateTagInput!): Tag! @blocked
-    updateTag(id: String!, input: UpdateTagInput!): Tag! @blocked
-    deleteTag(id: String!): Tag! @blocked
+    updateTag(id: ID!, input: UpdateTagInput!): Tag! @blocked
+    deleteTag(id: ID!): Tag! @blocked
   }
 `

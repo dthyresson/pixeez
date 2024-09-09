@@ -10,9 +10,9 @@ export interface PicsResolver {
     (args?: object, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTPic[]>;
 }
 
-/** SDL: pic(id: String!): Pic */
+/** SDL: pic(id: ID!): Pic */
 export interface PicResolver {
-    (args: {id: string}, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTPic| null>;
+    (args: {id: ID}, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTPic| null>;
 }
 
 /** SDL: createPic(input: CreatePicInput!): Pic! */
@@ -25,12 +25,14 @@ export interface CreatePicsResolver {
     (args: {input: CreatePicsInput}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTPic[]>;
 }
 
-/** SDL: updatePic(id: String!, input: UpdatePicInput!): Pic! */
+/** SDL: updatePic(id: ID!, input: UpdatePicInput!): Pic! */
 export interface UpdatePicResolver {
-    (args: {id: string, input: UpdatePicInput}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTPic>;
+    (args: {id: ID, input: UpdatePicInput}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTPic>;
 }
 
-/** SDL: deletePic(id: String!): Pic! */
+/** SDL: deletePic(id: ID!): Pic! */
 export interface DeletePicResolver {
-    (args: {id: string}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTPic>;
+    (args: {id: ID}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTPic>;
 }
+
+type ID = any;

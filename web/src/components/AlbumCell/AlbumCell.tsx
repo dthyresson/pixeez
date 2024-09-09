@@ -37,13 +37,12 @@ const MAX_FILES = 20
 export const beforeQuery = (props: FindAlbumQueryVariables) => {
   return {
     variables: props,
-    pollInterval: 2_000,
   }
 }
 
 export const QUERY: TypedDocumentNode<FindAlbumQuery, FindAlbumQueryVariables> =
   gql`
-    query FindAlbumQuery($id: String!) {
+    query FindAlbumQuery($id: ID!) @live {
       album: album(id: $id) {
         id
         name

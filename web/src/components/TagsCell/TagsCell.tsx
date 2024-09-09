@@ -15,12 +15,11 @@ import { LoadingState } from 'src/components/CellStates/LoadingState'
 export const beforeQuery = (props: TagsQueryVariables) => {
   return {
     variables: props,
-    pollInterval: 10_000,
   }
 }
 
 export const QUERY: TypedDocumentNode<TagsQuery, TagsQueryVariables> = gql`
-  query TagsQuery {
+  query TagsQuery @live {
     tags {
       id
       name

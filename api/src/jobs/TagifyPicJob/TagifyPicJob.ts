@@ -45,6 +45,39 @@ export const TagifyPicJob = jobs.createJob({
         })
       })
 
+      // send webhook
+      jobs.logger.debug({ picId }, '>>>>>> Sending webhook')
+      const webhookResponse = await fetch(`http://localhost:8911/graphql`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          query: `
+          mutation OnTagsCreated($input: OnTagsCreatedInput!) {
+            onTagsCreated(input: $input) {
+              id
+            }
+          }
+        `,
+          variables: {
+            input: {
+              id: picId,
+            },
+          },
+        }),
+      })
+
+      if (!webhookResponse.ok) {
+        jobs.logger.error({ picId, webhookResponse }, '>>>>>> Webhook failed')
+      }
+
+      jobs.logger.debug(
+        { picId, body: webhookResponse.body },
+        '>>>>>> Webhook sent'
+      )
+
       jobs.logger.info({ picId }, 'TagifyPicJob done!')
     } catch (error) {
       jobs.logger.error({ picId, error }, 'TagifyPicJob error')

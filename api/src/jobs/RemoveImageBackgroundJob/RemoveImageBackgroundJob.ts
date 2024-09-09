@@ -37,6 +37,39 @@ export const RemoveImageBackgroundJob = jobs.createJob({
       },
     })
 
+    // send webhook
+    jobs.logger.debug({ picId }, '>>>>>> Sending webhook')
+    const webhookResponse = await fetch(`http://localhost:8911/graphql`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        query: `
+          mutation OnBackgroundRemoved($input: OnBackgroundRemovedInput!) {
+            onBackgroundRemoved(input: $input) {
+              id
+            }
+          }
+        `,
+        variables: {
+          input: {
+            id: picId,
+          },
+        },
+      }),
+    })
+
+    if (!webhookResponse.ok) {
+      jobs.logger.error({ picId, webhookResponse }, '>>>>>> Webhook failed')
+    }
+
+    jobs.logger.debug(
+      { picId, body: webhookResponse.body },
+      '>>>>>> Webhook sent'
+    )
+
     jobs.logger.debug({ picId }, 'Pic updated!')
     jobs.logger.info({ picId }, 'RemoveImageBackgroundJob done!')
   },

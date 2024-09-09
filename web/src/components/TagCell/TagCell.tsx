@@ -14,7 +14,7 @@ import { PicsGrid } from 'src/components/Pics/PicsGrid'
 
 export const QUERY: TypedDocumentNode<FindTagQuery, FindTagQueryVariables> =
   gql`
-    query FindTagQuery($id: String!) {
+    query FindTagQuery($id: ID!) @live {
       tag: tag(id: $id) {
         id
         name

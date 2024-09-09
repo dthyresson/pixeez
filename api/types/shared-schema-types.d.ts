@@ -1,6 +1,6 @@
 export interface Album {
     __typename?: "Album";
-    id: string;
+    id: ID;
     name: string;
     pics: Array<Pic>;
 }
@@ -12,13 +12,13 @@ export interface CreateAlbumInput {
 
 export interface CreatePicInput {
     __typename?: "CreatePicInput";
-    albumId: string;
+    albumId: ID;
     original: File;
 }
 
 export interface CreatePicsInput {
     __typename?: "CreatePicsInput";
-    albumId: string;
+    albumId: ID;
     originals: File[];
 }
 
@@ -36,9 +36,21 @@ export interface Mutation {
     deleteAlbum: Album;
     deletePic: Pic;
     deleteTag: Tag;
+    onBackgroundRemoved: Pic;
+    onTagsCreated: Pic;
     updateAlbum: Album;
     updatePic: Pic;
     updateTag: Tag;
+}
+
+export interface OnBackgroundRemovedInput {
+    __typename?: "OnBackgroundRemovedInput";
+    id: ID;
+}
+
+export interface OnTagsCreatedInput {
+    __typename?: "OnTagsCreatedInput";
+    id: ID;
 }
 
 export interface PaginatedItems {
@@ -59,13 +71,13 @@ export interface PaginatedPics {
 export interface Pic {
     __typename?: "Pic";
     album: Album;
-    albumId: string;
+    albumId: ID;
     createdAt: DateTime;
     description?: string| null;
     exif?: string| null;
     format?: string| null;
     height?: number| null;
-    id: string;
+    id: ID;
     original: string;
     tags: Tag[];
     updatedAt: DateTime;
@@ -95,7 +107,7 @@ export interface Redwood {
 export interface Tag {
     __typename?: "Tag";
     createdAt: DateTime;
-    id: string;
+    id: ID;
     name: string;
     pics: Array<Pic>;
     updatedAt: DateTime;
@@ -108,7 +120,7 @@ export interface UpdateAlbumInput {
 
 export interface UpdatePicInput {
     __typename?: "UpdatePicInput";
-    albumId?: string| null;
+    albumId?: ID| null;
     original?: File| null;
 }
 
@@ -117,6 +129,7 @@ export interface UpdateTagInput {
     name?: string| null;
 }
 
+type ID = any;
 type File = any;
 type DateTime = any;
 type JSON = any;

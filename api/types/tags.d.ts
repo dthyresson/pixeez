@@ -10,9 +10,9 @@ export interface TagsResolver {
     (args?: object, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTTag[]>;
 }
 
-/** SDL: tag(id: String!): Tag */
+/** SDL: tag(id: ID!): Tag */
 export interface TagResolver {
-    (args: {id: string}, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTTag| null>;
+    (args: {id: ID}, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTTag| null>;
 }
 
 /** SDL: createTag(input: CreateTagInput!): Tag! */
@@ -20,12 +20,14 @@ export interface CreateTagResolver {
     (args: {input: CreateTagInput}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTTag>;
 }
 
-/** SDL: updateTag(id: String!, input: UpdateTagInput!): Tag! */
+/** SDL: updateTag(id: ID!, input: UpdateTagInput!): Tag! */
 export interface UpdateTagResolver {
-    (args: {id: string, input: UpdateTagInput}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTTag>;
+    (args: {id: ID, input: UpdateTagInput}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTTag>;
 }
 
-/** SDL: deleteTag(id: String!): Tag! */
+/** SDL: deleteTag(id: ID!): Tag! */
 export interface DeleteTagResolver {
-    (args: {id: string}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTTag>;
+    (args: {id: ID}, obj?: { root: Mutation, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTTag>;
 }
+
+type ID = any;
