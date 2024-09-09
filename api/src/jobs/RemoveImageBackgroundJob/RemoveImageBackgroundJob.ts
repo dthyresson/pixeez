@@ -37,8 +37,11 @@ export const RemoveImageBackgroundJob = jobs.createJob({
       },
     })
 
-    // send webhook
-    jobs.logger.debug({ picId }, '>>>>>> Sending webhook')
+    // send webhook to refresh album live query for pics
+    jobs.logger.debug(
+      { picId },
+      '>>>>>> Sending webhook to refresh album live query for pic'
+    )
     const webhookResponse = await fetch(`http://localhost:8911/graphql`, {
       method: 'POST',
       headers: {

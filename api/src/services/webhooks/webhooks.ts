@@ -74,18 +74,13 @@ export const onTagsCreated: OnTagsCreatedResolver = async (
     throw new ValidationError('Pic not found')
   }
 
-  const tags = pic.tags
-
-  if (!tags) {
-    logger.error({ id }, 'Tags not found')
-    return
-  }
+  const { tags = [] } = pic
 
   const key = 'Query.tags'
 
   liveQueryStore.invalidate(key)
 
-  logger.info({ id, key, tags }, 'Tags invalidated')
+  logger.info({ id, key, tagsCount: tags.length }, 'Tags invalidated')
 
   return pic
 }

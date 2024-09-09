@@ -30,6 +30,7 @@ export const TagifyPicJob = jobs.createJob({
         jobs.logger.warn({ picId }, 'No tags to connect or create')
       }
 
+      // connect or create tags
       tags.forEach(async (tag) => {
         jobs.logger.debug({ picId, tag }, 'Connecting or creating tag')
         await db.pic.update({
@@ -45,8 +46,11 @@ export const TagifyPicJob = jobs.createJob({
         })
       })
 
-      // send webhook
-      jobs.logger.debug({ picId }, '>>>>>> Sending webhook')
+      // send webhook to refresh tags live query for pic
+      jobs.logger.debug(
+        { picId },
+        '>>>>>> Sending webhook to refresh tags live query for pic'
+      )
       const webhookResponse = await fetch(`http://localhost:8911/graphql`, {
         method: 'POST',
         headers: {
