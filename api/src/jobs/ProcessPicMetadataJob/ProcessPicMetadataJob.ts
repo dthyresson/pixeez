@@ -6,10 +6,12 @@ import { jobs } from 'src/lib/jobs'
 import { logger } from 'src/lib/logger'
 import { fsStorage } from 'src/lib/storage'
 
-// this job is on the default queue
-// to process the picture metadata
-// its priority is low because the metadata
-// isn't needed right away
+/**
+ * The ProcessPicMetadataJob is on the default queue
+ * to process the picture metadata
+ * its priority is low because the metadata
+ * isn't needed right away
+ */
 export const ProcessPicMetadataJob = jobs.createJob({
   queue: 'default',
   priority: 30,

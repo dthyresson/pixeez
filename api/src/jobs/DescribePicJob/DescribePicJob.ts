@@ -3,8 +3,10 @@ import { db } from 'src/lib/db'
 import { describeImage } from 'src/lib/fal/describeImage'
 import { jobs, later } from 'src/lib/jobs'
 
-// this job is on the default queue
-// to describe the picture and then qu
+/**
+ * The DescribePicJob is on the default queue
+ * to describe the picture and then queue the TagifyPicJob
+ */
 export const DescribePicJob = jobs.createJob({
   queue: 'default',
   priority: 20,

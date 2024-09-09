@@ -3,8 +3,10 @@ import { ProcessPicMetadataJob } from 'src/jobs/ProcessPicMetadataJob/ProcessPic
 import { RemoveImageBackgroundJob } from 'src/jobs/RemoveImageBackgroundJob/RemoveImageBackgroundJob'
 import { jobs, later } from 'src/lib/jobs'
 
-// this job is critical because it is the first job that is performed on a pic
-// and it fans out to other jobs that are required to fully process a pic
+/**
+ * The CreatePicFanOutJob is critical because it is the first job that is performed on a pic
+ * and it fans out to other jobs that are required to fully process a pic
+ */
 export const CreatePicFanOutJob = jobs.createJob({
   queue: 'critical',
   priority: 10,
