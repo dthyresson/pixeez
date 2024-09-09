@@ -66,8 +66,8 @@ export const createAlbum: CreateAlbumResolver = async (
     },
   })
 
-  const key = `Album:${theAlbum.id}`
-  liveQueryStore.invalidate(key)
+  const keys = [`Album:${theAlbum.id}`, 'Query.albums']
+  liveQueryStore.invalidate(keys)
 
   return theAlbum
 }

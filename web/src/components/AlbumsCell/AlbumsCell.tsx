@@ -23,7 +23,7 @@ export const QUERY: TypedDocumentNode<
   FindAlbumsQuery,
   FindAlbumsQueryVariables
 > = gql`
-  query FindAlbumsQuery {
+  query FindAlbumsQuery @live {
     albums {
       id
       name
