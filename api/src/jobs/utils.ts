@@ -7,6 +7,8 @@ export const executeGraphQLQuery = async ({
   query: string
   inputVariables: Record<string, string>
 }) => {
+  jobs.logger.debug({ query, inputVariables }, '>>>>>> Executing GraphQL query')
+
   const response = await fetch(process.env.GRAPHQL_API_URL, {
     method: 'POST',
     headers: {
@@ -29,5 +31,7 @@ export const executeGraphQLQuery = async ({
     throw new Error('GraphQL query failed')
   }
 
-  return response.json()
+  jobs.logger.debug({ status: response.status }, 'GraphQL query done')
+
+  return
 }

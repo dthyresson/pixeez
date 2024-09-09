@@ -54,10 +54,6 @@ export const TagifyPicJob = jobs.createJob({
       })
 
       // send webhook to refresh tags live query for pic
-      jobs.logger.debug(
-        { picId },
-        '>>>>>> Sending webhook to refresh tags live query for pic'
-      )
       const query = `
         mutation OnTagsCreated($input: OnTagsCreatedInput!) {
           onTagsCreated(input: $input) {
@@ -66,12 +62,7 @@ export const TagifyPicJob = jobs.createJob({
         }
       `
 
-      try {
-        await executeGraphQLQuery({ query, inputVariables: { id: picId } })
-        jobs.logger.debug({ picId }, '>>>>>> Webhook sent')
-      } catch (error) {
-        jobs.logger.error({ picId, error }, '>>>>>> Webhook failed')
-      }
+      await executeGraphQLQuery({ query, inputVariables: { id: picId } })
 
       jobs.logger.info({ picId }, 'TagifyPicJob done!')
     } catch (error) {

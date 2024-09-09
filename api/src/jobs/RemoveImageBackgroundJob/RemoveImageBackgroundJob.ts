@@ -42,15 +42,10 @@ export const RemoveImageBackgroundJob = jobs.createJob({
         withoutBackground,
       },
     })
+    jobs.logger.debug({ picId }, 'Pic updated!')
 
     // send webhook to refresh album live query for pics
-    jobs.logger.debug(
-      { picId },
-      '>>>>>> Sending webhook to refresh album live query for pic'
-    )
-
-    try {
-      const query = `
+    const query = `
           mutation OnBackgroundRemoved($input: OnBackgroundRemovedInput!) {
             onBackgroundRemoved(input: $input) {
               id
@@ -58,13 +53,8 @@ export const RemoveImageBackgroundJob = jobs.createJob({
           }
       `
 
-      await executeGraphQLQuery({ query, inputVariables: { id: picId } })
-      jobs.logger.debug({ picId }, '>>>>>> Webhook sent')
-    } catch (error) {
-      jobs.logger.error({ picId, error }, '>>>>>> Webhook failed')
-    }
+    await executeGraphQLQuery({ query, inputVariables: { id: picId } })
 
-    jobs.logger.debug({ picId }, 'Pic updated!')
     jobs.logger.info({ picId }, 'RemoveImageBackgroundJob done!')
   },
 })
