@@ -11,6 +11,7 @@ A tribute to [PicThing](https://pic.ping.gg/login)
   - Background removal using [birefnet on fal.ai](https://fal.ai/models/fal-ai/birefnet)
   - Image description using [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption)
   - Automatic image tagging using [Langbase](https://www.langbase.com/)
+- [x] Real-time live query updates for processed images and tags
 - [x] Search functionality with pagination
 - [x] Dark mode support
 - [x] Rate limiting using [Unkey](https://unkey.com/)
@@ -83,9 +84,16 @@ graph TD
     H --> I[Tag Image Job]
 
     F --> J[Update Pic with removed background]
-    G --> K[Update Pic with metadata]
-    H --> L[Update Pic with description]
-    I --> M[Update Pic with tags]
+    J --> K[Send onBackgroundRemoved webhook]
+    K --> L[Invalidate Album live query]
+
+    G --> M[Update Pic with metadata]
+
+    H --> N[Update Pic with description]
+
+    I --> O[Update Pic with tags]
+    O --> P[Send onTagsCreated webhook]
+    P --> Q[Invalidate Tags live query]
 ```
 
 This diagram illustrates the flow from image upload to the completion of all background jobs. Here's a brief explanation of each step:
@@ -107,7 +115,6 @@ This flow diagram provides a clear visual representation of the image processing
 ## TODO (maybe)
 
 - [ ] Implement user authentication and authorization
-- [ ] Implement real-time updates for processed images
 - [ ] Copy to clipboard button for image data
 - [ ] Add more advanced image editing features
 

@@ -64,6 +64,7 @@ const AboutPage = () => {
             </li>
           </ul>
         </li>
+        <li>Real-time live query updates for processed images and tags</li>
         <li>Search functionality with pagination</li>
         <li>Dark mode support</li>
         <li>Rate limiting using [Unkey](https://unkey.com/)</li>
