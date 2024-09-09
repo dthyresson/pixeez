@@ -2,6 +2,8 @@ import { db } from 'src/lib/db'
 import { removeBackground } from 'src/lib/fal/removeBackground'
 import { jobs } from 'src/lib/jobs'
 
+// this job is critical because it performs the main background removal
+// its priority is slightly higher that the main fan out job
 export const RemoveImageBackgroundJob = jobs.createJob({
   queue: 'critical',
   priority: 20,

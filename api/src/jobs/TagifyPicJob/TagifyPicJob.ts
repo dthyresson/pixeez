@@ -3,9 +3,12 @@ import { jobs } from 'src/lib/jobs'
 import { tagify } from 'src/lib/langbase/tagify'
 import { newId } from 'src/lib/uuid'
 
+// this job is on the default queue to tagify the picture
+// its priority is higher than the describe job
+// so it can compete before another describe job is performed on a different pic
 export const TagifyPicJob = jobs.createJob({
   queue: 'default',
-  priority: 30,
+  priority: 10,
   perform: async (picId: string) => {
     try {
       jobs.logger.info({ picId }, 'TagifyPicJob is performing...')

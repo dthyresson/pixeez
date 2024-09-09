@@ -3,9 +3,11 @@ import { db } from 'src/lib/db'
 import { describeImage } from 'src/lib/fal/describeImage'
 import { jobs, later } from 'src/lib/jobs'
 
+// this job is on the default queue
+// to describe the picture and then qu
 export const DescribePicJob = jobs.createJob({
   queue: 'default',
-  priority: 10,
+  priority: 20,
   perform: async (picId: string) => {
     jobs.logger.info({ picId }, 'DescribePicJob is performing...')
     const pic = await db.pic.findUnique({
