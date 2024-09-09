@@ -43,13 +43,37 @@ const NavBar = () => {
 
 const Footer = () => {
   return (
-    <footer className="container mx-auto mt-8 border-t border-neutral-200 p-4 dark:border-neutral-800">
+    <footer className="container mx-auto mt-8 border-t border-purple-200 p-4 dark:border-neutral-800">
       <div className="flex justify-between gap-2">
         <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          Made with ❤️ by <a href="https://www.thyresson.io">DT</a>
+          Made with 💜 by{' '}
+          <a
+            href="https://www.thyresson.io"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-purple-500"
+          >
+            DT
+          </a>{' '}
+          with 🌲{' '}
+          <a
+            href="https://redwoodjs.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-purple-500"
+          >
+            RedwoodJS
+          </a>
         </p>
         <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          <a href="https://github.com/dthyresson/pic-thang">View on GitHub</a>
+          <a
+            href="https://github.com/dthyresson/pic-thang"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-purple-500"
+          >
+            View on GitHub
+          </a>
         </p>
       </div>
     </footer>
@@ -58,7 +82,7 @@ const Footer = () => {
 
 const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <div className="flex min-h-screen flex-col dark:bg-black dark:text-white">
+    <div className="flex min-h-screen flex-col border-t-4 border-purple-600 dark:bg-black dark:text-white">
       <Toaster />
       <div className="container mx-auto flex-grow px-8 pt-4">
         <NavBar />
