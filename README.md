@@ -36,7 +36,7 @@ That said, it has a great set features and showcases the power of RedwoodJS for 
 - [x] Download background removed image via function
 - [x] Dark mode support
 - [x] Rate limiting using [Unkey](https://unkey.com/)
-- [x] uuid generation using [The UX of UUIDs](https://www.unkey.com/blog/uuid-ux) pattern   from [Unkey](https://unkey.com/)
+- [x] uuid generation using [The UX of UUIDs](https://www.unkey.com/blog/uuid-ux) pattern from [Unkey](https://unkey.com/)
 - [x] custom generator templates for SDL Codegen and Cells with custom lifecycle components
 - [x] QR code on server startup for easy mobile app access
 - [x] About page generation script `about.ts` with project README details with flow diagram
