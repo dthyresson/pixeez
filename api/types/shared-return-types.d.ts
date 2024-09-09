@@ -9,6 +9,12 @@ import type { Album as PAlbum, Pic as PPic, Tag as PTag } from "@prisma/client";
 
 // This gets particularly valuable when you want to return a union type, an interface, 
 // or a model where the prisma model is nested pretty deeply (GraphQL connections, for example.)
+export interface Albums {
+    __typename?: "Albums";
+    albumCount: number;
+    albums: PAlbum[];
+}
+
 export interface CreateAlbumInput {
     __typename?: "CreateAlbumInput";
     name: string;
@@ -77,7 +83,7 @@ export interface PaginatedPics {
 export interface Query {
     __typename?: "Query";
     album?: PAlbum| null;
-    albums: PAlbum[];
+    albums: Albums;
     pic?: PPic| null;
     pics: PPic[];
     redwood?: Redwood| null;

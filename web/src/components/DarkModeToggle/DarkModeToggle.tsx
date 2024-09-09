@@ -20,7 +20,7 @@ const DarkModeToggle = () => {
   return (
     <button
       onClick={toggleDarkMode}
-      className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-300 dark:hover:bg-neutral-400"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-300 text-lg hover:bg-neutral-400 dark:bg-neutral-300 dark:hover:bg-neutral-400"
     >
       {isDarkMode ? (
         <MoonIcon className="h-4 w-4 text-purple-600" />

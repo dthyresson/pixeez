@@ -19,7 +19,7 @@ const NavBar = () => {
       <Link to={routes.albums()}>
         <h1 className="text-3xl font-bold">
           <span className="text-purple-600">pic</span>
-          <span className="text-neutral-300 dark:text-white">thang</span>
+          <span className="text-neutral-400 dark:text-white">thang</span>
         </h1>
       </Link>
       <div className="flex items-center gap-4">

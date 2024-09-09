@@ -26,10 +26,13 @@ export const QUERY: TypedDocumentNode<
   FindAlbumsQueryVariables
 > = gql`
   query FindAlbumsQuery @live {
-    albums {
-      id
-      name
-      picCount
+    albumsWithCount: albums {
+      albums {
+        id
+        name
+        picCount
+      }
+      albumCount
     }
   }
 `
@@ -87,7 +90,9 @@ const CreateAlbumForm = ({ onSubmit, error }) => {
   )
 }
 
-export const Success = ({ albums }: CellSuccessProps<FindAlbumsQuery>) => {
+export const Success = ({
+  albumsWithCount,
+}: CellSuccessProps<FindAlbumsQuery>) => {
   const [error, setError] = useState('')
 
   const [createAlbum] = useMutation(CREATE_ALBUM_MUTATION, {
@@ -116,8 +121,17 @@ export const Success = ({ albums }: CellSuccessProps<FindAlbumsQuery>) => {
     return album.picCount === 1 ? '1 pic' : `${album.picCount} pics`
   }
 
+  const { albums } = albumsWithCount
+
   return (
     <div className="space-y-8">
+      <h2 className="mb-4 text-xl font-bold">
+        Albums{' '}
+        <span className="text-sm text-purple-500">
+          {albumsWithCount.albumCount} of them
+        </span>
+      </h2>
+
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {albums.map((album) => (
           <Link to={routes.album({ id: album.id })} key={album.id}>

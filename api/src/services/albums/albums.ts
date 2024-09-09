@@ -20,7 +20,7 @@ export const albums: AlbumsResolver = async () => {
     },
   })
 
-  const albums = theAlbums.map((album) => {
+  const withPics = theAlbums.map((album) => {
     return {
       ...album,
       pics: album.pics.map((pic) => {
@@ -32,7 +32,10 @@ export const albums: AlbumsResolver = async () => {
     }
   })
 
-  return albums
+  return {
+    albums: withPics,
+    albumCount: withPics.length,
+  }
 }
 
 export const album: AlbumResolver = async ({ id }) => {

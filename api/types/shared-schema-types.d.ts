@@ -6,6 +6,12 @@ export interface Album {
     pics: Array<Pic>;
 }
 
+export interface Albums {
+    __typename?: "Albums";
+    albumCount: number;
+    albums: Album[];
+}
+
 export interface CreateAlbumInput {
     __typename?: "CreateAlbumInput";
     name: string;
@@ -91,7 +97,7 @@ export interface Pic {
 export interface Query {
     __typename?: "Query";
     album?: Album| null;
-    albums: Album[];
+    albums: Albums;
     pic?: Pic| null;
     pics: Pic[];
     redwood?: Redwood| null;

@@ -77,7 +77,7 @@ const SearchPage = () => {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="mr-2 rounded border p-2 dark:bg-gray-800 dark:text-white"
+          className="mr-2 rounded border p-2 ring-purple-500 focus:ring-2 dark:bg-gray-800 dark:text-white"
           placeholder="Search images ..."
         />
         <button

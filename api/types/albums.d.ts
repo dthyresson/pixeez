@@ -2,12 +2,12 @@ import type { GraphQLResolveInfo } from "graphql";
 
 import type { RedwoodGraphQLContext } from "@redwoodjs/graphql-server/dist/types";
 
-import type { Album as RTAlbum } from "./shared-return-types";
+import type { Albums as RTAlbums, Album as RTAlbum } from "./shared-return-types";
 import type { CreateAlbumInput, UpdateAlbumInput, Query, Mutation } from "./shared-schema-types";
 
-/** SDL: albums: [Album!]! */
+/** SDL: albums: Albums! */
 export interface AlbumsResolver {
-    (args?: object, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbum[]>;
+    (args?: object, obj?: { root: Query, context: RedwoodGraphQLContext, info: GraphQLResolveInfo }): Promise<RTAlbums>;
 }
 
 /** SDL: album(id: ID!): Album */

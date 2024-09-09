@@ -6,8 +6,13 @@ export const schema = gql`
     picCount: Int!
   }
 
+  type Albums {
+    albums: [Album!]!
+    albumCount: Int!
+  }
+
   type Query {
-    albums: [Album!]! @requireAuth
+    albums: Albums! @requireAuth
     album(id: ID!): Album @requireAuth
   }
 
