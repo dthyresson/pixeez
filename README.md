@@ -1,6 +1,18 @@
 # PicThang
 
-A tribute to [PicThing](https://pic.ping.gg/login)
+A tribute to [PicThing](https://pic.ping.gg/login) by [Ping](https://ping.gg) and [Theo](https://t3.gg). Watch [video about PicThing](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbFBrR1pKLXJqSV93eFVwbjduZ3YzRkVRYmd0d3xBQ3Jtc0tuZ3pjWWxCUU8xYzhxd2M3N1g2eXZYdEM4WkYwWlBWNFVGUlZJMjAyQUxFZ2w3Q3lpQUFIYUx3RHlRRHdQNE1yMEVtTHEwODJBalo2YXJDTFY4MnRHd0ZEVlpwWEVwZXNaSEhtNlF6M3NhRkcwSVYtOA&q=https%3A%2F%2Ft3.gg%2F&v=x5hsXlqScYo) to see how it works.
+
+Note:
+
+This project isn't meant to be a clone or a direct replacement for PicThing. When the video came out, RedwoodJS had just launched [Background Jobs](https://docs.redwoodjs.com/docs/background-jobs) and an upcoming Storage/Upload feature is in canary. We need a proper app to put these through its paces and PicThing inspired me to see if RedwoodJS could do it.
+
+Spoiler: It can! 😀
+
+Is this project different? Yes. The background removal is done  using [birefnet on fal.ai](https://fal.ai/models/fal-ai/birefnet) and there is no image CDN and isn't as fast (but still pretty fast given the processing is done in background jobs).
+
+Automatic image tagging is done using [Langbase](https://langbase.com/) having generated a description first via [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption). There's currently no user management or photos associated with the account. It can't copy paste yet either -- but it can download.
+
+That said, it has a great set features and showcases the power of RedwoodJS for Jobs, Storage, Uploads, GraphQL, Realtime, and more.
 
 ## Features
 
@@ -112,8 +124,8 @@ This diagram illustrates the flow from image upload to the completion of all bac
 2. The `createPic` mutation is called
 3. The image is saved to storage
 4. A new Pic record is created in the database
-5. The CreatePicFanOutJob is enqueued
-6. Three jobs are enqueued by the CreatePicFanOutJob:
+5. The `CreatePicFanOutJob` is enqueued
+6. Three jobs are enqueued by the `CreatePicFanOutJob`:
    - Remove Background Job
    - Describe Pic Job
    - Extract Metadata Job

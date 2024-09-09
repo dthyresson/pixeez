@@ -31,6 +31,7 @@ const AboutPage = () => {
             ul: ({ node, ...props }) => <ul className="list-disc pl-5 my-4" {...props} />,
             ol: ({ node, ...props }) => <ol className="list-decimal pl-5 my-4" {...props} />,
             p: ({ node, ...props }) => <p className="my-4" {...props} />,
+            a: ({ node, ...props }) => <a className="text-purple-600 dark:text-purple-400 underline hover:text-purple-500 dark:hover:text-purple-300" {...props} />,
             code: ({ node, inline, className, children, ...props }) => {
               const match = /language-(\\w+)/.exec(className || '')
               if (!inline && match && match[1] === 'mermaid') {
