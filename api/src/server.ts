@@ -1,5 +1,6 @@
 import { networkInterfaces } from 'os'
 
+import chalk from 'chalk'
 import qrcode from 'qrcode-terminal'
 
 import { createServer } from '@redwoodjs/api-server'
@@ -24,11 +25,14 @@ const showQRCode = () => {
   // only show QR code in dev
   if (process.env.NODE_ENV === 'development') {
     const port = getConfig().web.port
+    const appTitle = getConfig().web.title
     const networkUrl = getNetworkUrl(port)
 
     if (networkUrl) {
       console.log(
-        `\n📱Use the QR Code to open the app on your phone or tablet: ${networkUrl}\n`
+        `\nUse this ${chalk.bgGreenBright('QR Code')} to open ${chalk.bgMagenta(
+          appTitle
+        )} on your 📱phone or tablet\n`
       )
       qrcode.generate(networkUrl, { small: true })
     }
