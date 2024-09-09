@@ -6094,6 +6094,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/qrcode-terminal@npm:^0":
+  version: 0.12.2
+  resolution: "@types/qrcode-terminal@npm:0.12.2"
+  checksum: 10c0/9d8d75f76ed2f75faaa2007850d884ce71ad25e05d8683a2b42e6b6cb6568d0d87a3ebb427e174fd77ab4264de40923806785fde2d97d81fce393f127d88931f
+  languageName: node
+  linkType: hard
+
 "@types/qs@npm:^6.9.15":
   version: 6.9.15
   resolution: "@types/qs@npm:6.9.15"
@@ -6804,10 +6811,12 @@ __metadata:
     "@redwoodjs/jobs": "npm:9.0.0-canary.34"
     "@redwoodjs/realtime": "npm:9.0.0-canary.34+eb8ecf3f8"
     "@redwoodjs/storage": "npm:9.0.0-canary.34"
+    "@types/qrcode-terminal": "npm:^0"
     "@unkey/ratelimit": "npm:0.4.4"
     exif-parser: "npm:0.1.12"
     ioredis: "npm:^5"
     langbase: "npm:1.1.0"
+    qrcode-terminal: "npm:0.12.0"
     sharp: "npm:0.33.5"
   languageName: unknown
   linkType: soft
@@ -15331,6 +15340,15 @@ __metadata:
   version: 1.1.3
   resolution: "pvutils@npm:1.1.3"
   checksum: 10c0/23489e6b3c76b6afb6964a20f891d6bef092939f401c78bba186b2bfcdc7a13904a0af0a78f7933346510f8c1228d5ab02d3c80e968fd84d3c76ff98d8ec9aac
+  languageName: node
+  linkType: hard
+
+"qrcode-terminal@npm:0.12.0":
+  version: 0.12.0
+  resolution: "qrcode-terminal@npm:0.12.0"
+  bin:
+    qrcode-terminal: ./bin/qrcode-terminal.js
+  checksum: 10c0/1d8996a743d6c95e22056bd45fe958c306213adc97d7ef8cf1e03bc1aeeb6f27180a747ec3d761141921351eb1e3ca688f7b673ab54cdae9fa358dffaa49563c
   languageName: node
   linkType: hard
 
