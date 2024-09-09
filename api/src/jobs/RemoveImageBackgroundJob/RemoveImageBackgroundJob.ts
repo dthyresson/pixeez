@@ -24,13 +24,14 @@ export const RemoveImageBackgroundJob = jobs.createJob({
       return
     }
 
-    const pidDataUri = await pic.withDataUri()
-
+    // send base64 data uri of the original image in the Pic to fal as imageUrl
     jobs.logger.debug({ picId }, 'Pic to get data uri')
-
+    const pidDataUri = await pic.withDataUri()
     const result = await removeBackground({ imageUrl: pidDataUri.original })
 
     jobs.logger.debug({ picId }, 'Fal processing done!')
+
+    // get the url of the image without background from the fal result
     const withoutBackground = result['image']?.['url']
 
     if (!withoutBackground) {
@@ -38,12 +39,14 @@ export const RemoveImageBackgroundJob = jobs.createJob({
       return
     }
 
+    // update the Pic with the new image without background
     await db.pic.update({
       where: { id: picId },
       data: {
         withoutBackground,
       },
     })
+
     jobs.logger.debug({ picId }, 'Pic updated!')
 
     // send webhook to refresh album live query for pics
