@@ -121,7 +121,7 @@ export const Success = ({
   })
 
   const showPicCount = (album: Album) => {
-    return false
+    return album.picCount > 0
   }
 
   const picCountLabel = (album: Album) => {
