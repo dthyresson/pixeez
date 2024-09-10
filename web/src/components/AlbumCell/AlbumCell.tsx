@@ -120,6 +120,10 @@ export const Success = ({
     noClick: true, // Prevent opening dialog on click of the entire dropzone area
   })
 
+  const showPicCount = (album: Album) => {
+    return false
+  }
+
   const picCountLabel = (album: Album) => {
     return album.picCount === 1 ? '1 pic' : `${album.picCount} pics`
   }
@@ -134,9 +138,11 @@ export const Success = ({
       <div>
         <h2 className="mb-4 text-xl font-bold">
           {album.name} Album{' '}
-          <span className="text-sm text-purple-500">
-            {picCountLabel(album as Album)}
-          </span>
+          {showPicCount(album as Album) && (
+            <span className="text-sm text-purple-500">
+              {picCountLabel(album as Album)}
+            </span>
+          )}
         </h2>
         {album.pics.length === 0 ? (
           <div

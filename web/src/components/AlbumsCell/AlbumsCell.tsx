@@ -113,9 +113,7 @@ export const Success = ({
     createAlbum({ variables: { name } })
   }
 
-  const showPicCount = (album: Album) => {
-    return album.picCount && album.picCount > 0
-  }
+
 
   const picCountLabel = (album: Album) => {
     return album.picCount === 1 ? '1 pic' : `${album.picCount} pics`
@@ -139,11 +137,9 @@ export const Success = ({
               <p className="my-4 text-center font-semibold dark:text-white">
                 {album.name}
               </p>
-              {showPicCount(album as Album) && (
                 <p className="absolute bottom-2 right-2 text-sm text-purple-300 dark:text-purple-300">
                   {picCountLabel(album as Album)}
                 </p>
-              )}
             </div>
           </Link>
         ))}

@@ -24,19 +24,19 @@ const NavBar = () => {
       </Link>
       <div className="flex items-center gap-4">
         <Link
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-300 text-lg hover:bg-neutral-400 dark:bg-neutral-300 dark:hover:bg-neutral-400"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white border-2 border-purple-600 text-lg hover:bg-purple-100 dark:bg-neutral-800 dark:hover:bg-neutral-700"
           to={routes.search()}
         >
           <MagnifyingGlassIcon className="h-4 w-4 text-purple-600" />
         </Link>
         <Link
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-300 text-lg hover:bg-neutral-400 dark:bg-neutral-300 dark:hover:bg-neutral-400"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white border-2 border-purple-600 text-lg hover:bg-purple-100 dark:bg-neutral-800 dark:hover:bg-neutral-700"
           to={routes.tags()}
         >
           <TagIcon className="h-4 w-4 text-purple-600" />
         </Link>
         <Link
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-neutral-300 text-lg hover:bg-neutral-400 dark:bg-neutral-300 dark:hover:bg-neutral-400"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-white border-2 border-purple-600 text-lg hover:bg-purple-100 dark:bg-neutral-800 dark:hover:bg-neutral-700"
           to={routes.about()}
         >
           <HandRaisedIcon className="h-4 w-4 text-purple-600" />
