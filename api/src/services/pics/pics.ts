@@ -13,6 +13,7 @@ import { ValidationError } from '@redwoodjs/graphql-server'
 import { CreatePicFanOutJob } from 'src/jobs/CreatePicFanOutJob/CreatePicFanOutJob'
 import { db } from 'src/lib/db'
 import { later } from 'src/lib/jobs'
+import { logger } from 'src/lib/logger'
 import { saveFiles } from 'src/lib/storage'
 import { newId } from 'src/lib/uuid'
 
@@ -33,7 +34,7 @@ export const pics: PicsResolver = async () => {
     },
   })
 
-  return p.map((p) => p.withSignedUrl())
+  return Promise.all(p.map((pic) => pic.withSignedUrl()))
 }
 
 export const pic: PicResolver = async ({ id }) => {
@@ -49,7 +50,16 @@ export const pic: PicResolver = async ({ id }) => {
 
 export const createPic: CreatePicResolver = async ({ input }) => {
   validatePicInput(input.original)
-  const processedInput = await saveFiles.forPic(input)
+  const album = await db.album.findUnique({
+    where: { id: input.albumId },
+  })
+
+  const path = `picthang/${album.name}/${input.original.name}`
+  logger.debug(`path: ${path}`)
+
+  const processedInput = await saveFiles.forPic(input, {
+    path,
+  })
   const data = {
     ...processedInput,
   }
@@ -63,7 +73,7 @@ export const createPic: CreatePicResolver = async ({ input }) => {
 
   await later(CreatePicFanOutJob, [pic.id])
 
-  return pic.withSignedUrl()
+  return await pic.withSignedUrl()
 }
 
 export const createPics: CreatePicsResolver = async ({ input }) => {
@@ -75,7 +85,13 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
 
   input.originals.forEach(validatePicInput)
 
-  const savedOriginalFiles = await saveFiles.inList(input.originals)
+  const album = await db.album.findUnique({
+    where: { id: input.albumId },
+  })
+
+  const path = `picthang/${album.name}`
+
+  const savedOriginalFiles = await saveFiles.inList(input.originals, { path })
 
   for (const original of savedOriginalFiles) {
     const pic = await db.pic.create({
@@ -86,7 +102,7 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
       },
     })
 
-    result.push(pic.withSignedUrl())
+    result.push(await pic.withSignedUrl())
 
     await later(CreatePicFanOutJob, [pic.id])
   }
@@ -103,7 +119,7 @@ export const updatePic: UpdatePicResolver = async ({ id, input }) => {
     },
   })
 
-  return p.withSignedUrl()
+  return await p.withSignedUrl()
 }
 
 export const deletePic: DeletePicResolver = async ({ id }) => {

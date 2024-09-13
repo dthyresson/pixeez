@@ -26,7 +26,7 @@ export const RemoveImageBackgroundJob = jobs.createJob({
 
     // send base64 data uri of the original image in the Pic to fal as imageUrl
     jobs.logger.debug({ picId }, 'Pic to get data uri')
-    const pidDataUri = await pic.withDataUri()
+    const pidDataUri = await pic.withSignedUrl() //await pic.withDataUri()
     const result = await removeBackground({ imageUrl: pidDataUri.original })
 
     jobs.logger.debug({ picId }, 'Fal processing done!')

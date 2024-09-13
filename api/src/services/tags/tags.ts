@@ -37,9 +37,9 @@ export const tag: TagResolver = async ({ id }) => {
     },
   })
 
-  const pics = theTag?.pics.map((pic) => {
+  const pics = theTag?.pics.map(async (pic) => {
     return {
-      ...pic.withSignedUrl(),
+      ...(await pic.withSignedUrl()),
     }
   })
 

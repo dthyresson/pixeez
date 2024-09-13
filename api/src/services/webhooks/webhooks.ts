@@ -15,6 +15,7 @@ export const onBackgroundRemoved: OnBackgroundRemovedResolver = async (
 ) => {
   const { id, secret } = input
 
+  /// change to use a directive!
   if (secret !== process.env.WEBHOOK_SECRET) {
     logger.error('Invalid secret')
     throw new ValidationError('Invalid secret')

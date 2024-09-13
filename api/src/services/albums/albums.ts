@@ -23,9 +23,9 @@ export const albums: AlbumsResolver = async () => {
   const withPics = theAlbums.map((album) => {
     return {
       ...album,
-      pics: album.pics.map((pic) => {
+      pics: album.pics.map(async (pic) => {
         return {
-          ...pic.withSignedUrl(),
+          ...(await pic.withSignedUrl()),
         }
       }),
       picCount: album._count.pics || 0,
@@ -47,9 +47,11 @@ export const album: AlbumResolver = async ({ id }) => {
     },
   })
 
-  const pics = theAlbum?.pics.map((pic) => {
+  const pics = theAlbum?.pics.map(async (pic) => {
+    const signed = await pic.withSignedUrl()
+
     return {
-      ...pic.withSignedUrl(),
+      ...signed,
     }
   })
 

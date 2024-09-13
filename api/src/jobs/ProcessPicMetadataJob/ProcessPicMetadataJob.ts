@@ -4,7 +4,7 @@ import sharp from 'sharp'
 import { db } from 'src/lib/db'
 import { jobs } from 'src/lib/jobs'
 import { logger } from 'src/lib/logger'
-import { fsStorage } from 'src/lib/storage'
+import { s3Storage } from 'src/lib/storage'
 
 /**
  * The ProcessPicMetadataJob is on the default queue
@@ -23,8 +23,10 @@ export const ProcessPicMetadataJob = jobs.createJob({
       jobs.logger.error(`Pic with id ${picId} not found`)
       throw new Error(`Pic with id ${picId} not found`)
     }
-
-    const image = await sharp(pic.original)
+    // read full data from S3
+    const { contents } = await s3Storage.read(pic.original)
+    console.log('>>>> SHARP', contents)
+    const image = await sharp(contents)
       .metadata()
       .then((metadata) => {
         return metadata
@@ -38,7 +40,6 @@ export const ProcessPicMetadataJob = jobs.createJob({
 
     if (format === 'jpeg' || format === 'jpg') {
       // Extract EXIF data using exif-parser
-      const { contents } = await fsStorage.read(pic.original)
       const parser = exifParser.create(contents)
       parser.enableSimpleValues(true)
 
