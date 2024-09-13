@@ -13,8 +13,7 @@ import { ValidationError } from '@redwoodjs/graphql-server'
 import { CreatePicFanOutJob } from 'src/jobs/CreatePicFanOutJob/CreatePicFanOutJob'
 import { db } from 'src/lib/db'
 import { later } from 'src/lib/jobs'
-import { logger } from 'src/lib/logger'
-import { saveFiles } from 'src/lib/storage'
+import { config, saveFiles } from 'src/lib/storage'
 import { newId } from 'src/lib/uuid'
 
 const validatePicInput = (file) => {
@@ -50,12 +49,12 @@ export const pic: PicResolver = async ({ id }) => {
 
 export const createPic: CreatePicResolver = async ({ input }) => {
   validatePicInput(input.original)
+
   const album = await db.album.findUnique({
     where: { id: input.albumId },
   })
 
-  const path = `picthang/${album.name}/${input.original.name}`
-  logger.debug(`path: ${path}`)
+  const path = `${config.baseDir}/${album.name}/${input.original.name}`
 
   const processedInput = await saveFiles.forPic(input, {
     path,

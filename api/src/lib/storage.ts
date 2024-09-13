@@ -35,4 +35,4 @@ const { saveFiles, storagePrismaExtension } = setupStorage({
   urlSigner: s3UrlSigner,
 })
 
-export { saveFiles, storagePrismaExtension }
+export { config, saveFiles, storagePrismaExtension }

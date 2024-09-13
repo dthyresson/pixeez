@@ -25,7 +25,6 @@ export const ProcessPicMetadataJob = jobs.createJob({
     }
     // read full data from S3
     const { contents } = await s3Storage.read(pic.original)
-    console.log('>>>> SHARP', contents)
     const image = await sharp(contents)
       .metadata()
       .then((metadata) => {
