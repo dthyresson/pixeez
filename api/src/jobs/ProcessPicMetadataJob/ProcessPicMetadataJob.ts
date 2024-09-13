@@ -4,7 +4,7 @@ import sharp from 'sharp'
 import { db } from 'src/lib/db'
 import { jobs } from 'src/lib/jobs'
 import { logger } from 'src/lib/logger'
-import { s3Storage } from 'src/lib/storage'
+import { storageManager } from 'src/lib/storage'
 
 /**
  * The ProcessPicMetadataJob is on the default queue
@@ -23,8 +23,8 @@ export const ProcessPicMetadataJob = jobs.createJob({
       jobs.logger.error(`Pic with id ${picId} not found`)
       throw new Error(`Pic with id ${picId} not found`)
     }
-    // read full data from S3
-    const { contents } = await s3Storage.read(pic.original)
+    const { adapter } = storageManager.storage
+    const { contents } = await adapter.read(pic.original)
     const image = await sharp(contents)
       .metadata()
       .then((metadata) => {
