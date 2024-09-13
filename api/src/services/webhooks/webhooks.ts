@@ -9,17 +9,12 @@ import type { LiveQueryStorageMechanism } from '@redwoodjs/realtime'
 import { db } from 'src/lib/db'
 import { logger } from 'src/lib/logger'
 
+// Important: Secret validation is handled by the @verifyWebhook directive
 export const onBackgroundRemoved: OnBackgroundRemovedResolver = async (
   { input },
   { context }
 ) => {
-  const { id, secret } = input
-
-  /// change to use a directive!
-  if (secret !== process.env.WEBHOOK_SECRET) {
-    logger.error('Invalid secret')
-    throw new ValidationError('Invalid secret')
-  }
+  const { id } = input
 
   const liveQueryStore = context.liveQueryStore as LiveQueryStorageMechanism
 
@@ -47,16 +42,12 @@ export const onBackgroundRemoved: OnBackgroundRemovedResolver = async (
   return pic
 }
 
+// Important: Secret validation is handled by the @verifyWebhook directive
 export const onTagsCreated: OnTagsCreatedResolver = async (
   { input },
   { context }
 ) => {
-  const { id, secret } = input
-
-  if (secret !== process.env.WEBHOOK_SECRET) {
-    logger.error('Invalid secret')
-    throw new ValidationError('Invalid secret')
-  }
+  const { id } = input
 
   const liveQueryStore = context.liveQueryStore as LiveQueryStorageMechanism
 

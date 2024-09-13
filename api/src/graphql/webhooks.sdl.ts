@@ -1,18 +1,28 @@
 export const schema = gql`
-  input OnBackgroundRemovedInput {
-    id: ID!
+  """
+  Input for webhook verification
+  """
+  input VerifyWebhookInput {
     secret: String!
+    id: ID!
+  }
+
+  input OnBackgroundRemovedInput {
+    secret: String!
+    id: ID!
   }
 
   input OnTagsCreatedInput {
-    id: ID!
     secret: String!
+    id: ID!
   }
 
   type Mutation {
     onBackgroundRemoved(input: OnBackgroundRemovedInput!): Pic!
       @rateLimited(identifier: "onBackgroundRemoved")
+      @verifyWebhook
     onTagsCreated(input: OnTagsCreatedInput!): Pic!
       @rateLimited(identifier: "onTagsCreated")
+      @verifyWebhook
   }
 `

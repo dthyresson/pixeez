@@ -115,6 +115,12 @@ export interface UpdateTagInput {
     name?: string| null;
 }
 
+export interface VerifyWebhookInput {
+    __typename?: "VerifyWebhookInput";
+    id: ID;
+    secret: string;
+}
+
 type ID = any;
 type File = any;
 type JSON = any;
