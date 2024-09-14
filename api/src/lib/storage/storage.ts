@@ -1,3 +1,5 @@
+import { logger } from 'src/lib/logger'
+
 import {
   config as fileConfig,
   fsStorage,
@@ -24,6 +26,7 @@ type StorageType = 's3' | 'file' | 'memory'
 
 interface StorageConfig {
   type?: StorageType
+  logger?: typeof logger
 }
 
 type StorageReturn<T extends StorageType> = T extends 'file'
@@ -52,9 +55,42 @@ type StorageReturn<T extends StorageType> = T extends 'file'
 
 class StorageManager {
   private config: StorageConfig
+  private logger: typeof logger
 
   constructor(config: StorageConfig = {}) {
     this.config = config
+    this.logger = config.logger || logger
+    this.logger.child({ module: 'storage' })
+    this.logger.info({ type: this.storageType }, 'StorageManager initialized')
+  }
+
+  get getConfig(): StorageConfig {
+    return this.config
+  }
+
+  get storageType(): StorageType {
+    return this.getStorageType()
+  }
+
+  // if storage type is not s3, then prefer data uri
+  // because there is no public access using signed url
+  // Usage:
+  // const picUri = storageManager.preferDataUri
+  // ? await pic.withDataUri()
+  // : await pic.withSignedUrl()
+  get preferDataUri(): boolean {
+    return this.storageType !== 's3'
+  }
+
+  // if storage type is s3, then prefer signed url
+  // because there is public access using signed url
+  // and it's more efficient
+  // Usage:
+  // const picUri = storageManager.preferSignedUrl
+  // ? await pic.withSignedUrl()
+  // : await pic.withDataUri()
+  get preferSignedUrl(): boolean {
+    return this.storageType === 's3'
   }
 
   get storage(): StorageReturn<StorageType> {
@@ -114,5 +150,9 @@ class StorageManager {
     return !this.isDevelopment() && !this.isTest()
   }
 }
-
+// If not storage type is provided, then use the
+// default storage type for the environment
+// Or use type StorageType = 's3' | 'file' | 'memory'
+// For example:
+// const storageManager = new StorageManager({ type: 'file' })
 export const storageManager = new StorageManager()
