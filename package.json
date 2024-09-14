@@ -100,7 +100,7 @@
     "react-dom": "19.0.0-rc-8269d55d-20240802"
   },
   "scripts": {
-    "jobs": "yarn rw jobs work",
+    "jobs": "NODE_ENV=development yarn rw jobs work",
     "live": "ngrok http --domain=redwoodjs.ngrok.dev 8910"
   }
 }

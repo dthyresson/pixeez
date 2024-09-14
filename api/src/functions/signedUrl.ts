@@ -13,6 +13,8 @@ export const handler = async (event: APIGatewayEvent, _context: Context) => {
       event.queryStringParameters as SignatureValidationArgs
     )
 
+    logger.info(`fileToReturn: ${fileToReturn}`)
+
     const { contents, type } = await adapter.read(fileToReturn)
 
     // Generate an ETag from the file contents

@@ -115,4 +115,4 @@ class StorageManager {
   }
 }
 
-export const storageManager = new StorageManager({ type: 's3' })
+export const storageManager = new StorageManager()
