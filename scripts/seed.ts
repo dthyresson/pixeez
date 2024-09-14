@@ -2,7 +2,6 @@ import fs from 'fs'
 import path from 'path'
 
 import { db } from 'api/src/lib/db'
-import { fsStorage } from 'api/src/lib/storage'
 import { newId } from 'api/src/lib/uuid'
 
 import { getPaths } from '@redwoodjs/project-config'
@@ -30,15 +29,10 @@ export default async () => {
 
     console.info('delete all pics from storage directory')
 
-    // get all files in storage directory
     const storageDir = path.join(getPaths().base, 'storage')
-    const files = fs.readdirSync(storageDir)
-
-    // remove all files in storage directory
-    files.forEach((file) => {
-      console.info(`removing ${file}`)
-      fsStorage.remove(path.join(storageDir, file))
-    })
+    // delete and recreate storage directory
+    fs.rmdirSync(storageDir, { recursive: true })
+    fs.mkdirSync(storageDir)
   } catch (error) {
     console.error(error)
   }
