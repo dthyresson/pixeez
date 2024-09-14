@@ -22,21 +22,21 @@ const NavBar = () => {
           <span className="text-neutral-400 dark:text-white">thang</span>
         </h1>
       </Link>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2">
         <Link
-          className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-purple-600 bg-white text-lg hover:bg-purple-100 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+          className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-purple-600 bg-white text-lg hover:bg-purple-100 dark:bg-neutral-800 dark:hover:bg-neutral-700"
           to={routes.search()}
         >
           <MagnifyingGlassIcon className="h-4 w-4 text-purple-600" />
         </Link>
         <Link
-          className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-purple-600 bg-white text-lg hover:bg-purple-100 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+          className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-purple-600 bg-white text-lg hover:bg-purple-100 dark:bg-neutral-800 dark:hover:bg-neutral-700"
           to={routes.tags()}
         >
           <TagIcon className="h-4 w-4 text-purple-600" />
         </Link>
         <Link
-          className="flex h-10 w-10 items-center justify-center rounded-full border-2 border-purple-600 bg-white text-lg hover:bg-purple-100 dark:bg-neutral-800 dark:hover:bg-neutral-700"
+          className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-purple-600 bg-white text-lg hover:bg-purple-100 dark:bg-neutral-800 dark:hover:bg-neutral-700"
           to={routes.about()}
         >
           <HandRaisedIcon className="h-4 w-4 text-purple-600" />
