@@ -1,28 +1,16 @@
-# PicThang
+# Pixeez
 
-A tribute to [PicThing](https://pic.ping.gg/login) by [Ping](https://ping.gg) and [Theo](https://t3.gg). Watch [video about PicThing](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbFBrR1pKLXJqSV93eFVwbjduZ3YzRkVRYmd0d3xBQ3Jtc0tuZ3pjWWxCUU8xYzhxd2M3N1g2eXZYdEM4WkYwWlBWNFVGUlZJMjAyQUxFZ2w3Q3lpQUFIYUx3RHlRRHdQNE1yMEVtTHEwODJBalo2YXJDTFY4MnRHd0ZEVlpwWEVwZXNaSEhtNlF6M3NhRkcwSVYtOA&q=https%3A%2F%2Ft3.gg%2F&v=x5hsXlqScYo) to see how it works.
+Pixeez is a photo gallery app built with RedwoodJS that allows users to upload images, manage them in albums, remove the background, process them using AI to generate a description and tags.
 
-Note:
+I built Pixeez to showcases the power of RedwoodJS for Jobs, Storage, Uploads, GraphQL, Realtime, and more.
 
-This project isn't meant to be a clone or a direct replacement for PicThing. When the video came out, RedwoodJS had just launched [Background Jobs](https://docs.redwoodjs.com/docs/background-jobs) and an upcoming Storage/Upload feature is in canary. We need a proper app to put these through its paces and PicThing inspired me to see if RedwoodJS could do it.
+It leverages Fal.ai for background removal, Langbase for image tagging, and Unkey for rate limiting.
 
-Spoiler: It can! 😀
-
-Is this project different? Yes. The background removal is done  using [birefnet on fal.ai](https://fal.ai/models/fal-ai/birefnet) and there is no image CDN and isn't as fast (but still pretty fast given the processing is done in background jobs).
-
-The UX is different from what I can tell. I added albums to manage pics and a search and a "tag-cloud-heat-map" UI to show pics by tag.
-
-Instead of toggling the background removal on and off, I made it so you can download the background removed version or hover to see the original.
-
-We have automatic image tagging using [Langbase](https://langbase.com/) [tagify-image-description PIPE](https://langbase.com/dthyresson/tagify-image-description) and based on a generated description via [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption).
-
-We have automatic image tagging using [Langbase](https://langbase.com/) [tagify-image-description PIPE](https://langbase.com/dthyresson/tagify-image-description) and based on a generated description via [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption).
-
-There's currently no user management or photos associated with the account. It can't copy paste yet either -- but it can download.
-
-That said, it has a great set features and showcases the power of RedwoodJS for Jobs, Storage, Uploads, GraphQL, Realtime, and more.
+> 🎸 Pixeez is an homage to one of my favorite bands, [The Pixies](https://open.spotify.com/artist/6zvul52xwTWzilBZl6BUbT).
 
 ## Features
+
+Pixeez has a great set of features:
 
 - [x] Albums
 - [x] Upload images using RedwoodJS Storage
@@ -194,6 +182,27 @@ export const ProcessPicMetadataJob = jobs.createJob({
 ```
 
 This setup allows for efficient resource utilization and ensures that critical jobs like background removal are processed quickly. The use of different queues and priorities ensures that faster jobs don't get blocked behind longer-running tasks. The use of webhooks for live query invalidation ensures that the UI stays up-to-date as jobs complete, providing a responsive user experience.
+
+## Inspiration
+
+Pixeex is inspired by [PicThing](https://pic.ping.gg/login) by [Ping](https://ping.gg) and [Theo](https://t3.gg). Watch [video about PicThing](https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbFBrR1pKLXJqSV93eFVwbjduZ3YzRkVRYmd0d3xBQ3Jtc0tuZ3pjWWxCUU8xYzhxd2M3N1g2eXZYdEM4WkYwWlBWNFVGUlZJMjAyQUxFZ2w3Q3lpQUFIYUx3RHlRRHdQNE1yMEVtTHEwODJBalo2YXJDTFY4MnRHd0ZEVlpwWEVwZXNaSEhtNlF6M3NhRkcwSVYtOA&q=https%3A%2F%2Ft3.gg%2F&v=x5hsXlqScYo) to see how it works.
+
+### What's different?
+
+This project isn't a clone or a direct replacement for PicThing. When the video came out, RedwoodJS had just launched [Background Jobs](https://docs.redwoodjs.com/docs/background-jobs) and an upcoming Storage/Upload feature is in canary. We need a proper app to put these through its paces and PicThing inspired me to see if RedwoodJS could do it.
+
+
+Is this project different? Yes. The background removal is done differently using [birefnet on fal.ai](https://fal.ai/models/fal-ai/birefnet) and there is no image CDN and isn't as fast (but still pretty fast given the processing is done in background jobs).
+
+The UX is different from what I can tell. I added albums to manage pics and a search and a "tag-cloud-heat-map" UI to show pics by tag.
+
+Instead of toggling the background removal on and off, I made it so you can download the background removed version or hover to see the original.
+
+We have automatic image tagging using [Langbase](https://langbase.com/) [tagify-image-description PIPE](https://langbase.com/dthyresson/tagify-image-description) and based on a generated description via [florence-2-large on fal.ai](https://fal.ai/models/fal-ai/florence-2-large/more-detailed-caption).
+
+There's currently no user management or photos associated with the account. It can't copy paste yet either -- but it can download.
+
+
 
 ## TODO (maybe)
 

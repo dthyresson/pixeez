@@ -19,8 +19,8 @@ const AboutPage = () => {
   return (
     <>
       <Metadata
-        title="About PicThang"
-        description="About PicThang - A tribute to PicThing"
+        title="About Pixeex"
+        description="About Pixeez"
       />
       <div className="prose dark:prose-invert max-w-none">
         <ReactMarkdown

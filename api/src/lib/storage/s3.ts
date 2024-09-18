@@ -10,7 +10,7 @@ const uploadsConfig = createUploadsConfig({
 })
 
 const config = {
-  baseDir: 'picthang',
+  baseDir: 'pixeez',
   bucket: process.env.AWS_BUCKET,
   region: process.env.AWS_REGION,
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,

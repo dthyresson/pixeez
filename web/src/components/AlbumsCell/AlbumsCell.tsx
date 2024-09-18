@@ -21,6 +21,14 @@ import { EmptyState } from 'src/components/CellStates/EmptyState'
 import { FailureState } from 'src/components/CellStates/FailureState'
 import { LoadingState } from 'src/components/CellStates/LoadingState'
 
+export const colorClasses = [
+  'bg-amber-400',
+  'bg-pink-400',
+  'bg-teal-400',
+  'bg-cyan-400',
+  'bg-sky-400',
+]
+
 export const QUERY: TypedDocumentNode<
   FindAlbumsQuery,
   FindAlbumsQueryVariables
@@ -113,8 +121,6 @@ export const Success = ({
     createAlbum({ variables: { name } })
   }
 
-
-
   const picCountLabel = (album: Album) => {
     return album.picCount === 1 ? '1 pic' : `${album.picCount} pics`
   }
@@ -125,21 +131,23 @@ export const Success = ({
     <div className="space-y-8">
       <h2 className="mb-4 text-xl font-bold">
         Albums{' '}
-        <span className="text-sm text-purple-500">
+        <span className="text-sm text-amber-500">
           {albumsWithCount.albumCount} of them
         </span>
       </h2>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {albums.map((album) => (
+        {albums.map((album, index) => (
           <Link to={routes.album({ id: album.id })} key={album.id}>
-            <div className="relative rounded-lg bg-purple-700 p-4 text-white shadow-md hover:bg-purple-600">
+            <div
+              className={`relative rounded-lg ${colorClasses[index % colorClasses.length]} p-4 text-white shadow-md hover:opacity-90`}
+            >
               <p className="my-4 text-center font-semibold dark:text-white">
                 {album.name}
               </p>
-                <p className="absolute bottom-2 right-2 text-sm text-purple-300 dark:text-purple-300">
-                  {picCountLabel(album as Album)}
-                </p>
+              <p className="absolute bottom-2 right-2 text-sm text-amber-100 dark:text-amber-100">
+                {picCountLabel(album as Album)}
+              </p>
             </div>
           </Link>
         ))}

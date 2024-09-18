@@ -7,6 +7,7 @@ import { Link, routes } from '@redwoodjs/router'
 import { Metadata, TypedDocumentNode } from '@redwoodjs/web'
 import { useQuery } from '@redwoodjs/web'
 
+import { colorClasses } from 'src/components/AlbumsCell/AlbumsCell'
 import { EmptyState } from 'src/components/CellStates/EmptyState'
 import { PicWithHover } from 'src/components/Pics/PicWithHover'
 
@@ -122,11 +123,13 @@ const SearchPage = () => {
                 </h3>
                 <p className="text-md">{pic.description}</p>
                 <ul className="flex flex-wrap gap-2">
-                  {pic.tags.map((tag) => (
+                  {pic.tags.map((tag, index) => (
                     <Link
                       key={tag.id}
                       to={routes.tag({ id: tag.id })}
-                      className="rounded-sm bg-purple-500 p-2 text-white hover:bg-purple-600 hover:underline"
+                      className={`rounded-sm ${
+                        colorClasses[index % colorClasses.length]
+                      } p-2 text-white hover:underline hover:opacity-80`}
                     >
                       {tag.name}
                     </Link>

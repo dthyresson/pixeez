@@ -22,7 +22,7 @@ export const PicWithHover = ({
         src={isHovered ? pic.original : pic.withoutBackground || pic.original}
         alt={`${albumName} - ${pic.id}`}
         loading="lazy"
-        className="h-full min-h-48 w-full bg-neutral-200 object-contain dark:bg-neutral-900"
+        className="h-full min-h-48 w-full bg-amber-200 object-contain dark:bg-amber-200"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       />

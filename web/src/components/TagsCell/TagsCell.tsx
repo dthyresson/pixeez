@@ -46,11 +46,11 @@ export const Success = ({ tags }: CellSuccessProps<TagsQuery>) => {
   const getColorClass = (picCount: number) => {
     const bin = Math.min(Math.floor(picCount / binSize), 4)
     const colorClasses = [
-      'bg-purple-400',
-      'bg-purple-500',
-      'bg-purple-600',
-      'bg-purple-700',
-      'bg-purple-800',
+      'bg-amber-400',
+      'bg-pink-400',
+      'bg-teal-400',
+      'bg-cyan-400',
+      'bg-sky-400',
     ]
     return colorClasses[bin]
   }
