@@ -88,7 +88,7 @@ const CreateAlbumForm = ({ onSubmit, error }) => {
       />
       <button
         type="submit"
-        className="flex items-center rounded-md bg-purple-700 px-4 py-2 text-white hover:bg-purple-500 dark:text-white"
+        className="flex items-center rounded-md bg-purple-500 px-4 py-2 text-white opacity-100 hover:opacity-90 dark:text-white"
       >
         <PhotoIcon className="mr-2 h-4 w-4" />
         <span>Create Album</span>
@@ -140,7 +140,7 @@ export const Success = ({
         {albums.map((album, index) => (
           <Link to={routes.album({ id: album.id })} key={album.id}>
             <div
-              className={`relative rounded-lg ${colorClasses[index % colorClasses.length]} p-4 text-white shadow-md hover:opacity-90`}
+              className={`relative rounded-lg ${colorClasses[index % colorClasses.length]} p-4 text-white opacity-90 shadow-md hover:opacity-100`}
             >
               <p className="my-4 text-center font-semibold dark:text-white">
                 {album.name}

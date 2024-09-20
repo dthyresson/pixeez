@@ -83,7 +83,7 @@ const SearchPage = () => {
         />
         <button
           type="submit"
-          className="flex items-center rounded bg-purple-500 px-4 py-2 text-white"
+          className="flex items-center rounded bg-purple-500 px-4 py-2 text-white opacity-100 hover:opacity-90 dark:text-white"
           disabled={searchQuery.length < 3}
         >
           <MagnifyingGlassIcon className="mr-2 h-4 w-4" />
@@ -106,7 +106,7 @@ const SearchPage = () => {
             {data.search.items.map((pic) => (
               <div
                 key={pic.id}
-                className="space-y-4 rounded-lg border border-purple-300 bg-neutral-100 p-4 dark:bg-neutral-800"
+                className="space-y-4 rounded-lg border border-purple-300 bg-amber-50 p-4 dark:bg-amber-100"
               >
                 <PicWithHover
                   key={`tag-${pic.album.id}-pic-${pic.id}`}

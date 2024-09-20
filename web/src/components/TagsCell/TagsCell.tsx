@@ -46,11 +46,11 @@ export const Success = ({ tags }: CellSuccessProps<TagsQuery>) => {
   const getColorClass = (picCount: number) => {
     const bin = Math.min(Math.floor(picCount / binSize), 4)
     const colorClasses = [
-      'bg-amber-400',
-      'bg-pink-400',
-      'bg-teal-400',
-      'bg-cyan-400',
-      'bg-sky-400',
+      'bg-amber-500',
+      'bg-pink-500',
+      'bg-teal-500',
+      'bg-cyan-500',
+      'bg-sky-500',
     ]
     return colorClasses[bin]
   }
@@ -64,7 +64,7 @@ export const Success = ({ tags }: CellSuccessProps<TagsQuery>) => {
             tag.pics.length > 1 ? `${tag.name} (${tag.pics.length})` : tag.name
           return (
             <Link
-              className={`rounded-md p-4 text-white ${getColorClass(tag.pics.length)}`}
+              className={`rounded-md p-4 text-white ${getColorClass(tag.pics.length)} opacity-100 hover:opacity-90`}
               key={`tag-${tag.id}-${tag.name}`}
               to={routes.tag({ id: tag.id })}
             >
