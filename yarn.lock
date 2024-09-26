@@ -8282,12 +8282,12 @@ __metadata:
   resolution: "api@workspace:api"
   dependencies:
     "@fal-ai/serverless-client": "npm:0.14.2"
-    "@redwoodjs/api": "npm:8.2.0"
-    "@redwoodjs/api-server": "npm:8.2.0"
-    "@redwoodjs/graphql-server": "npm:8.2.0"
-    "@redwoodjs/jobs": "npm:8.2.0"
-    "@redwoodjs/realtime": "npm:8.2.0"
-    "@redwoodjs/storage": "npm:8.2.0"
+    "@redwoodjs/api": "npm:8.3.0"
+    "@redwoodjs/api-server": "npm:8.3.0"
+    "@redwoodjs/graphql-server": "npm:8.3.0"
+    "@redwoodjs/jobs": "npm:8.3.0"
+    "@redwoodjs/realtime": "npm:8.3.0"
+    "@redwoodjs/storage": "npm:8.3.0"
     "@types/qrcode-terminal": "npm:^0"
     "@unkey/ratelimit": "npm:0.4.4"
     exif-parser: "npm:0.1.12"
@@ -19798,8 +19798,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root-workspace-0b6124@workspace:."
   dependencies:
-    "@redwoodjs/core": "npm:8.2.0"
-    "@redwoodjs/project-config": "npm:8.2.0"
+    "@redwoodjs/core": "npm:8.3.0"
+    "@redwoodjs/project-config": "npm:8.3.0"
     prettier-plugin-tailwindcss: "npm:^0.5.12"
   languageName: unknown
   linkType: soft
@@ -22265,10 +22265,10 @@ __metadata:
   resolution: "web@workspace:web"
   dependencies:
     "@heroicons/react": "npm:2.1.5"
-    "@redwoodjs/forms": "npm:8.2.0"
-    "@redwoodjs/router": "npm:8.2.0"
-    "@redwoodjs/vite": "npm:8.2.0"
-    "@redwoodjs/web": "npm:8.2.0"
+    "@redwoodjs/forms": "npm:8.3.0"
+    "@redwoodjs/router": "npm:8.3.0"
+    "@redwoodjs/vite": "npm:8.3.0"
+    "@redwoodjs/web": "npm:8.3.0"
     "@types/react": "npm:^18.2.55"
     "@types/react-dom": "npm:^18.2.19"
     autoprefixer: "npm:^10.4.20"
