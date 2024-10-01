@@ -13,7 +13,7 @@ import { ValidationError } from '@redwoodjs/graphql-server'
 import { CreatePicFanOutJob } from 'src/jobs/CreatePicFanOutJob/CreatePicFanOutJob'
 import { db } from 'src/lib/db'
 import { later } from 'src/lib/jobs'
-import { storageManager } from 'src/lib/storage'
+import { storage } from 'src/lib/storage'
 import { newId } from 'src/lib/uuid'
 
 const validatePicInput = (file) => {
@@ -33,7 +33,7 @@ export const pics: PicsResolver = async () => {
     },
   })
 
-  return Promise.all(p.map((pic) => pic.withSignedUrl()))
+  return p //Promise.all(p.map((pic) => pic.withSignedUrl()))
 }
 
 export const pic: PicResolver = async ({ id }) => {
@@ -44,25 +44,29 @@ export const pic: PicResolver = async ({ id }) => {
     },
   })
 
-  return p.withSignedUrl()
+  return p //.withSignedUrl()
 }
 
 export const createPic: CreatePicResolver = async ({ input }) => {
-  const { config, saveFiles } = storageManager.storage
-
   validatePicInput(input.original)
 
-  const album = await db.album.findUnique({
-    where: { id: input.albumId },
-  })
+  // const album = await db.album.findUnique({
+  //   where: { id: input.albumId },
+  // })
 
-  const path = `${config.baseDir}/${album.name}/${input.original.name}`
+  // const path = `${config.baseDir}/${album.name}/${input.original.name}`
 
-  const processedInput = await saveFiles.forPic(input, {
-    path,
-  })
+  // const processedInput = await saveFiles.forPic(input, {
+  //   path,
+  // })
+  // const data = {
+  //   ...processedInput,
+  // }
+
+  const path = await storage.writeFile(input.original)
   const data = {
-    ...processedInput,
+    ...input,
+    original: path,
   }
 
   const pic = await db.pic.create({
@@ -74,12 +78,10 @@ export const createPic: CreatePicResolver = async ({ input }) => {
 
   await later(CreatePicFanOutJob, [pic.id])
 
-  return await pic.withSignedUrl()
+  return await pic //.withSignedUrl()
 }
 
 export const createPics: CreatePicsResolver = async ({ input }) => {
-  const { config, saveFiles } = storageManager.storage
-
   const result = [] as Pic[]
 
   if (input.originals.length > 20) {
@@ -92,20 +94,21 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
     where: { id: input.albumId },
   })
 
-  const path = `${config.baseDir}/${album.name}`
+  // const path = `${config.baseDir}/${album.name}`
 
-  const savedOriginalFiles = await saveFiles.inList(input.originals, { path })
+  // const savedOriginalFiles = await saveFiles.inList(input.originals, { path })
 
-  for (const original of savedOriginalFiles) {
+  for (const original of input.originals) {
+    const path = await storage.writeFile(original)
     const pic = await db.pic.create({
       data: {
-        original,
+        original: path,
         id: newId('pic'),
-        albumId: input.albumId,
+        albumId: album.id,
       },
     })
 
-    result.push(await pic.withSignedUrl())
+    result.push(pic) //(await pic.withSignedUrl())
 
     await later(CreatePicFanOutJob, [pic.id])
   }
@@ -122,7 +125,7 @@ export const updatePic: UpdatePicResolver = async ({ id, input }) => {
     },
   })
 
-  return await p.withSignedUrl()
+  return p //.withSignedUrl()
 }
 
 export const deletePic: DeletePicResolver = async ({ id }) => {

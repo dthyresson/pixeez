@@ -1,6 +1,6 @@
 import { db } from 'src/lib/db'
 import { logger } from 'src/lib/logger'
-
+import { storage } from 'src/lib/storage'
 export const search = async ({
   query,
   page = 1,
@@ -25,7 +25,10 @@ export const search = async ({
     })
 
     return {
-      items: pics.map((p) => p.withSignedUrl()),
+      items: pics.map((p) => ({
+        ...p,
+        original: storage.getSignedUrl(p.original),
+      })),
       count,
       page,
       limit,
@@ -52,7 +55,10 @@ export const search = async ({
   logger.info({ count }, 'total pics')
 
   return {
-    items: pics.map((p) => p.withSignedUrl()),
+    items: pics.map((p) => ({
+      ...p,
+      original: storage.getSignedUrl(p.original),
+    })),
     count,
     page,
     limit,

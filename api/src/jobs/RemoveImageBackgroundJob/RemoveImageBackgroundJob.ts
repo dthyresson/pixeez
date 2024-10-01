@@ -5,7 +5,7 @@ import {
 import { db } from 'src/lib/db'
 import { removeBackground } from 'src/lib/fal/removeBackground'
 import { jobs } from 'src/lib/jobs'
-import { storageManager } from 'src/lib/storage'
+// import { storage } from 'src/lib/storage'
 
 /**
  * The RemoveImageBackgroundJob is critical because it performs the main background removal
@@ -28,11 +28,7 @@ export const RemoveImageBackgroundJob = jobs.createJob({
     // send base64 data uri of the original image in the Pic to fal as imageUrl
     jobs.logger.debug({ picId }, 'Pic to get data uri')
 
-    const picUri = storageManager.preferDataUri
-      ? await pic.withDataUri()
-      : await pic.withSignedUrl()
-
-    const result = await removeBackground({ imageUrl: picUri.original })
+    const result = await removeBackground({ imageUrl: pic.original })
 
     jobs.logger.debug({ picId }, 'Fal processing done!')
 

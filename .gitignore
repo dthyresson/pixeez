@@ -25,3 +25,4 @@ api/src/lib/generateGraphiQLHeader.*
 uploads/*
 storage/*
 tarballs/*
+api/.storage/**/*

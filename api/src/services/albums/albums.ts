@@ -9,6 +9,8 @@ import type {
 import type { LiveQueryStorageMechanism } from '@redwoodjs/realtime'
 
 import { db } from 'src/lib/db'
+import { logger } from 'src/lib/logger'
+import { storage } from 'src/lib/storage'
 import { newId } from 'src/lib/uuid'
 
 export const albums: AlbumsResolver = async () => {
@@ -23,9 +25,13 @@ export const albums: AlbumsResolver = async () => {
   const withPics = theAlbums.map((album) => {
     return {
       ...album,
+
       pics: album.pics.map(async (pic) => {
+        const original = storage.getSignedUrl(pic.original)
+        logger.debug({ original }, 'original')
         return {
-          ...(await pic.withSignedUrl()),
+          ...pic,
+          original,
         }
       }),
       picCount: album._count.pics || 0,
@@ -48,10 +54,9 @@ export const album: AlbumResolver = async ({ id }) => {
   })
 
   const pics = theAlbum?.pics.map(async (pic) => {
-    const signed = await pic.withSignedUrl()
-
     return {
-      ...signed,
+      ...pic,
+      original: storage.getSignedUrl(pic.original),
     }
   })
 

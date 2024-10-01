@@ -7,8 +7,8 @@ import type {
 } from 'types/tags'
 
 import { db } from 'src/lib/db'
+import { storage } from 'src/lib/storage'
 import { newId } from 'src/lib/uuid'
-
 export const tags: TagsResolver = async () => {
   return await db.tag.findMany({
     orderBy: { name: 'asc' },
@@ -37,15 +37,9 @@ export const tag: TagResolver = async ({ id }) => {
     },
   })
 
-  const pics = theTag?.pics.map(async (pic) => {
-    return {
-      ...(await pic.withSignedUrl()),
-    }
-  })
-
   return {
     ...theTag,
-    pics,
+    pics: theTag?.pics,
   }
 }
 
@@ -63,7 +57,10 @@ export const createTag: CreateTagResolver = async ({ input }) => {
 
   return {
     ...tag,
-    pics: tag?.pics.map((pic) => ({ ...pic, original: pic.withSignedUrl() })),
+    pics: tag?.pics.map((pic) => ({
+      ...pic,
+      original: storage.getSignedUrl(pic.original),
+    })),
   }
 }
 
@@ -82,7 +79,10 @@ export const updateTag: UpdateTagResolver = async ({ id, input }) => {
 
   return {
     ...tag,
-    pics: tag?.pics.map((pic) => ({ ...pic, original: pic.withSignedUrl() })),
+    pics: tag?.pics.map((pic) => ({
+      ...pic,
+      original: storage.getSignedUrl(pic.original),
+    })),
   }
 }
 

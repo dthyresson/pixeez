@@ -1,10 +1,10 @@
-import fs from 'fs'
-import path from 'path'
+// import fs from 'fs'
+// import path from 'path'
 
 import { db } from 'api/src/lib/db'
 import { newId } from 'api/src/lib/uuid'
 
-import { getPaths } from '@redwoodjs/project-config'
+// import { getPaths } from '@redwoodjs/project-config'
 
 // Manually apply seeds via the `yarn rw prisma db seed` command.
 //
@@ -29,10 +29,10 @@ export default async () => {
 
     console.info('delete all pics from storage directory')
 
-    const storageDir = path.join(getPaths().base, 'storage')
+    // const storageDir = path.join(getPaths().base, 'storage')
     // delete and recreate storage directory
-    fs.rmdirSync(storageDir, { recursive: true })
-    fs.mkdirSync(storageDir)
+    // fs.rmdirSync(storageDir, { recursive: true })
+    // fs.mkdirSync(storageDir)
   } catch (error) {
     console.error(error)
   }

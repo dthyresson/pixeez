@@ -2,7 +2,7 @@ import { TagifyPicJob } from 'src/jobs/TagifyPicJob/TagifyPicJob'
 import { db } from 'src/lib/db'
 import { describeImage } from 'src/lib/fal/describeImage'
 import { jobs, later } from 'src/lib/jobs'
-import { storageManager } from 'src/lib/storage/storage'
+// import { storage } from 'src/lib/storage'
 /**
  * The DescribePicJob is on the default queue
  * to describe the picture and then queue the TagifyPicJob
@@ -21,13 +21,13 @@ export const DescribePicJob = jobs.createJob({
       return
     }
 
-    const picUri = storageManager.preferDataUri
-      ? await pic.withDataUri()
-      : await pic.withSignedUrl()
+    // const picUri = storageManager.preferDataUri
+    //   ? await pic.withDataUri()
+    //   : await pic.withSignedUrl()
 
     jobs.logger.debug({ picId }, 'Pic to get data uri')
 
-    const result = await describeImage({ imageUrl: picUri.original })
+    const result = await describeImage({ imageUrl: pic.original })
     jobs.logger.debug({ result }, 'Fal describe result')
 
     const description = (result['results'] as string) || ''
