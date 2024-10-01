@@ -1,5 +1,8 @@
+import jwt from 'jsonwebtoken'
+
 import {
   createValidatorDirective,
+  AuthenticationError,
   ValidationError,
   ValidatorDirectiveFunc,
 } from '@redwoodjs/graphql-server'
@@ -42,6 +45,8 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args }) => {
   const sensibleMinFiles = minFiles ?? DEFAULT_MIN_FILES
   const sensibleRequiredPresignedUrl = presignedUrlHeader ? true : false
 
+  logger.debug({ headers: context.event?.['headers'] }, '>>> headers')
+
   // check context headers for presigned url
   if (sensibleRequiredPresignedUrl) {
     const headers = context.event?.['headers']
@@ -51,6 +56,19 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args }) => {
     const presignedUrl = headers[presignedUrlHeader]
     if (!presignedUrl) {
       throw new ValidationError('Presigned URL is required')
+    }
+
+    try {
+      const decodedToken = jwt.verify(
+        presignedUrl,
+        process.env.STORAGE_SIGNING_SECRET
+      )
+      logger.debug({ decodedToken }, 'Decoded token')
+    } catch (error) {
+      logger.error({ error }, 'JWT verification failed')
+      throw new AuthenticationError(
+        'Authentication failed: Invalid presigned URL'
+      )
     }
   }
 

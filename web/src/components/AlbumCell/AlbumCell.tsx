@@ -9,7 +9,6 @@ import type {
 } from 'types/graphql'
 
 import { Metadata } from '@redwoodjs/web'
-import { useMutation } from '@redwoodjs/web'
 import type {
   CellSuccessProps,
   CellFailureProps,
@@ -21,6 +20,7 @@ import { EmptyState } from 'src/components/CellStates/EmptyState'
 import { FailureState } from 'src/components/CellStates/FailureState'
 import { LoadingState } from 'src/components/CellStates/LoadingState'
 import { PicsGrid } from 'src/components/Pics/PicsGrid'
+import useUploadMutation from 'src/components/Uploads/useUploadMutation'
 
 const CREATE_PICS_MUTATION = gql`
   mutation CreatePicsMutation($input: CreatePicsInput!) {
@@ -72,7 +72,7 @@ export const Failure = ({
 export const Success = ({
   album,
 }: CellSuccessProps<FindAlbumQuery, FindAlbumQueryVariables>) => {
-  const [createPics] = useMutation(CREATE_PICS_MUTATION, {
+  const [createPics] = useUploadMutation(CREATE_PICS_MUTATION, {
     onCompleted: () => {
       toast.success('Background removal in progress...', {
         duration: 2_500,
@@ -84,7 +84,7 @@ export const Success = ({
     refetchQueries: [{ query: QUERY, variables: { id: album.id } }],
     context: {
       headers: {
-        'x-presigned-url': 'foo',
+        hello: 'foo',
       },
     },
   })

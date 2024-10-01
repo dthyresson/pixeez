@@ -1,7 +1,9 @@
+import type { SearchResolver } from 'types/search'
+
 import { db } from 'src/lib/db'
 import { logger } from 'src/lib/logger'
-import { storage } from 'src/lib/storage'
-export const search = async ({
+
+export const search: SearchResolver = async ({
   query,
   page = 1,
   limit = 10,
@@ -25,10 +27,7 @@ export const search = async ({
     })
 
     return {
-      items: pics.map((p) => ({
-        ...p,
-        original: storage.getSignedUrl(p.original),
-      })),
+      items: pics,
       count,
       page,
       limit,
@@ -55,10 +54,7 @@ export const search = async ({
   logger.info({ count }, 'total pics')
 
   return {
-    items: pics.map((p) => ({
-      ...p,
-      original: storage.getSignedUrl(p.original),
-    })),
+    items: pics,
     count,
     page,
     limit,

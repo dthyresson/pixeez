@@ -91,6 +91,7 @@ export interface Query {
     __typename?: "Query";
     album?: PAlbum| null;
     albums: Albums;
+    getUploadToken: UploadToken;
     pic?: PPic| null;
     pics: PPic[];
     redwood?: Redwood| null;
@@ -120,6 +121,11 @@ export interface UpdatePicInput {
 export interface UpdateTagInput {
     __typename?: "UpdateTagInput";
     name?: string| null;
+}
+
+export interface UploadToken {
+    __typename?: "UploadToken";
+    token: string;
 }
 
 export interface VerifyWebhookInput {
