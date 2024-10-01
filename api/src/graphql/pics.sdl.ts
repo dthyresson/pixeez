@@ -48,6 +48,7 @@ export const schema = gql`
         maxFiles: 3
         minFiles: 1
         contentTypes: ["image/png"]
+        presignedUrlHeader: "x-presigned-url"
       )
     updatePic(id: ID!, input: UpdatePicInput!): Pic! @blocked
     deletePic(id: ID!): Pic! @blocked

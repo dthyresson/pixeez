@@ -82,6 +82,11 @@ export const Success = ({
       toast.error(error.message)
     },
     refetchQueries: [{ query: QUERY, variables: { id: album.id } }],
+    context: {
+      headers: {
+        'x-presigned-url': 'foo',
+      },
+    },
   })
 
   const onDrop = useCallback(

@@ -17,6 +17,7 @@ export const schema = gql`
     maxFileSize: Int
     minFiles: Int
     maxFiles: Int
+    presignedUrlHeader: String
   ) on FIELD_DEFINITION
 `
 
@@ -28,7 +29,9 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args }) => {
     minFiles,
     maxFiles,
     contentTypes,
+    presignedUrlHeader,
   } = directiveArgs
+
   // TODO: get rules from storage config?
   const DEFAULT_MAX_FILE_SIZE = 1_000_000
   const DEFAULT_MAX_FILES = 10
@@ -37,6 +40,20 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args }) => {
   const sensibleMaxFileSize = maxFileSize ?? DEFAULT_MAX_FILE_SIZE
   const sensibleMaxFiles = maxFiles ?? DEFAULT_MAX_FILES
   const sensibleMinFiles = minFiles ?? DEFAULT_MIN_FILES
+  const sensibleRequiredPresignedUrl = presignedUrlHeader ? true : false
+
+  // check context headers for presigned url
+  if (sensibleRequiredPresignedUrl) {
+    const headers = context.event?.['headers']
+
+    logger.info({ headers }, 'Checking for presigned URL')
+
+    const presignedUrl = headers[presignedUrlHeader]
+    if (!presignedUrl) {
+      throw new ValidationError('Presigned URL is required')
+    }
+  }
+
   const inputData = args[inputName]
 
   attributes.forEach((attr) => {
