@@ -16,44 +16,31 @@ export const schema = gql`
   directive @upload(
     variable: String!
     fields: [String!]!
-    contentTypes: [String!]!
-    maxFileSize: Int
-    minFiles: Int
-    maxFiles: Int
     uploadTokenHeader: String
   ) on FIELD_DEFINITION
 `
 
 const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
-  const {
-    variable,
-    fields,
-    maxFileSize,
-    minFiles,
-    maxFiles,
-    contentTypes,
-    uploadTokenHeader,
-  } = directiveArgs
+  const { variable, fields, uploadTokenHeader } = directiveArgs
+  let { maxFileSize, minFiles, maxFiles, contentTypes } = {} as {
+    maxFileSize: number
+    minFiles: number
+    maxFiles: number
+    contentTypes: string[]
+  }
 
-  // TODO: get rules from storage config?
-  const DEFAULT_MAX_FILE_SIZE = 1_000_000
-  const DEFAULT_MAX_FILES = 10
-  const DEFAULT_MIN_FILES = 1
   const DEFAULT_UPLOAD_TOKEN_HEADER = 'x-rw-upload-token'
 
-  const sensibleMaxFileSize = maxFileSize ?? DEFAULT_MAX_FILE_SIZE
-  const sensibleMaxFiles = maxFiles ?? DEFAULT_MAX_FILES
-  const sensibleMinFiles = minFiles ?? DEFAULT_MIN_FILES
-  const sensibleUploadTokenHeader =
+  const expectedUploadTokenHeader =
     uploadTokenHeader ?? DEFAULT_UPLOAD_TOKEN_HEADER
 
   // check context headers for presigned url
-  if (sensibleUploadTokenHeader) {
+  if (expectedUploadTokenHeader) {
     const headers = context.event?.['headers']
     const { operationName } = context?.['params'] as { operationName: string }
     logger.debug({ operationName }, 'operationName')
 
-    const uploadToken = headers[sensibleUploadTokenHeader]
+    const uploadToken = headers[expectedUploadTokenHeader]
     if (!uploadToken) {
       throw new ValidationError('Upload token is required')
     }
@@ -65,8 +52,13 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
       )
       logger.debug({ decodedToken }, 'Decoded upload token')
 
+      maxFileSize = decodedToken.maxFileSize
+      minFiles = decodedToken.minFiles
+      maxFiles = decodedToken.maxFiles
+      contentTypes = decodedToken.contentTypes
+
       // check that the aud claim is the operationName
-      if (decodedToken.aud !== operationName) {
+      if (decodedToken.sub !== operationName) {
         throw new AuthenticationError(
           `Authentication failed: Invalid operationName: ${operationName}`
         )
@@ -90,16 +82,16 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
       const files = inputVariable[field] as File[]
       const fileCount = files.length
 
-      if (fileCount < sensibleMinFiles) {
+      if (fileCount < minFiles) {
         logger.error({ minFiles, fileCount }, 'Too few files')
         throw new ValidationError(
-          `Too few files. Min ${sensibleMinFiles} files required`
+          `Too few files. Min ${minFiles} files required`
         )
       }
-      if (fileCount > sensibleMaxFiles) {
+      if (fileCount > maxFiles) {
         logger.error({ maxFiles, fileCount }, 'Too many files')
         throw new ValidationError(
-          `Too many files. Max ${sensibleMaxFiles} files allowed`
+          `Too many files. Max ${maxFiles} files allowed`
         )
       }
 
@@ -111,13 +103,13 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
           )
         }
 
-        if (file.size > sensibleMaxFileSize) {
+        if (file.size > maxFileSize) {
           logger.error(
-            { size: file.size, sensibleMaxFileSize },
+            { size: file.size, maxFileSize },
             'File size exceeds the maximum allowed size'
           )
           throw new ValidationError(
-            `File size exceeds the maximum allowed size. Max size: ${sensibleMaxFileSize} bytes`
+            `File size exceeds the maximum allowed size. Max size: ${maxFileSize} bytes`
           )
         }
       })
