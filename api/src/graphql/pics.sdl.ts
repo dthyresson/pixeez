@@ -5,9 +5,9 @@ export const schema = gql`
     updatedAt: DateTime!
     album: Album!
     albumId: ID!
-    original: String!
+    original: String! @signedUrl
     withoutBackground: String
-    thumbnail: String
+    thumbnail: String @signedUrl
     width: Int
     height: Int
     format: String

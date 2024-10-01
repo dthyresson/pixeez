@@ -6,7 +6,6 @@ import type {
   UpdatePicResolver,
   DeletePicResolver,
 } from 'types/pics'
-import type { Pic } from 'types/shared-return-types'
 
 import { ValidationError } from '@redwoodjs/graphql-server'
 
@@ -26,32 +25,13 @@ const validatePicInput = (file) => {
 }
 
 export const pics: PicsResolver = async () => {
-  const results = await db.pic.findMany({
+  return await db.pic.findMany({
     orderBy: { createdAt: 'desc' },
   })
-
-  return await Promise.all(
-    results.map(async (pic) => ({
-      id: pic.id,
-      createdAt: pic.createdAt,
-      updatedAt: pic.updatedAt,
-      albumId: pic.albumId,
-      original: await storage.getSignedUrl(pic.original),
-      thumbnail: pic.thumbnail
-        ? await storage.getSignedUrl(pic.thumbnail)
-        : null,
-      withoutBackground: pic.withoutBackground || '',
-      width: pic.width,
-      height: pic.height,
-      format: pic.format,
-      exif: pic.exif || '',
-      description: pic.description || '',
-    }))
-  )
 }
 
 export const pic: PicResolver = async ({ id }) => {
-  const p = await db.pic.findUnique({
+  return await db.pic.findUnique({
     where: { id },
     select: {
       id: true,
@@ -68,12 +48,6 @@ export const pic: PicResolver = async ({ id }) => {
       description: true,
     },
   })
-
-  return {
-    ...p,
-    original: await storage.getSignedUrl(p.original),
-    thumbnail: p.thumbnail ? await storage.getSignedUrl(p.thumbnail) : null,
-  }
 }
 
 export const createPic: CreatePicResolver = async ({ input }) => {
@@ -94,16 +68,10 @@ export const createPic: CreatePicResolver = async ({ input }) => {
 
   await later(CreatePicFanOutJob, [pic.id])
 
-  return {
-    ...pic,
-    original: await storage.getSignedUrl(pic.original),
-    thumbnail: pic.thumbnail ? await storage.getSignedUrl(pic.thumbnail) : null,
-  }
+  return pic
 }
 
 export const createPics: CreatePicsResolver = async ({ input }) => {
-  const result = [] as Pic[]
-
   if (input.originals.length > 20) {
     throw new ValidationError('Maximum of 20 pics can be uploaded at once')
   }
@@ -114,42 +82,34 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
     where: { id: input.albumId },
   })
 
-  for (const original of input.originals) {
-    const path = await storage.writeStream(original.stream())
-    const pic = await db.pic.create({
-      data: {
-        original: path,
-        id: newId('pic'),
-        albumId: album.id,
-      },
-    })
+  const result = await Promise.all(
+    input.originals.map(async (original) => {
+      const path = await storage.writeStream(original.stream())
+      const pic = await db.pic.create({
+        data: {
+          original: path,
+          id: newId('pic'),
+          albumId: album.id,
+        },
+      })
 
-    result.push({
-      ...pic,
-      original: await storage.getSignedUrl(pic.original),
-      thumbnail: await storage.getSignedUrl(pic.thumbnail),
-    })
+      await later(CreatePicFanOutJob, [pic.id])
 
-    await later(CreatePicFanOutJob, [pic.id])
-  }
+      return pic
+    })
+  )
 
   return result
 }
 
 export const updatePic: UpdatePicResolver = async ({ id, input }) => {
-  const p = await db.pic.update({
+  return await db.pic.update({
     data: input,
     where: { id },
     include: {
       album: true,
     },
   })
-
-  return {
-    ...p,
-    original: await storage.getSignedUrl(p.original),
-    thumbnail: await storage.getSignedUrl(p.thumbnail),
-  }
 }
 
 export const deletePic: DeletePicResolver = async ({ id }) => {
