@@ -48,7 +48,13 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
     try {
       const decodedToken = jwt.verify(
         uploadToken,
-        process.env.UPLOAD_TOKEN_SECRET
+        process.env.UPLOAD_TOKEN_SECRET,
+        {
+          algorithms: ['HS256'],
+          audience: 'uploads',
+          issuer: 'pixeez',
+          subject: operationName,
+        }
       )
       logger.debug({ decodedToken }, 'Decoded upload token')
 
@@ -56,13 +62,6 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
       minFiles = decodedToken.minFiles
       maxFiles = decodedToken.maxFiles
       contentTypes = decodedToken.contentTypes
-
-      // check that the aud claim is the operationName
-      if (decodedToken.sub !== operationName) {
-        throw new AuthenticationError(
-          `Authentication failed: Invalid operationName: ${operationName}`
-        )
-      }
     } catch (error) {
       logger.error({ error }, 'JWT verification failed')
       throw new AuthenticationError(
