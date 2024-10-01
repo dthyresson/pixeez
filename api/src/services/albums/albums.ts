@@ -27,7 +27,7 @@ export const albums: AlbumsResolver = async () => {
       ...album,
 
       pics: album.pics.map(async (pic) => {
-        const original = storage.getSignedUrl(pic.original)
+        const original = await storage.getSignedUrl(pic.original)
         logger.debug({ original }, 'original')
         return {
           ...pic,
@@ -56,7 +56,7 @@ export const album: AlbumResolver = async ({ id }) => {
   const pics = theAlbum?.pics.map(async (pic) => {
     return {
       ...pic,
-      original: storage.getSignedUrl(pic.original),
+      original: await storage.getSignedUrl(pic.original),
     }
   })
 

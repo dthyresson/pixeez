@@ -39,7 +39,10 @@ export const tag: TagResolver = async ({ id }) => {
 
   return {
     ...theTag,
-    pics: theTag?.pics,
+    pics: theTag?.pics.map(async (pic) => ({
+      ...pic,
+      original: await storage.getSignedUrl(pic.original),
+    })),
   }
 }
 
@@ -57,9 +60,9 @@ export const createTag: CreateTagResolver = async ({ input }) => {
 
   return {
     ...tag,
-    pics: tag?.pics.map((pic) => ({
+    pics: tag?.pics.map(async (pic) => ({
       ...pic,
-      original: storage.getSignedUrl(pic.original),
+      original: await storage.getSignedUrl(pic.original),
     })),
   }
 }
@@ -79,9 +82,9 @@ export const updateTag: UpdateTagResolver = async ({ id, input }) => {
 
   return {
     ...tag,
-    pics: tag?.pics.map((pic) => ({
+    pics: tag?.pics.map(async (pic) => ({
       ...pic,
-      original: storage.getSignedUrl(pic.original),
+      original: await storage.getSignedUrl(pic.original),
     })),
   }
 }

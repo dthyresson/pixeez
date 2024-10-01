@@ -26,44 +26,49 @@ const validatePicInput = (file) => {
 }
 
 export const pics: PicsResolver = async () => {
-  const p = await db.pic.findMany({
+  const results = await db.pic.findMany({
     orderBy: { id: 'desc' },
-    include: {
-      album: true,
-    },
   })
 
-  return p //Promise.all(p.map((pic) => pic.withSignedUrl()))
+  return results.map((pic) => ({
+    id: pic.id,
+    createdAt: pic.createdAt,
+    updatedAt: pic.updatedAt,
+    albumId: pic.albumId,
+    original: pic.original,
+    withoutBackground: pic.withoutBackground || '',
+    width: pic.width,
+    height: pic.height,
+    format: pic.format,
+    exif: pic.exif || '',
+    description: pic.description || '',
+  }))
 }
 
 export const pic: PicResolver = async ({ id }) => {
   const p = await db.pic.findUnique({
     where: { id },
-    include: {
-      album: true,
+    select: {
+      id: true,
+      createdAt: true,
+      updatedAt: true,
+      albumId: true,
+      original: true,
+      withoutBackground: true,
+      width: true,
+      height: true,
+      format: true,
+      exif: true,
+      description: true,
     },
   })
-
-  return p //.withSignedUrl()
+  return p
 }
 
 export const createPic: CreatePicResolver = async ({ input }) => {
   validatePicInput(input.original)
 
-  // const album = await db.album.findUnique({
-  //   where: { id: input.albumId },
-  // })
-
-  // const path = `${config.baseDir}/${album.name}/${input.original.name}`
-
-  // const processedInput = await saveFiles.forPic(input, {
-  //   path,
-  // })
-  // const data = {
-  //   ...processedInput,
-  // }
-
-  const path = await storage.writeFile(input.original)
+  const path = await storage.writeStream(input.original.stream())
   const data = {
     ...input,
     original: path,
@@ -78,7 +83,10 @@ export const createPic: CreatePicResolver = async ({ input }) => {
 
   await later(CreatePicFanOutJob, [pic.id])
 
-  return await pic //.withSignedUrl()
+  return {
+    ...pic,
+    original: await storage.getSignedUrl(pic.original),
+  }
 }
 
 export const createPics: CreatePicsResolver = async ({ input }) => {
@@ -94,12 +102,8 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
     where: { id: input.albumId },
   })
 
-  // const path = `${config.baseDir}/${album.name}`
-
-  // const savedOriginalFiles = await saveFiles.inList(input.originals, { path })
-
   for (const original of input.originals) {
-    const path = await storage.writeFile(original)
+    const path = await storage.writeStream(original.stream())
     const pic = await db.pic.create({
       data: {
         original: path,
@@ -108,7 +112,10 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
       },
     })
 
-    result.push(pic) //(await pic.withSignedUrl())
+    result.push({
+      ...pic,
+      original: await storage.getSignedUrl(pic.original),
+    })
 
     await later(CreatePicFanOutJob, [pic.id])
   }
@@ -125,7 +132,10 @@ export const updatePic: UpdatePicResolver = async ({ id, input }) => {
     },
   })
 
-  return p //.withSignedUrl()
+  return {
+    ...p,
+    original: await storage.getSignedUrl(p.original),
+  }
 }
 
 export const deletePic: DeletePicResolver = async ({ id }) => {

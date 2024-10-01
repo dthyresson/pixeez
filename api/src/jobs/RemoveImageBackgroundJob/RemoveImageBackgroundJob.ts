@@ -5,7 +5,7 @@ import {
 import { db } from 'src/lib/db'
 import { removeBackground } from 'src/lib/fal/removeBackground'
 import { jobs } from 'src/lib/jobs'
-// import { storage } from 'src/lib/storage'
+import { storage } from 'src/lib/storage'
 
 /**
  * The RemoveImageBackgroundJob is critical because it performs the main background removal
@@ -28,7 +28,13 @@ export const RemoveImageBackgroundJob = jobs.createJob({
     // send base64 data uri of the original image in the Pic to fal as imageUrl
     jobs.logger.debug({ picId }, 'Pic to get data uri')
 
-    const result = await removeBackground({ imageUrl: pic.original })
+    const data = await storage.readFile(pic.original)
+    const arrayBuffer = await data.arrayBuffer()
+    const base64Data = Buffer.from(arrayBuffer).toString('base64')
+    const mimeType = data.type
+    const imageUrl = `data:${mimeType};base64,${base64Data}`
+    // jobs.logger.debug({ imageUrl }, 'Image URL')
+    const result = await removeBackground({ imageUrl })
 
     jobs.logger.debug({ picId }, 'Fal processing done!')
 
