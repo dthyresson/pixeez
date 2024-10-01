@@ -22,7 +22,5 @@ api/src/lib/generateGraphiQLHeader.*
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
-uploads/*
-storage/*
 tarballs/*
 api/.storage/**/*
