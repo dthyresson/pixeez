@@ -17,12 +17,20 @@ export const schema = gql`
     id: ID!
   }
 
+  input OnThumbnailCreatedInput {
+    secret: String!
+    id: ID!
+  }
+
   type Mutation {
     onBackgroundRemoved(input: OnBackgroundRemovedInput!): Pic!
       @rateLimited(identifier: "onBackgroundRemoved")
       @verifyWebhook
     onTagsCreated(input: OnTagsCreatedInput!): Pic!
       @rateLimited(identifier: "onTagsCreated")
+      @verifyWebhook
+    onThumbnailCreated(input: OnThumbnailCreatedInput!): Pic!
+      @rateLimited(identifier: "onThumbnailCreated")
       @verifyWebhook
   }
 `

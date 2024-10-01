@@ -16,6 +16,14 @@ mutation OnTagsCreated($input: OnTagsCreatedInput!) {
 }
 `
 
+export const OnThumbnailCreatedWebhook = `
+mutation OnThumbnailCreated($input: OnThumbnailCreatedInput!) {
+  onThumbnailCreated(input: $input) {
+    id
+  }
+}
+`
+
 export const executeGraphQLWebhook = async ({
   query,
   inputVariables,

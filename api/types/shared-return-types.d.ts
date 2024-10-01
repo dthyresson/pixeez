@@ -48,6 +48,7 @@ export interface Mutation {
     deleteTag: PTag;
     onBackgroundRemoved: PPic;
     onTagsCreated: PPic;
+    onThumbnailCreated: PPic;
     updateAlbum: PAlbum;
     updatePic: PPic;
     updateTag: PTag;
@@ -61,6 +62,12 @@ export interface OnBackgroundRemovedInput {
 
 export interface OnTagsCreatedInput {
     __typename?: "OnTagsCreatedInput";
+    id: ID;
+    secret: string;
+}
+
+export interface OnThumbnailCreatedInput {
+    __typename?: "OnThumbnailCreatedInput";
     id: ID;
     secret: string;
 }

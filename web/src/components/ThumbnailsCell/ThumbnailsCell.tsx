@@ -14,7 +14,7 @@ export const QUERY: TypedDocumentNode<
   ThumbnailsQuery,
   ThumbnailsQueryVariables
 > = gql`
-  query ThumbnailsQuery {
+  query ThumbnailsQuery @live {
     thumbnails: pics {
       id
       thumbnail
@@ -32,13 +32,25 @@ export const Loading = () => <LoadingState />
 export const Success = ({ thumbnails }: CellSuccessProps<ThumbnailsQuery>) => {
   return (
     <ul className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-6">
-      {thumbnails.map((item) => {
-        return (
-          <li key={item.id}>
-            <img src={item.thumbnail} alt={item.id} />
-          </li>
-        )
-      })}
+      {thumbnails.map((item) => (
+        <li key={item.id} className="aspect-square">
+          {item.thumbnail ? (
+            <img
+              src={item.thumbnail}
+              alt={item.id}
+              className="object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement
+                target.src =
+                  'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=='
+                target.classList.add('bg-gray-300')
+              }}
+            />
+          ) : (
+            <div className="h-10 w-10 bg-gray-300" />
+          )}
+        </li>
+      ))}
     </ul>
   )
 }

@@ -1,6 +1,7 @@
 import type {
   OnBackgroundRemovedResolver,
   OnTagsCreatedResolver,
+  OnThumbnailCreatedResolver,
 } from 'types/webhooks'
 
 import { ValidationError } from '@redwoodjs/graphql-server'
@@ -33,11 +34,43 @@ export const onBackgroundRemoved: OnBackgroundRemovedResolver = async (
     throw new ValidationError('Pic not found')
   }
 
-  const key = `Album:${pic.albumId}`
+  const keys = [`Album:${pic.albumId}`, `Pic:${pic.id}`]
 
-  liveQueryStore.invalidate(key)
+  liveQueryStore.invalidate(keys)
 
-  logger.info({ id, key }, 'Pic invalidated')
+  logger.info({ id, keys }, 'Pic invalidated')
+
+  return pic
+}
+
+export const onThumbnailCreated: OnThumbnailCreatedResolver = async (
+  { input },
+  { context }
+) => {
+  const { id } = input
+
+  const liveQueryStore = context.liveQueryStore as LiveQueryStorageMechanism
+
+  if (!liveQueryStore) {
+    logger.error('Live query store not found')
+    throw new ValidationError('Live query store not found')
+  }
+
+  const pic = await db.pic.findUnique({
+    where: { id },
+    include: { album: true },
+  })
+
+  if (!pic) {
+    logger.error({ id }, 'Pic not found')
+    throw new ValidationError('Pic not found')
+  }
+
+  const keys = [`Album:${pic.albumId}`, `Pic:${pic.id}`]
+
+  liveQueryStore.invalidate(keys)
+
+  logger.info({ id, keys }, 'Pic invalidated')
 
   return pic
 }

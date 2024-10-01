@@ -27,7 +27,7 @@ const validatePicInput = (file) => {
 
 export const pics: PicsResolver = async () => {
   const results = await db.pic.findMany({
-    orderBy: { id: 'desc' },
+    orderBy: { createdAt: 'desc' },
   })
 
   return await Promise.all(
@@ -37,7 +37,9 @@ export const pics: PicsResolver = async () => {
       updatedAt: pic.updatedAt,
       albumId: pic.albumId,
       original: await storage.getSignedUrl(pic.original),
-      thumbnail: await storage.getSignedUrl(pic.thumbnail),
+      thumbnail: pic.thumbnail
+        ? await storage.getSignedUrl(pic.thumbnail)
+        : null,
       withoutBackground: pic.withoutBackground || '',
       width: pic.width,
       height: pic.height,
@@ -70,7 +72,7 @@ export const pic: PicResolver = async ({ id }) => {
   return {
     ...p,
     original: await storage.getSignedUrl(p.original),
-    thumbnail: await storage.getSignedUrl(p.thumbnail),
+    thumbnail: p.thumbnail ? await storage.getSignedUrl(p.thumbnail) : null,
   }
 }
 
@@ -95,7 +97,7 @@ export const createPic: CreatePicResolver = async ({ input }) => {
   return {
     ...pic,
     original: await storage.getSignedUrl(pic.original),
-    thumbnail: await storage.getSignedUrl(pic.thumbnail),
+    thumbnail: pic.thumbnail ? await storage.getSignedUrl(pic.thumbnail) : null,
   }
 }
 

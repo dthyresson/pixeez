@@ -45,6 +45,7 @@ export interface Mutation {
     deleteTag: Tag;
     onBackgroundRemoved: Pic;
     onTagsCreated: Pic;
+    onThumbnailCreated: Pic;
     updateAlbum: Album;
     updatePic: Pic;
     updateTag: Tag;
@@ -58,6 +59,12 @@ export interface OnBackgroundRemovedInput {
 
 export interface OnTagsCreatedInput {
     __typename?: "OnTagsCreatedInput";
+    id: ID;
+    secret: string;
+}
+
+export interface OnThumbnailCreatedInput {
+    __typename?: "OnThumbnailCreatedInput";
     id: ID;
     secret: string;
 }
