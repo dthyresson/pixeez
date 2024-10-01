@@ -41,6 +41,14 @@ export const schema = gql`
       @rateLimited(identifier: "createPic")
     createPics(input: CreatePicsInput!): [Pic!]!
       @rateLimited(identifier: "createPics")
+      @upload(
+        input: "input"
+        attributes: ["originals"]
+        maxFileSize: 1000000
+        maxFiles: 3
+        minFiles: 1
+        contentTypes: ["image/png"]
+      )
     updatePic(id: ID!, input: UpdatePicInput!): Pic! @blocked
     deletePic(id: ID!): Pic! @blocked
   }

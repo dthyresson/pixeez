@@ -78,6 +78,9 @@ export const Success = ({
         duration: 2_500,
       })
     },
+    onError: (error) => {
+      toast.error(error.message)
+    },
     refetchQueries: [{ query: QUERY, variables: { id: album.id } }],
   })
 
