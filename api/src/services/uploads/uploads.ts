@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken'
-import { GetUploadTokenResolver } from 'types/uploads'
+import { GetRedwoodUploadTokenResolver } from 'types/uploads'
 
-export const getUploadToken: GetUploadTokenResolver = async ({
+export const getRedwoodUploadToken: GetRedwoodUploadTokenResolver = async ({
   operationName,
 }) => {
-  const secret = process.env.STORAGE_SIGNING_SECRET
+  const secret = process.env.UPLOAD_TOKEN_SECRET
   if (!secret) {
-    throw new Error('STORAGE_SIGNING_SECRET is not set')
+    throw new Error('UPLOAD_TOKEN_SECRET is not set')
   }
 
   const token = jwt.sign(

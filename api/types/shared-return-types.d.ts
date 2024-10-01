@@ -91,7 +91,7 @@ export interface Query {
     __typename?: "Query";
     album?: PAlbum| null;
     albums: Albums;
-    getUploadToken: UploadToken;
+    getRedwoodUploadToken: RedwoodUploadToken;
     pic?: PPic| null;
     pics: PPic[];
     redwood?: Redwood| null;
@@ -105,6 +105,11 @@ export interface Redwood {
     currentUser?: JSON| null;
     prismaVersion?: string| null;
     version?: string| null;
+}
+
+export interface RedwoodUploadToken {
+    __typename?: "RedwoodUploadToken";
+    token: string;
 }
 
 export interface UpdateAlbumInput {
@@ -121,11 +126,6 @@ export interface UpdatePicInput {
 export interface UpdateTagInput {
     __typename?: "UpdateTagInput";
     name?: string| null;
-}
-
-export interface UploadToken {
-    __typename?: "UploadToken";
-    token: string;
 }
 
 export interface VerifyWebhookInput {

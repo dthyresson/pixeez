@@ -1,11 +1,11 @@
 export const schema = gql`
-  type UploadToken {
+  type RedwoodUploadToken {
     token: String!
   }
 
   type Query {
-    getUploadToken(operationName: String!): UploadToken!
-      @rateLimited(identifier: "getUploadToken")
+    getRedwoodUploadToken(operationName: String!): RedwoodUploadToken!
+      @rateLimited(identifier: "getRedwoodUploadToken")
       @skipAuth
   }
 `

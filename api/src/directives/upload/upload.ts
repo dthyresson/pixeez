@@ -14,54 +14,56 @@ export const schema = gql`
   Use @upload to validate file uploads with dynamic input and size constraints.
   """
   directive @upload(
-    input: String!
-    attributes: [String!]!
+    variable: String!
+    fields: [String!]!
     contentTypes: [String!]!
     maxFileSize: Int
     minFiles: Int
     maxFiles: Int
-    presignedUrlHeader: String
+    uploadTokenHeader: String
   ) on FIELD_DEFINITION
 `
 
 const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
   const {
-    input: inputName,
-    attributes,
+    variable,
+    fields,
     maxFileSize,
     minFiles,
     maxFiles,
     contentTypes,
-    presignedUrlHeader,
+    uploadTokenHeader,
   } = directiveArgs
 
   // TODO: get rules from storage config?
   const DEFAULT_MAX_FILE_SIZE = 1_000_000
   const DEFAULT_MAX_FILES = 10
   const DEFAULT_MIN_FILES = 1
+  const DEFAULT_UPLOAD_TOKEN_HEADER = 'x-rw-upload-token'
 
   const sensibleMaxFileSize = maxFileSize ?? DEFAULT_MAX_FILE_SIZE
   const sensibleMaxFiles = maxFiles ?? DEFAULT_MAX_FILES
   const sensibleMinFiles = minFiles ?? DEFAULT_MIN_FILES
-  const sensibleRequiredPresignedUrl = presignedUrlHeader ? true : false
+  const sensibleUploadTokenHeader =
+    uploadTokenHeader ?? DEFAULT_UPLOAD_TOKEN_HEADER
 
   // check context headers for presigned url
-  if (sensibleRequiredPresignedUrl) {
+  if (sensibleUploadTokenHeader) {
     const headers = context.event?.['headers']
     const { operationName } = context?.['params'] as { operationName: string }
     logger.debug({ operationName }, 'operationName')
 
-    const presignedUrl = headers[presignedUrlHeader]
-    if (!presignedUrl) {
-      throw new ValidationError('Presigned URL is required')
+    const uploadToken = headers[sensibleUploadTokenHeader]
+    if (!uploadToken) {
+      throw new ValidationError('Upload token is required')
     }
 
     try {
       const decodedToken = jwt.verify(
-        presignedUrl,
-        process.env.STORAGE_SIGNING_SECRET
+        uploadToken,
+        process.env.UPLOAD_TOKEN_SECRET
       )
-      logger.debug({ decodedToken }, 'Decoded token')
+      logger.debug({ decodedToken }, 'Decoded upload token')
 
       // check that the aud claim is the operationName
       if (decodedToken.aud !== operationName) {
@@ -72,49 +74,58 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
     } catch (error) {
       logger.error({ error }, 'JWT verification failed')
       throw new AuthenticationError(
-        'Authentication failed: Invalid presigned URL'
+        'Authentication failed: Invalid upload token'
       )
     }
   }
 
-  const inputData = args[inputName]
+  try {
+    const inputVariable = args[variable]
 
-  attributes.forEach((attr) => {
-    const files = inputData[attr] as File[]
-    const fileCount = files.length
-
-    if (fileCount < sensibleMinFiles) {
-      logger.error({ minFiles, fileCount }, 'Too few files')
-      throw new ValidationError(
-        `Too few files. Min ${sensibleMinFiles} files required`
-      )
-    }
-    if (fileCount > sensibleMaxFiles) {
-      logger.error({ maxFiles, fileCount }, 'Too many files')
-      throw new ValidationError(
-        `Too many files. Max ${sensibleMaxFiles} files allowed`
-      )
+    if (!inputVariable) {
+      throw new ValidationError('Input variable for files is required')
     }
 
-    files.forEach((file) => {
-      if (!contentTypes.includes(file.type)) {
-        logger.error({ contentTypes }, 'Invalid file type')
+    fields.forEach((field) => {
+      const files = inputVariable[field] as File[]
+      const fileCount = files.length
+
+      if (fileCount < sensibleMinFiles) {
+        logger.error({ minFiles, fileCount }, 'Too few files')
         throw new ValidationError(
-          `Invalid file type. Allowed types: ${contentTypes.join(', ')}`
+          `Too few files. Min ${sensibleMinFiles} files required`
+        )
+      }
+      if (fileCount > sensibleMaxFiles) {
+        logger.error({ maxFiles, fileCount }, 'Too many files')
+        throw new ValidationError(
+          `Too many files. Max ${sensibleMaxFiles} files allowed`
         )
       }
 
-      if (file.size > sensibleMaxFileSize) {
-        logger.error(
-          { size: file.size, sensibleMaxFileSize },
-          'File size exceeds the maximum allowed size'
-        )
-        throw new ValidationError(
-          `File size exceeds the maximum allowed size. Max size: ${sensibleMaxFileSize} bytes`
-        )
-      }
+      files.forEach((file) => {
+        if (!contentTypes.includes(file.type)) {
+          logger.error({ contentTypes }, 'Invalid file type')
+          throw new ValidationError(
+            `Invalid file type. Allowed types: ${contentTypes.join(', ')}`
+          )
+        }
+
+        if (file.size > sensibleMaxFileSize) {
+          logger.error(
+            { size: file.size, sensibleMaxFileSize },
+            'File size exceeds the maximum allowed size'
+          )
+          throw new ValidationError(
+            `File size exceeds the maximum allowed size. Max size: ${sensibleMaxFileSize} bytes`
+          )
+        }
+      })
     })
-  })
+  } catch (error) {
+    logger.error({ error }, 'Upload validation failed')
+    throw new ValidationError(error.message)
+  }
 }
 
 const upload = createValidatorDirective(schema, validate)

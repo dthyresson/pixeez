@@ -39,17 +39,28 @@ export const schema = gql`
   type Mutation {
     createPic(input: CreatePicInput!): Pic!
       @rateLimited(identifier: "createPic")
-    createPics(input: CreatePicsInput!): [Pic!]!
-      @rateLimited(identifier: "createPics")
       @upload(
-        input: "input"
-        attributes: ["originals"]
+        variable: "input"
+        fields: ["originals"]
         maxFileSize: 1000000
         maxFiles: 3
         minFiles: 1
         contentTypes: ["image/png"]
-        presignedUrlHeader: "x-presigned-url"
+        uploadTokenHeader: "x-rw-upload-token"
       )
+
+    createPics(input: CreatePicsInput!): [Pic!]!
+      @rateLimited(identifier: "createPics")
+      @upload(
+        variable: "input"
+        fields: ["originals"]
+        maxFileSize: 1000000
+        maxFiles: 3
+        minFiles: 1
+        contentTypes: ["image/png"]
+        uploadTokenHeader: "x-rw-upload-token"
+      )
+
     updatePic(id: ID!, input: UpdatePicInput!): Pic! @blocked
     deletePic(id: ID!): Pic! @blocked
   }
