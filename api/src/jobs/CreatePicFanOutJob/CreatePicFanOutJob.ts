@@ -1,3 +1,4 @@
+import { CreateThumbnailJob } from 'src/jobs/CreateThumbnailJob/CreateThumbnailJob'
 import { DescribePicJob } from 'src/jobs/DescribePicJob/DescribePicJob'
 import { ProcessPicMetadataJob } from 'src/jobs/ProcessPicMetadataJob/ProcessPicMetadataJob'
 import { RemoveImageBackgroundJob } from 'src/jobs/RemoveImageBackgroundJob/RemoveImageBackgroundJob'
@@ -14,10 +15,10 @@ export const CreatePicFanOutJob = jobs.createJob({
     jobs.logger.info('CreatePicFanOutJob is performing...')
 
     // fan out to other jobs
+    await later(CreateThumbnailJob, [picId])
     await later(RemoveImageBackgroundJob, [picId])
     await later(DescribePicJob, [picId])
     await later(ProcessPicMetadataJob, [picId])
-
     jobs.logger.info('CreatePicFanOutJob is done!')
   },
 })

@@ -28,10 +28,12 @@ export const albums: AlbumsResolver = async () => {
 
       pics: album.pics.map(async (pic) => {
         const original = await storage.getSignedUrl(pic.original)
+        const thumbnail = await storage.getSignedUrl(pic.thumbnail)
         logger.debug({ original }, 'original')
         return {
           ...pic,
           original,
+          thumbnail,
         }
       }),
       picCount: album._count.pics || 0,

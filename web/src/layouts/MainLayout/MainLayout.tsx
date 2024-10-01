@@ -2,6 +2,7 @@ import {
   MagnifyingGlassIcon,
   TagIcon,
   HandRaisedIcon,
+  PhotoIcon,
 } from '@heroicons/react/24/solid'
 
 import { Link, routes } from '@redwoodjs/router'
@@ -33,6 +34,13 @@ const NavBar = () => {
           to={routes.tags()}
         >
           <TagIcon className="h-4 w-4 text-cyan-600" />
+        </Link>
+
+        <Link
+          className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-amber-600 bg-white text-lg hover:bg-amber-100 dark:bg-amber-900 dark:hover:bg-amber-700"
+          to={routes.thumbnails()}
+        >
+          <PhotoIcon className="h-4 w-4 text-amber-600" />
         </Link>
         <Link
           className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-violet-600 bg-white text-lg hover:bg-violet-100 dark:bg-violet-900 dark:hover:bg-violet-700"

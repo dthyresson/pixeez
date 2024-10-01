@@ -7,6 +7,7 @@ export const schema = gql`
     albumId: ID!
     original: String!
     withoutBackground: String
+    thumbnail: String
     width: Int
     height: Int
     format: String

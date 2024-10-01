@@ -89,6 +89,7 @@ export interface Pic {
     id: ID;
     original: string;
     tags: Tag[];
+    thumbnail?: string| null;
     updatedAt: DateTime;
     width?: number| null;
     withoutBackground?: string| null;

@@ -1,10 +1,6 @@
-import exifParser from 'exif-parser'
-import sharp from 'sharp'
-
 import { db } from 'src/lib/db'
+import { extractMetadata } from 'src/lib/images'
 import { jobs } from 'src/lib/jobs'
-import { logger } from 'src/lib/logger'
-import { storage } from 'src/lib/storage'
 
 /**
  * The ProcessPicMetadataJob is on the default queue
@@ -23,30 +19,8 @@ export const ProcessPicMetadataJob = jobs.createJob({
       jobs.logger.error(`Pic with id ${picId} not found`)
       throw new Error(`Pic with id ${picId} not found`)
     }
-    const contents = await storage.readData(pic.original)
-    const image = await sharp(contents)
-      .metadata()
-      .then((metadata) => {
-        return metadata
-      })
 
-    const { height, width, format } = image
-
-    logger.debug({ height, width, format }, 'Image metadata')
-
-    let exif = null
-
-    if (format === 'jpeg' || format === 'jpg') {
-      // Extract EXIF data using exif-parser
-      const parser = exifParser.create(contents)
-      parser.enableSimpleValues(true)
-
-      const result = parser.parse()
-
-      logger.debug({ result }, 'EXIF data')
-
-      exif = JSON.stringify(result.tags || {})
-    }
+    const { height, width, format, exif } = await extractMetadata(pic.original)
 
     await db.pic.update({
       where: { id: picId },

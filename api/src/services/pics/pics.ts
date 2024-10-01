@@ -30,19 +30,22 @@ export const pics: PicsResolver = async () => {
     orderBy: { id: 'desc' },
   })
 
-  return results.map((pic) => ({
-    id: pic.id,
-    createdAt: pic.createdAt,
-    updatedAt: pic.updatedAt,
-    albumId: pic.albumId,
-    original: pic.original,
-    withoutBackground: pic.withoutBackground || '',
-    width: pic.width,
-    height: pic.height,
-    format: pic.format,
-    exif: pic.exif || '',
-    description: pic.description || '',
-  }))
+  return await Promise.all(
+    results.map(async (pic) => ({
+      id: pic.id,
+      createdAt: pic.createdAt,
+      updatedAt: pic.updatedAt,
+      albumId: pic.albumId,
+      original: await storage.getSignedUrl(pic.original),
+      thumbnail: await storage.getSignedUrl(pic.thumbnail),
+      withoutBackground: pic.withoutBackground || '',
+      width: pic.width,
+      height: pic.height,
+      format: pic.format,
+      exif: pic.exif || '',
+      description: pic.description || '',
+    }))
+  )
 }
 
 export const pic: PicResolver = async ({ id }) => {
@@ -54,6 +57,7 @@ export const pic: PicResolver = async ({ id }) => {
       updatedAt: true,
       albumId: true,
       original: true,
+      thumbnail: true,
       withoutBackground: true,
       width: true,
       height: true,
@@ -62,7 +66,12 @@ export const pic: PicResolver = async ({ id }) => {
       description: true,
     },
   })
-  return p
+
+  return {
+    ...p,
+    original: await storage.getSignedUrl(p.original),
+    thumbnail: await storage.getSignedUrl(p.thumbnail),
+  }
 }
 
 export const createPic: CreatePicResolver = async ({ input }) => {
@@ -86,6 +95,7 @@ export const createPic: CreatePicResolver = async ({ input }) => {
   return {
     ...pic,
     original: await storage.getSignedUrl(pic.original),
+    thumbnail: await storage.getSignedUrl(pic.thumbnail),
   }
 }
 
@@ -115,6 +125,7 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
     result.push({
       ...pic,
       original: await storage.getSignedUrl(pic.original),
+      thumbnail: await storage.getSignedUrl(pic.thumbnail),
     })
 
     await later(CreatePicFanOutJob, [pic.id])
@@ -135,6 +146,7 @@ export const updatePic: UpdatePicResolver = async ({ id, input }) => {
   return {
     ...p,
     original: await storage.getSignedUrl(p.original),
+    thumbnail: await storage.getSignedUrl(p.thumbnail),
   }
 }
 
