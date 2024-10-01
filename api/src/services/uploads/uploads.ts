@@ -18,7 +18,7 @@ export const getUploadToken: GetUploadTokenResolver = async ({
     secret,
     {
       algorithm: 'HS256',
-      expiresIn: '10s',
+      expiresIn: '1m',
     }
   )
 
