@@ -1,9 +1,8 @@
 import { TagifyPicJob } from 'src/jobs/TagifyPicJob/TagifyPicJob'
 import { db } from 'src/lib/db'
 import { describeImage } from 'src/lib/fal/describeImage'
+import { getBase64DataUri } from 'src/lib/images'
 import { jobs, later } from 'src/lib/jobs'
-import { storage } from 'src/lib/storage'
-
 /**
  * The DescribePicJob is on the default queue
  * to describe the picture and then queue the TagifyPicJob
@@ -22,11 +21,8 @@ export const DescribePicJob = jobs.createJob({
       return
     }
 
-    const data = await storage.readFile(pic.original)
-    const arrayBuffer = await data.arrayBuffer()
-    const base64Data = Buffer.from(arrayBuffer).toString('base64')
-    const mimeType = data.type
-    const imageUrl = `data:${mimeType};base64,${base64Data}`
+    const imageUrl = await getBase64DataUri(pic.original)
+
     jobs.logger.debug({ picId }, 'Pic converted to data URI')
 
     const result = await describeImage({ imageUrl })
