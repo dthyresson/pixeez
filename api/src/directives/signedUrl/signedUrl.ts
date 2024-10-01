@@ -14,11 +14,19 @@ export const schema = gql`
 
 const transform: TransformerDirectiveFunc = async ({
   // context,
+  args,
   resolvedValue,
 }) => {
+  if (
+    !resolvedValue ||
+    typeof resolvedValue !== 'string' ||
+    resolvedValue.length === 0
+  ) {
+    return null
+  }
   const signedUrl = await storage.getSignedUrl(resolvedValue)
   logger.debug({ signedUrl, resolvedValue }, 'signedUrl in signedUrl directive')
-
+  logger.debug({ args }, 'args in signedUrl directive')
   return signedUrl
 }
 
