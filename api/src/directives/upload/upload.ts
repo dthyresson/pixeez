@@ -24,7 +24,7 @@ export const schema = gql`
   ) on FIELD_DEFINITION
 `
 
-const validate: ValidatorDirectiveFunc = ({ directiveArgs, args }) => {
+const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
   const {
     input: inputName,
     attributes,
@@ -45,13 +45,11 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args }) => {
   const sensibleMinFiles = minFiles ?? DEFAULT_MIN_FILES
   const sensibleRequiredPresignedUrl = presignedUrlHeader ? true : false
 
-  logger.debug({ headers: context.event?.['headers'] }, '>>> headers')
-
   // check context headers for presigned url
   if (sensibleRequiredPresignedUrl) {
     const headers = context.event?.['headers']
-
-    logger.info({ headers }, 'Checking for presigned URL')
+    const { operationName } = context?.['params'] as { operationName: string }
+    logger.debug({ operationName }, 'operationName')
 
     const presignedUrl = headers[presignedUrlHeader]
     if (!presignedUrl) {
@@ -64,6 +62,13 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args }) => {
         process.env.STORAGE_SIGNING_SECRET
       )
       logger.debug({ decodedToken }, 'Decoded token')
+
+      // check that the aud claim is the operationName
+      if (decodedToken.aud !== operationName) {
+        throw new AuthenticationError(
+          `Authentication failed: Invalid operationName: ${operationName}`
+        )
+      }
     } catch (error) {
       logger.error({ error }, 'JWT verification failed')
       throw new AuthenticationError(
