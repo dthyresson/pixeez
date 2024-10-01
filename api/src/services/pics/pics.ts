@@ -7,27 +7,22 @@ import type {
   DeletePicResolver,
 } from 'types/pics'
 
-import { ValidationError } from '@redwoodjs/graphql-server'
-
 import { CreatePicFanOutJob } from 'src/jobs/CreatePicFanOutJob/CreatePicFanOutJob'
 import { db } from 'src/lib/db'
 import { later } from 'src/lib/jobs'
 import { storage } from 'src/lib/storage'
 import { newId } from 'src/lib/uuid'
 
-const validatePicInput = (file) => {
-  const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp']
-  if (!validImageTypes.includes(file.type)) {
-    throw new ValidationError(
-      'Pic must be a valid image type (JPEG, PNG, GIF, or WebP)'
-    )
-  }
-}
-
 export const pics: PicsResolver = async () => {
-  return await db.pic.findMany({
+  const result = await db.pic.findMany({
     orderBy: { createdAt: 'desc' },
   })
+
+  return result.map((pic) => ({
+    ...pic,
+    signedUrl: pic.original,
+    dataUri: pic.thumbnail,
+  }))
 }
 
 export const pic: PicResolver = async ({ id }) => {
@@ -51,8 +46,6 @@ export const pic: PicResolver = async ({ id }) => {
 }
 
 export const createPic: CreatePicResolver = async ({ input }) => {
-  validatePicInput(input.original)
-
   const path = await storage.writeStream(input.original.stream())
   const data = {
     ...input,
@@ -72,12 +65,6 @@ export const createPic: CreatePicResolver = async ({ input }) => {
 }
 
 export const createPics: CreatePicsResolver = async ({ input }) => {
-  if (input.originals.length > 20) {
-    throw new ValidationError('Maximum of 20 pics can be uploaded at once')
-  }
-
-  input.originals.forEach(validatePicInput)
-
   const album = await db.album.findUnique({
     where: { id: input.albumId },
   })

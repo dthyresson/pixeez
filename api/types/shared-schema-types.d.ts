@@ -89,12 +89,14 @@ export interface Pic {
     album: Album;
     albumId: ID;
     createdAt: DateTime;
+    dataUri?: string| null;
     description?: string| null;
     exif?: string| null;
     format?: string| null;
     height?: number| null;
     id: ID;
     original: string;
+    signedUrl?: string| null;
     tags: Tag[];
     thumbnail?: string| null;
     updatedAt: DateTime;

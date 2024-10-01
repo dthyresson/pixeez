@@ -7,13 +7,15 @@ export const schema = gql`
     albumId: ID!
     original: String! @signedUrl
     withoutBackground: String
-    thumbnail: String @signedUrl
+    thumbnail: String @dataUri
     width: Int
     height: Int
     format: String
     exif: String
     description: String
     tags: [Tag!]!
+    signedUrl: String @signedUrl
+    dataUri: String @dataUri
   }
 
   type Query {
