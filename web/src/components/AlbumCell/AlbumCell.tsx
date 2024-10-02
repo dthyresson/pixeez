@@ -8,12 +8,12 @@ import type {
   Album,
 } from 'types/graphql'
 
-import { Metadata } from '@redwoodjs/web'
 import type {
   CellSuccessProps,
   CellFailureProps,
   TypedDocumentNode,
 } from '@redwoodjs/web'
+import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
 
 import { EmptyState } from 'src/components/CellStates/EmptyState'

@@ -8,6 +8,7 @@ import {
 } from '@redwoodjs/graphql-server'
 
 import { logger } from 'src/lib/logger'
+import { APP_NAME, UPLOAD_TARGET } from 'src/services/uploads/util'
 
 export const schema = gql`
   """
@@ -51,8 +52,8 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
         process.env.UPLOAD_TOKEN_SECRET,
         {
           algorithms: ['HS256'],
-          audience: 'uploads',
-          issuer: 'pixeez',
+          audience: UPLOAD_TARGET,
+          issuer: APP_NAME,
           subject: operationName,
         }
       )

@@ -7,7 +7,7 @@ export const schema = gql`
     albumId: ID!
     original: String! @signedUrl
     withoutBackground: String
-    thumbnail: String @dataUri
+    thumbnail: String @signedUrl
     width: Int
     height: Int
     format: String
@@ -45,11 +45,7 @@ export const schema = gql`
 
     createPics(input: CreatePicsInput!): [Pic!]!
       @rateLimited(identifier: "createPics")
-      @upload(
-        variable: "input"
-        fields: ["originals"]
-        uploadTokenHeader: "x-rw-upload-token"
-      )
+      @upload(variable: "input", fields: ["originals"])
 
     updatePic(id: ID!, input: UpdatePicInput!): Pic! @blocked
     deletePic(id: ID!): Pic! @blocked
