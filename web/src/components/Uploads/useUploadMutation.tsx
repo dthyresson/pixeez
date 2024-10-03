@@ -1,15 +1,26 @@
-import { useQuery, useMutation } from '@redwoodjs/web'
+import { DocumentNode, MutationHookOptions } from '@apollo/client'
 
+import { useQuery, useMutation } from '@redwoodjs/web'
 // Define the query to get the upload token
 const GET_REDWOOD_UPLOAD_TOKEN = gql`
   query GetRedwoodUploadToken($operationName: String!) {
-    getRedwoodUploadToken(operationName: $operationName) {
+    uploadToken: getRedwoodUploadToken(operationName: $operationName) {
       token
     }
   }
 `
 
-const useUploadMutation = (mutation, options = {}) => {
+export type UseUploadMutationOptions = {
+  mutation: DocumentNode
+  options?: MutationHookOptions
+  uploadTokenHeaderName?: string
+}
+
+const useUploadMutation = (
+  mutation,
+  options = {},
+  uploadTokenHeaderName = 'x-rw-upload-token'
+) => {
   // Extract the mutation name from the mutation document
   const mutationName = mutation.definitions[0]?.name?.value
 
@@ -27,7 +38,7 @@ const useUploadMutation = (mutation, options = {}) => {
   })
 
   // Retrieve the token
-  const token = data?.getRedwoodUploadToken?.token
+  const token = data?.uploadToken?.token
 
   // Customize the useMutation hook to include the upload token in the headers
   const [mutate] = useMutation(mutation, {
@@ -35,7 +46,7 @@ const useUploadMutation = (mutation, options = {}) => {
     context: {
       headers: {
         ...options?.['context']?.headers,
-        'x-rw-upload-token': token, // Set the token in the headers
+        [uploadTokenHeaderName]: token, // Use the configurable header name
       },
     },
   })
