@@ -19,6 +19,12 @@ export const handler = createGraphQLHandler({
     useRedwoodUpload({
       appName: 'fooopixeez',
       // uploadTokenHeaderName: 'x-upload-token-header-1',
+      errorMessages: {
+        tooManyFiles: ({ minFiles }) =>
+          `Wooooooaaaah. Too many files. Max ${minFiles} files`,
+        tooFewFiles: ({ minFiles }) =>
+          `Hey there. Need some more files. Min ${minFiles} files`,
+      },
     }),
   ],
 

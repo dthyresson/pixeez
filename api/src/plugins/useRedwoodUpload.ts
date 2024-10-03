@@ -6,13 +6,25 @@ import type {
   // GraphQLHandlerOptions,
 } from '@redwoodjs/graphql-server'
 
+export type UploadErrorMessage = string | ((config: UploadConfig) => string)
+
+export type UploadErrorMessages = {
+  uploadTokenRequired?: UploadErrorMessage
+  operationNameRequired?: UploadErrorMessage
+  invalidUploadToken?: UploadErrorMessage
+  tooFewFiles?: UploadErrorMessage
+  tooManyFiles?: UploadErrorMessage
+  tooLargeFile?: UploadErrorMessage
+  tooManyRequests?: UploadErrorMessage
+  invalidFileType?: UploadErrorMessage
+}
+
 export type UploadConfig = {
   contentTypes?: string[]
   maxFileSize?: number
   maxFiles?: number
   minFiles?: number
   expiresIn?: string | number
-  uploadTokenHeader?: string
 }
 
 export type UploadTokenPayload = UploadConfig & {
@@ -23,6 +35,7 @@ export type RedwoodUploadOptions = {
   appName: string
   uploadTarget?: string
   uploadTokenHeaderName?: string
+  errorMessages?: UploadErrorMessages
 }
 
 export const DEFAULT_UPLOAD_APP_NAME = 'RedwoodApp'
@@ -81,13 +94,15 @@ export const useRedwoodUpload = (
 ): Plugin<RedwoodGraphQLContext> => {
   return {
     async onContextBuilding({ extendContext }) {
-      const { appName, uploadTarget, uploadTokenHeaderName } = options
+      const { appName, uploadTarget, uploadTokenHeaderName, errorMessages } =
+        options
 
       extendContext({
         useRedwoodUploadAppName: appName,
         useRedwoodUploadTarget: uploadTarget,
         useRedwoodUploadTokenHeaderName:
           uploadTokenHeaderName ?? DEFAULT_UPLOAD_TOKEN_HEADER_NAME,
+        useRedwoodUploadErrorMessages: errorMessages,
       })
     },
   }

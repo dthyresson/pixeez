@@ -9,9 +9,10 @@ import {
 } from '@redwoodjs/graphql-server'
 
 import { logger } from 'src/lib/logger'
-import {
+import { DEFAULT_UPLOAD_TOKEN_HEADER_NAME } from 'src/plugins/useRedwoodUpload'
+import type {
   UploadConfig,
-  DEFAULT_UPLOAD_TOKEN_HEADER_NAME,
+  UploadErrorMessages,
 } from 'src/plugins/useRedwoodUpload'
 
 export const schema = gql`
@@ -25,15 +26,31 @@ const validateUploadToken = (context: GlobalContext) => {
   const headers = context.event?.['headers'] || {}
   const { operationName } = context?.['params'] as { operationName: string }
 
-  if (!operationName) {
-    throw new ValidationError('Operation name is required')
-  }
-
   const uploadTokenHeaderName =
     context.useRedwoodUploadTokenHeaderName ?? DEFAULT_UPLOAD_TOKEN_HEADER_NAME
 
+  const errorMessages =
+    context.useRedwoodUploadErrorMessages as UploadErrorMessages
+
+  if (!operationName) {
+    if (errorMessages.operationNameRequired) {
+      if (typeof errorMessages.operationNameRequired === 'function') {
+        throw new ValidationError(errorMessages.operationNameRequired({}))
+      }
+      throw new ValidationError(errorMessages.operationNameRequired)
+    }
+    throw new ValidationError('Operation name is required')
+  }
+
   const uploadToken = headers[uploadTokenHeaderName]
+
   if (!uploadToken) {
+    if (errorMessages.uploadTokenRequired) {
+      if (typeof errorMessages.uploadTokenRequired === 'function') {
+        throw new ValidationError(errorMessages.uploadTokenRequired({}))
+      }
+      throw new ValidationError(errorMessages.uploadTokenRequired)
+    }
     throw new ValidationError('Upload token is required')
   }
 
@@ -52,6 +69,12 @@ const validateUploadToken = (context: GlobalContext) => {
     return decodedToken
   } catch (error) {
     logger.error({ error }, 'JWT verification failed')
+    if (errorMessages.invalidUploadToken) {
+      if (typeof errorMessages.invalidUploadToken === 'function') {
+        throw new ValidationError(errorMessages.invalidUploadToken({}))
+      }
+      throw new ValidationError(errorMessages.invalidUploadToken)
+    }
     throw new AuthenticationError('Authentication failed: Invalid upload token')
   }
 }
@@ -62,18 +85,43 @@ const validateFiles = (
 ) => {
   const fileCount = files.length
 
+  const errorMessages =
+    context.useRedwoodUploadErrorMessages as UploadErrorMessages
+
   if (minFiles !== undefined && fileCount < minFiles) {
     logger.error({ minFiles, fileCount }, 'Too few files')
+    if (errorMessages.tooFewFiles) {
+      if (typeof errorMessages.tooFewFiles === 'function') {
+        throw new ValidationError(errorMessages.tooFewFiles({ minFiles }))
+      }
+      throw new ValidationError(errorMessages.tooFewFiles)
+    }
     throw new ValidationError(`Too few files. Min ${minFiles} files required`)
   }
+
   if (maxFiles !== undefined && fileCount > maxFiles) {
     logger.error({ maxFiles, fileCount }, 'Too many files')
+    if (errorMessages.tooManyFiles) {
+      if (typeof errorMessages.tooManyFiles === 'function') {
+        throw new ValidationError(errorMessages.tooManyFiles({ minFiles }))
+      }
+      throw new ValidationError(errorMessages.tooManyFiles)
+    }
+
     throw new ValidationError(`Too many files. Max ${maxFiles} files allowed`)
   }
 
   files.forEach((file) => {
     if (contentTypes && !contentTypes.includes(file.type)) {
       logger.error({ contentTypes }, 'Invalid file type')
+      if (errorMessages.invalidFileType) {
+        if (typeof errorMessages.invalidFileType === 'function') {
+          throw new ValidationError(
+            errorMessages.invalidFileType({ contentTypes })
+          )
+        }
+        throw new ValidationError(errorMessages.invalidFileType)
+      }
       throw new ValidationError(
         `Invalid file type. Allowed types: ${contentTypes.join(', ')}`
       )
@@ -84,6 +132,13 @@ const validateFiles = (
         { size: file.size, maxFileSize },
         'File size exceeds the maximum allowed size'
       )
+      if (errorMessages.tooLargeFile) {
+        if (typeof errorMessages.tooLargeFile === 'function') {
+          throw new ValidationError(errorMessages.tooLargeFile({ maxFileSize }))
+        }
+        throw new ValidationError(errorMessages.tooLargeFile)
+      }
+
       throw new ValidationError(
         `File size exceeds the maximum allowed size. Max size: ${maxFileSize} bytes`
       )
