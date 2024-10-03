@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import { DropEvent, FileRejection, useDropzone } from 'react-dropzone'
 
@@ -21,6 +21,11 @@ export const imageFileTypes = {
   'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp'],
 }
 
+type Preview = {
+  file: File
+  previewUrl: string
+}
+
 const UploadFileComponent = ({
   onFileAccepted,
   maxFiles = 20,
@@ -31,6 +36,8 @@ const UploadFileComponent = ({
   uploadButtonContent = <span>Click to upload</span>,
   className = 'm-4 rounded-lg border-2 border-dashed border-gray-300 p-4 text-center',
 }: UploadFileComponentProps) => {
+  const [previews, setPreviews] = useState<Preview[]>([])
+
   const onDrop = useCallback(
     (acceptedFiles: File[], rejectedFiles: File[]) => {
       if (rejectedFiles.length > 0) {
@@ -50,10 +57,24 @@ const UploadFileComponent = ({
         return
       }
 
+      const newPreviews = acceptedFiles.map((file) => ({
+        file,
+        previewUrl: URL.createObjectURL(file),
+      }))
+      setPreviews((prev) => [...prev, ...newPreviews])
       onFileAccepted(acceptedFiles)
     },
     [maxFiles, acceptedFileTypes, onFileAccepted]
   )
+
+  const removePreview = (index: number) => {
+    setPreviews((prev) => {
+      const newPreviews = [...prev]
+      URL.revokeObjectURL(newPreviews[index].previewUrl)
+      newPreviews.splice(index, 1)
+      return newPreviews
+    })
+  }
 
   const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop: (
@@ -75,6 +96,31 @@ const UploadFileComponent = ({
     noClick: true,
   })
 
+  const renderPreviews = () => {
+    if (previews.length === 0) return null
+
+    return (
+      <div className="mt-4 flex flex-row flex-wrap gap-4">
+        {previews.map((preview, index) => (
+          <div key={index} className="relative">
+            <img
+              src={preview.previewUrl}
+              alt={`Preview ${index + 1}`}
+              className="h-32 w-32 rounded object-cover"
+            />
+            <button
+              onClick={() => removePreview(index)}
+              className="absolute right-0 top-0 m-1 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white"
+              type="button"
+            >
+              X
+            </button>
+          </div>
+        ))}
+      </div>
+    )
+  }
+
   return (
     <div {...getRootProps()} className={`${className}`}>
       <input {...getInputProps()} />
@@ -86,9 +132,12 @@ const UploadFileComponent = ({
           {children}
         </>
       )}
+
       <button className="font-inherit cursor-pointer" onClick={open}>
         {uploadButtonContent}
       </button>
+
+      {renderPreviews()}
     </div>
   )
 }
