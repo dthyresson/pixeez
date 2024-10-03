@@ -7,6 +7,7 @@ import services from 'src/services/**/*.{js,ts}'
 import { db } from 'src/lib/db'
 import { logger } from 'src/lib/logger'
 import { realtime } from 'src/lib/realtime'
+import { useRedwoodUpload } from 'src/plugins/useRedwoodUpload'
 
 export const handler = createGraphQLHandler({
   loggerConfig: { logger, options: {} },
@@ -14,6 +15,13 @@ export const handler = createGraphQLHandler({
   sdls,
   services,
   realtime,
+  extraPlugins: [
+    useRedwoodUpload({
+      appName: 'pixeez',
+      uploadTarget: 'RedwoodUpload',
+    }),
+  ],
+
   onException: () => {
     // Disconnect from your database with an unhandled exception.
     db.$disconnect()
