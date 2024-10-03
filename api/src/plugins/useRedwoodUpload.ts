@@ -16,11 +16,7 @@ export type UploadConfig = {
 }
 
 export type UploadTokenPayload = UploadConfig & {
-  // Represents the application generating the token
-  // app: string
-  // Indicates the specific type of upload operation,
-  // such as uploading an avatar or an image to a gallery.
-  action: string
+  operationName: string
 }
 
 export type RedwoodUploadOptions = {
@@ -60,7 +56,7 @@ export const createUploadToken = (payload: UploadTokenPayload) => {
     throw new Error('UPLOAD_TOKEN_SECRET is not set')
   }
 
-  const { action, ...uploadConfig } = payload
+  const { operationName, ...uploadConfig } = payload
 
   // merge the payload with the default payload
   const finalPayload = { ...DEFAULT_UPLOAD_CONFIG, ...uploadConfig }
@@ -74,7 +70,7 @@ export const createUploadToken = (payload: UploadTokenPayload) => {
     algorithm: 'HS256',
     audience,
     issuer,
-    subject: action,
+    subject: operationName,
     expiresIn,
   })
 }

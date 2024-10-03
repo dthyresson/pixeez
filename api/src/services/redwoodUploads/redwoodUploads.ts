@@ -8,8 +8,7 @@ export const getRedwoodUploadToken: GetRedwoodUploadTokenResolver = async ({
 }) => {
   // Note: based on the operation name, we could configure the content types, max file size, etc
   const payload: UploadTokenPayload = {
-    // app: 'h',
-    action: operationName,
+    operationName,
     expiresIn: 24 * 60 * 60,
   }
 
