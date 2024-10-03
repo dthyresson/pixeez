@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken'
 
+import type { GlobalContext } from '@redwoodjs/context'
 import {
   createValidatorDirective,
   AuthenticationError,
@@ -17,19 +18,18 @@ export const schema = gql`
   """
   Use @upload to validate file uploads with dynamic input and size constraints.
   """
-  directive @upload(
-    variable: String!
-    fields: [String!]!
-    uploadTokenHeader: String
-  ) on FIELD_DEFINITION
+  directive @upload(variable: String!, fields: [String!]!) on FIELD_DEFINITION
 `
 
-const validateUploadToken = (context, expectedUploadTokenHeader) => {
-  const headers = context.event?.['headers']
+const validateUploadToken = (context: GlobalContext) => {
+  const headers = context.event?.['headers'] || {}
   const { operationName } = context?.['params'] as { operationName: string }
-  logger.debug({ operationName }, 'operationName')
 
-  const uploadToken = headers[expectedUploadTokenHeader]
+  if (!operationName) {
+    throw new ValidationError('Operation name is required')
+  }
+
+  const uploadToken = headers[DEFAULT_UPLOAD_TOKEN_HEADER]
   if (!uploadToken) {
     throw new ValidationError('Upload token is required')
   }
@@ -89,16 +89,9 @@ const validateFiles = (
 }
 
 const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
-  const { variable, fields, uploadTokenHeader } = directiveArgs
-  let uploadConfig: UploadConfig = {}
+  const { variable, fields } = directiveArgs
 
-  const expectedUploadTokenHeader =
-    uploadTokenHeader ?? DEFAULT_UPLOAD_TOKEN_HEADER
-
-  if (expectedUploadTokenHeader) {
-    const decodedToken = validateUploadToken(context, expectedUploadTokenHeader)
-    uploadConfig = decodedToken
-  }
+  const uploadConfig = validateUploadToken(context) as UploadConfig
 
   try {
     const inputVariable = args[variable]
