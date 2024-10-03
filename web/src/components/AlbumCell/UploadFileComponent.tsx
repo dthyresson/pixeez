@@ -14,7 +14,8 @@ type UploadFileComponentProps = {
   dropzoneContent?: React.ReactNode
   dropActiveContent?: React.ReactNode
   uploadButtonContent?: React.ReactNode
-  className?: string // Add this new prop
+  className?: string
+  showPreviews?: boolean
 }
 
 export const imageFileTypes = {
@@ -35,6 +36,7 @@ const UploadFileComponent = ({
   dropActiveContent = <p>Drop the files here ...</p>,
   uploadButtonContent = <span>Click to upload</span>,
   className = 'm-4 rounded-lg border-2 border-dashed border-gray-300 p-4 text-center',
+  showPreviews = false,
 }: UploadFileComponentProps) => {
   const [previews, setPreviews] = useState<Preview[]>([])
 
@@ -97,7 +99,7 @@ const UploadFileComponent = ({
   })
 
   const renderPreviews = () => {
-    if (previews.length === 0) return null
+    if (!showPreviews || previews.length === 0) return null
 
     return (
       <div className="mt-4 flex flex-row flex-wrap gap-4">
