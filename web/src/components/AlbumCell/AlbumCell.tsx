@@ -123,7 +123,7 @@ export const Success = ({
         </h2>
         <UploadFileComponent
           className="m-8 rounded-lg border-2 border-dashed border-pink-300 p-8 text-center"
-          maxFiles={2}
+          maxFiles={20}
           onFileAccepted={handleFileAccepted}
           dropzoneContent={
             <p className="m-4 text-gray-500">

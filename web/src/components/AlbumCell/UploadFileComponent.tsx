@@ -5,6 +5,7 @@ import { DropEvent, FileRejection, useDropzone } from 'react-dropzone'
 import { toast } from '@redwoodjs/web/toast'
 
 type UploadFileComponentProps = {
+  name?: string
   onFileAccepted: (files: File[]) => void
   maxFiles?: number
   acceptedFileTypes?: Record<string, string[]>
@@ -28,6 +29,8 @@ type Preview = {
 }
 
 const UploadFileComponent = ({
+  name = 'upload',
+  className = 'm-4 rounded-lg border-2 border-dashed border-gray-300 p-4 text-center',
   onFileAccepted,
   maxFiles = 20,
   acceptedFileTypes = imageFileTypes,
@@ -35,7 +38,6 @@ const UploadFileComponent = ({
   dropzoneContent = <p>Drag n drop some files here</p>,
   dropActiveContent = <p>Drop the files here ...</p>,
   uploadButtonContent = <span>Click to upload</span>,
-  className = 'm-4 rounded-lg border-2 border-dashed border-gray-300 p-4 text-center',
   showPreviews = false,
 }: UploadFileComponentProps) => {
   const [previews, setPreviews] = useState<Preview[]>([])
@@ -125,7 +127,7 @@ const UploadFileComponent = ({
 
   return (
     <div {...getRootProps()} className={`${className}`}>
-      <input {...getInputProps()} />
+      <input {...getInputProps({ name })} />
       {isDragActive ? (
         dropActiveContent
       ) : (
