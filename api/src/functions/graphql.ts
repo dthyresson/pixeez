@@ -18,6 +18,7 @@ export const handler = createGraphQLHandler({
   extraPlugins: [
     useRedwoodUpload({
       appName: 'fooopixeez',
+      // uploadTokenHeaderName: 'x-upload-token-header-1',
     }),
   ],
 

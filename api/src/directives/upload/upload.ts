@@ -11,7 +11,7 @@ import {
 import { logger } from 'src/lib/logger'
 import {
   UploadConfig,
-  DEFAULT_UPLOAD_TOKEN_HEADER,
+  DEFAULT_UPLOAD_TOKEN_HEADER_NAME,
 } from 'src/plugins/useRedwoodUpload'
 
 export const schema = gql`
@@ -29,7 +29,10 @@ const validateUploadToken = (context: GlobalContext) => {
     throw new ValidationError('Operation name is required')
   }
 
-  const uploadToken = headers[DEFAULT_UPLOAD_TOKEN_HEADER]
+  const uploadTokenHeaderName =
+    context.useRedwoodUploadTokenHeaderName ?? DEFAULT_UPLOAD_TOKEN_HEADER_NAME
+
+  const uploadToken = headers[uploadTokenHeaderName]
   if (!uploadToken) {
     throw new ValidationError('Upload token is required')
   }

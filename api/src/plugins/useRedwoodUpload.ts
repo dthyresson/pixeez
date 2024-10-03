@@ -22,10 +22,11 @@ export type UploadTokenPayload = UploadConfig & {
 export type RedwoodUploadOptions = {
   appName: string
   uploadTarget?: string
+  uploadTokenHeaderName?: string
 }
 
 export const DEFAULT_UPLOAD_APP_NAME = 'RedwoodApp'
-export const DEFAULT_UPLOAD_TOKEN_HEADER = 'x-rw-upload-token'
+export const DEFAULT_UPLOAD_TOKEN_HEADER_NAME = 'x-rw-upload-token'
 export const DEFAULT_UPLOAD_TARGET = 'RedwoodUpload'
 
 // set sensible defaults for content types, max file size, etc
@@ -80,10 +81,13 @@ export const useRedwoodUpload = (
 ): Plugin<RedwoodGraphQLContext> => {
   return {
     async onContextBuilding({ extendContext }) {
-      const { appName, uploadTarget } = options
+      const { appName, uploadTarget, uploadTokenHeaderName } = options
+
       extendContext({
         useRedwoodUploadAppName: appName,
         useRedwoodUploadTarget: uploadTarget,
+        useRedwoodUploadTokenHeaderName:
+          uploadTokenHeaderName ?? DEFAULT_UPLOAD_TOKEN_HEADER_NAME,
       })
     },
   }
