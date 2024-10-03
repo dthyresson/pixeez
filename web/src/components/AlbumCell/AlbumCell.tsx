@@ -1,6 +1,3 @@
-import { useCallback } from 'react'
-
-import { useDropzone } from 'react-dropzone'
 import type {
   FindAlbumQuery,
   FindAlbumQueryVariables,
@@ -22,6 +19,8 @@ import { LoadingState } from 'src/components/CellStates/LoadingState'
 import { PicsGrid } from 'src/components/Pics/PicsGrid'
 import useUploadMutation from 'src/components/Uploads/useUploadMutation'
 
+import UploadFileComponent from './UploadFileComponent'
+
 const CREATE_PICS_MUTATION = gql`
   mutation CreatePicsMutation($input: CreatePicsInput!) {
     createPics(input: $input) {
@@ -32,8 +31,6 @@ const CREATE_PICS_MUTATION = gql`
     }
   }
 `
-
-const MAX_FILES = 20
 
 export const beforeQuery = (props: FindAlbumQueryVariables) => {
   return {
@@ -89,44 +86,16 @@ export const Success = ({
     },
   })
 
-  const onDrop = useCallback(
-    (acceptedFiles, rejectedFiles) => {
-      if (rejectedFiles.length > 0) {
-        // Handle rejected files
-        if (rejectedFiles.length > MAX_FILES) {
-          toast.error(`You can only upload up to ${MAX_FILES} files at a time`)
-        } else {
-          const nonImageFiles = rejectedFiles.filter(
-            (file) => !file.file.type.startsWith('image/')
-          )
-          if (nonImageFiles.length > 0) {
-            toast.error('Only image files are allowed')
-          }
-        }
-        return // Exit the function if there are rejected files
-      }
-
-      // Proceed with the mutation only if there are no rejected files
-      createPics({
-        variables: {
-          input: {
-            albumId: album.id,
-            originals: acceptedFiles,
-          },
+  const handleFileAccepted = (acceptedFiles: File[]) => {
+    createPics({
+      variables: {
+        input: {
+          albumId: album.id,
+          originals: acceptedFiles,
         },
-      })
-    },
-    [album.id, createPics]
-  )
-
-  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
-    onDrop,
-    accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp'],
-    },
-    maxFiles: MAX_FILES,
-    noClick: true, // Prevent opening dialog on click of the entire dropzone area
-  })
+      },
+    })
+  }
 
   const showPicCount = (album: Album) => {
     return album.picCount > 0
@@ -152,36 +121,24 @@ export const Success = ({
             </span>
           )}
         </h2>
-        {album.pics.length === 0 ? (
-          <div
-            {...getRootProps()}
-            className="mb-4 rounded-lg border-2 border-dashed border-purple-300 p-4 text-center"
-          >
-            <input {...getInputProps()} />
-            {isDragActive ? (
-              <p>Drop your 🖼️ images here ...</p>
-            ) : (
-              <p>Drag &apos;n&apos; drop some 🖼️ pics here</p>
-            )}
-          </div>
-        ) : (
-          <div {...getRootProps()}>
-            <input {...getInputProps()} />
-            <PicsGrid pics={album.pics as Pic[]} />
-          </div>
-        )}
-      </div>
-      <div className="mt-4 flex justify-start lg:justify-center">
-        <p className="text-sm text-gray-500">
-          You can{' '}
-          <button
-            className="font-inherit mx-1 cursor-pointer border-none bg-transparent p-0 text-purple-500 hover:underline"
-            onClick={open}
-          >
-            upload
-          </button>{' '}
-          pics to your {album.name} album ... or drag &apos;n&apos; drop above
-        </p>
+        <UploadFileComponent
+          className="m-8 rounded-lg border-2 border-dashed border-pink-300 p-8 text-center"
+          maxFiles={2}
+          onFileAccepted={handleFileAccepted}
+          dropzoneContent={
+            <p className="m-4 text-gray-500">
+              Drag and drop some 🖼️ pics here for {album.name} album
+            </p>
+          }
+          dropActiveContent={
+            <p className="m-4 text-pink-500">Drop your 🖼️ images here ...</p>
+          }
+          uploadButtonContent={
+            <p className="m-4 text-red-500">Click to upload</p>
+          }
+        >
+          {album.pics.length > 0 && <PicsGrid pics={album.pics as Pic[]} />}
+        </UploadFileComponent>
       </div>
     </>
   )
