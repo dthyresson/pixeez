@@ -17,10 +17,14 @@ type UploadFileComponentProps = {
   className?: string // Add this new prop
 }
 
+export const imageFileTypes = {
+  'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp'],
+}
+
 const UploadFileComponent = ({
   onFileAccepted,
   maxFiles = 20,
-  acceptedFileTypes = { 'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp'] },
+  acceptedFileTypes = imageFileTypes,
   children,
   dropzoneContent = <p>Drag n drop some files here</p>,
   dropActiveContent = <p>Drop the files here ...</p>,

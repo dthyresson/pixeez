@@ -134,7 +134,7 @@ export const Success = ({
             <p className="m-4 text-pink-500">Drop your 🖼️ images here ...</p>
           }
           uploadButtonContent={
-            <p className="m-4 text-red-500">Click to upload</p>
+            <p className="m-4 text-blue-500">Click to upload</p>
           }
         >
           {album.pics.length > 0 && <PicsGrid pics={album.pics as Pic[]} />}
