@@ -12,6 +12,7 @@ export type UploadConfig = {
   maxFiles?: number
   minFiles?: number
   expiresIn?: string | number
+  uploadTokenHeader?: string
 }
 
 export type UploadTokenPayload = UploadConfig & {
@@ -24,10 +25,12 @@ export type UploadTokenPayload = UploadConfig & {
 
 export type RedwoodUploadOptions = {
   appName: string
-  uploadTarget: string
+  uploadTarget?: string
 }
 
+export const DEFAULT_UPLOAD_APP_NAME = 'RedwoodApp'
 export const DEFAULT_UPLOAD_TOKEN_HEADER = 'x-rw-upload-token'
+export const DEFAULT_UPLOAD_TARGET = 'RedwoodUpload'
 
 // set sensible defaults for content types, max file size, etc
 // export const APP_NAME = 'pixeez'
@@ -64,15 +67,15 @@ export const createUploadToken = (payload: UploadTokenPayload) => {
   const { expiresIn = EXPIRES_IN, ...finalPayloadWithoutExpiresIn } =
     finalPayload
 
-  const issuer = context.useRedwoodUploadAppName ?? 'new_pixeez'
-  const audience = context.useRedwoodUploadTarget ?? 'new_RedwoodUpload'
+  const issuer = context.useRedwoodUploadAppName ?? DEFAULT_UPLOAD_APP_NAME
+  const audience = context.useRedwoodUploadTarget ?? DEFAULT_UPLOAD_TARGET
 
   return jwt.sign(finalPayloadWithoutExpiresIn, secret, {
     algorithm: 'HS256',
     audience,
     issuer,
     subject: action,
-    expiresIn, // This is now guaranteed to be a string or number
+    expiresIn,
   })
 }
 

@@ -17,8 +17,7 @@ export const handler = createGraphQLHandler({
   realtime,
   extraPlugins: [
     useRedwoodUpload({
-      appName: 'pixeez',
-      uploadTarget: 'RedwoodUpload',
+      appName: 'fooopixeez',
     }),
   ],
 
