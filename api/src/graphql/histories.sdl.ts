@@ -32,7 +32,7 @@ export const schema = gql`
   }
 
   type Query {
-    histories(jobName: String): [History!]! @skipAuth
+    histories(jobName: String, status: String): [History!]! @skipAuth
     jobCount: [JobCount!]! @skipAuth
   }
 `

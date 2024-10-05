@@ -3,17 +3,24 @@ import { HistoriesResolver, JobCountResolver } from 'types/history'
 
 import { db } from 'src/lib/db'
 
-export const histories: HistoriesResolver = async ({ jobName }) => {
-  if (
-    jobName === '' ||
-    jobName === null ||
-    jobName === undefined ||
-    jobName.length === 0
-  ) {
-    const jobHistory = await db.$queryRawTyped(getJobHistory(null, null))
-    return jobHistory
-  }
-  const jobHistory = await db.$queryRawTyped(getJobHistory(jobName, jobName))
+export const histories: HistoriesResolver = async ({ jobName, status }) => {
+  const jobNameAll = jobName === 'All' ? null : jobName
+  const statusAll = status === 'All' ? null : status
+
+  const jobHistory = await db.$queryRawTyped(
+    getJobHistory(
+      jobNameAll,
+      jobNameAll,
+      statusAll,
+      statusAll,
+      jobNameAll,
+      jobNameAll,
+      statusAll,
+      statusAll,
+      jobNameAll,
+      statusAll
+    )
+  )
 
   return jobHistory
 }

@@ -93,7 +93,13 @@ FROM
   LEFT JOIN Pic p ON (bjd.model = 'pic'
       AND p.id = 'pic_' || bjd.jobPicId)
 WHERE
-  bjd.name = ? OR ? IS NULL
+  (bjd.name = ? OR ? IS NULL)
+  AND (status = ? OR ? IS NULL)
+  AND (
+    (? IS NOT NULL AND bjd.name = ?) -- Filter by name if provided
+    OR (? IS NOT NULL AND status = ?) -- Filter by status if provided
+    OR (? IS NULL AND ? IS NULL) -- No filters applied
+  )
 ORDER BY
   bjd.updatedAt DESC
 LIMIT 100;
