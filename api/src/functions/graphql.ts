@@ -10,14 +10,14 @@ import { realtime } from 'src/lib/realtime'
 import { useRedwoodUpload } from 'src/plugins/useRedwoodUpload'
 
 export const handler = createGraphQLHandler({
-  loggerConfig: { logger, options: { query: true } },
+  loggerConfig: { logger, options: {} },
   directives,
   sdls,
   services,
   realtime,
   extraPlugins: [
     useRedwoodUpload({
-      appName: 'fooopixeez',
+      appName: 'pixeez',
       // uploadTokenHeaderName: 'x-upload-token-header-1',
       errorMessages: {
         tooManyFiles: ({ minFiles }) =>

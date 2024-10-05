@@ -57,6 +57,7 @@ export interface History {
     priority: number;
     queue: string;
     runAt?: DateTime| null;
+    status?: string| null;
     thumbnail?: string| null;
     updatedAt?: DateTime| null;
     width?: number| null;

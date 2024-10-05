@@ -77,10 +77,16 @@ bjd.id,
       WHEN bjd.createdAt IS NOT NULL AND bjd.updatedAt IS NOT NULL THEN
         ROUND(
           CAST((JULIANDAY(datetime(bjd.updatedAt / 1000, 'unixepoch')) -
-                JULIANDAY(datetime(bjd.createdAt / 1000, 'unixepoch'))) * 864000 AS REAL)
+                JULIANDAY(datetime(bjd.createdAt / 1000, 'unixepoch'))) * 86400 AS REAL)
         )
       ELSE NULL
-    END as durationSeconds
+    END as durationSeconds,
+    CASE
+      WHEN bjd.failedAt IS NOT NULL THEN 'failed'
+      WHEN bjd.lockedAt IS NOT NULL THEN 'running'
+      WHEN bjd.runAt IS NOT NULL THEN 'scheduled'
+      ELSE 'done'
+    END as status
 
 FROM
   BackgroundJobDetailsCTE bjd
@@ -89,4 +95,5 @@ FROM
 WHERE
   bjd.name = ? OR ? IS NULL
 ORDER BY
-  bjd.updatedAt DESC;
+  bjd.updatedAt DESC
+LIMIT 100;

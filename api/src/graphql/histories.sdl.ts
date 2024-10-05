@@ -22,6 +22,7 @@ export const schema = gql`
     original: String @signedUrl
     thumbnail: String @signedUrl
     withoutBackground: String
+    status: String
   }
 
   type JobCount {
