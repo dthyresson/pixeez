@@ -13,6 +13,7 @@ const Routes = () => {
         <Route path="/tags" page={TagsPage} name="tags" />
         <Route path="/search" page={SearchPage} name="search" />
         <Route path="/thumbnails" page={ThumbnailsPage} name="thumbnails" />
+        <Route path="/history" page={HistoryPage} name="history" />
       </Set>
       <Route notfound page={NotFoundPage} />
     </Router>

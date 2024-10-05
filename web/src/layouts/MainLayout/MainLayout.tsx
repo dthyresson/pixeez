@@ -3,6 +3,7 @@ import {
   TagIcon,
   HandRaisedIcon,
   PhotoIcon,
+  TableCellsIcon as HistoryIcon,
 } from '@heroicons/react/24/solid'
 
 import { Link, routes } from '@redwoodjs/router'
@@ -47,6 +48,12 @@ const NavBar = () => {
           to={routes.about()}
         >
           <HandRaisedIcon className="h-4 w-4 text-violet-600" />
+        </Link>
+        <Link
+          className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-violet-600 bg-white text-lg hover:bg-violet-100 dark:bg-violet-900 dark:hover:bg-violet-700"
+          to={routes.history()}
+        >
+          <HistoryIcon className="h-4 w-4 text-indigo-600" />
         </Link>
         <DarkModeToggle />
       </div>

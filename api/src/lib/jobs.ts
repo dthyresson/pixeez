@@ -24,6 +24,7 @@ export const jobs = new JobManager({
       maxAttempts: 24,
       maxRuntime: 14_400,
       deleteFailedJobs: false,
+      deleteSuccessfulJobs: false,
       sleepDelay: 3,
     },
     {
@@ -34,6 +35,7 @@ export const jobs = new JobManager({
       maxAttempts: 24,
       maxRuntime: 14_400,
       deleteFailedJobs: false,
+      deleteSuccessfulJobs: false,
       sleepDelay: 7,
     },
   ],

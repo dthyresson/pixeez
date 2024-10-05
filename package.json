@@ -100,7 +100,8 @@
     "react-dom": "19.0.0-rc-f2df5694-20240916",
     "@redwoodjs/storage-adapter-filesystem": "./tarballs/redwoodjs-storage-adapter-filesystem.tgz",
     "@redwoodjs/storage-adapter-s3": "./tarballs/redwoodjs-storage-adapter-s3.tgz",
-    "@redwoodjs/storage-core": "./tarballs/redwoodjs-storage-core.tgz"
+    "@redwoodjs/storage-core": "./tarballs/redwoodjs-storage-core.tgz",
+    "@redwoodjs/storage-adapter-memory": "./tarballs/redwoodjs-storage-adapter-memory.tgz"
   },
   "scripts": {
     "jobs": "NODE_ENV=development yarn rw jobs work",

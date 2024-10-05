@@ -37,6 +37,39 @@ export interface CreateTagInput {
     name: string;
 }
 
+export interface History {
+    __typename?: "History";
+    albumId: string;
+    attempts: number;
+    createdAt: DateTime;
+    description?: string| null;
+    durationSeconds?: number| null;
+    format?: string| null;
+    height?: number| null;
+    id: ID;
+    jobPicId: string;
+    lastError?: string| null;
+    lockedAt?: DateTime| null;
+    lockedBy?: string| null;
+    name: string;
+    original?: string| null;
+    picId: string;
+    priority: number;
+    queue: string;
+    runAt?: DateTime| null;
+    thumbnail?: string| null;
+    updatedAt?: DateTime| null;
+    width?: number| null;
+    withoutBackground?: string| null;
+}
+
+export interface JobCount {
+    __typename?: "JobCount";
+    id: ID;
+    jobCount: number;
+    name: string;
+}
+
 export interface Mutation {
     __typename?: "Mutation";
     createAlbum: PAlbum;
@@ -92,6 +125,8 @@ export interface Query {
     album?: PAlbum| null;
     albums: Albums;
     getRedwoodUploadToken: RedwoodUploadToken;
+    histories: History[];
+    jobCount: JobCount[];
     pic?: PPic| null;
     pics: PPic[];
     redwood?: Redwood| null;
@@ -136,6 +171,7 @@ export interface VerifyWebhookInput {
 
 type ID = any;
 type File = any;
+type DateTime = any;
 type JSON = any;
 export type Album = PAlbum;
 export type Pic = PPic;

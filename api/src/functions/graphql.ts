@@ -10,7 +10,7 @@ import { realtime } from 'src/lib/realtime'
 import { useRedwoodUpload } from 'src/plugins/useRedwoodUpload'
 
 export const handler = createGraphQLHandler({
-  loggerConfig: { logger, options: {} },
+  loggerConfig: { logger, options: { query: true } },
   directives,
   sdls,
   services,

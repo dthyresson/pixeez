@@ -34,6 +34,39 @@ export interface CreateTagInput {
     name: string;
 }
 
+export interface History {
+    __typename?: "History";
+    albumId: string;
+    attempts: number;
+    createdAt: DateTime;
+    description?: string| null;
+    durationSeconds?: number| null;
+    format?: string| null;
+    height?: number| null;
+    id: ID;
+    jobPicId: string;
+    lastError?: string| null;
+    lockedAt?: DateTime| null;
+    lockedBy?: string| null;
+    name: string;
+    original?: string| null;
+    picId: string;
+    priority: number;
+    queue: string;
+    runAt?: DateTime| null;
+    thumbnail?: string| null;
+    updatedAt?: DateTime| null;
+    width?: number| null;
+    withoutBackground?: string| null;
+}
+
+export interface JobCount {
+    __typename?: "JobCount";
+    id: ID;
+    jobCount: number;
+    name: string;
+}
+
 export interface Mutation {
     __typename?: "Mutation";
     createAlbum: Album;
@@ -109,6 +142,8 @@ export interface Query {
     album?: Album| null;
     albums: Albums;
     getRedwoodUploadToken: RedwoodUploadToken;
+    histories: History[];
+    jobCount: JobCount[];
     pic?: Pic| null;
     pics: Pic[];
     redwood?: Redwood| null;

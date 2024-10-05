@@ -46,7 +46,7 @@ export const pic: PicResolver = async ({ id }) => {
 }
 
 export const createPic: CreatePicResolver = async ({ input }) => {
-  const path = await storage.writeStream(input.original.stream())
+  const path = await storage.writeFile(input.original)
   const data = {
     ...input,
     original: path,
@@ -71,7 +71,19 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
 
   const result = await Promise.all(
     input.originals.map(async (original) => {
-      const path = await storage.writeStream(original.stream())
+      const path = await storage.writeFile(original)
+
+      // const path = await storage.findAdapter('s3').writeFil(original, {
+      //   CacheControl: 'public, max-age=31536000',
+      //   Metadata: {
+      //     MadeWith: 'RedwoodJS',
+      //   },
+      //   tags: [
+      //     { Key: 'albumId', Value: album.id },
+      //     { Key: 'filename', Value: original.name },
+      //     { Key: 'RedwoodJS-Version', Value: '8.3' },
+      //   ],
+      // })
       const pic = await db.pic.create({
         data: {
           original: path,
