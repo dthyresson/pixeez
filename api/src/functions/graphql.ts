@@ -20,8 +20,8 @@ export const handler = createGraphQLHandler({
       appName: 'pixeez',
       // uploadTokenHeaderName: 'x-upload-token-header-1',
       errorMessages: {
-        tooManyFiles: ({ minFiles }) =>
-          `Wooooooaaaah. Too many files. Max ${minFiles} files`,
+        tooManyFiles: ({ maxFiles }) =>
+          `Wooooooaaaah. Too many files. Max ${maxFiles} files`,
         tooFewFiles: ({ minFiles }) =>
           `Hey there. Need some more files. Min ${minFiles} files`,
       },

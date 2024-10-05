@@ -50,8 +50,8 @@ export const DEFAULT_UPLOAD_TARGET = 'RedwoodUpload'
 // export const UPLOAD_TARGET = 'uploads'
 const IMAGE_CONTENT_TYPES = ['image/jpeg', 'image/png', 'image/gif']
 const PDF_CONTENT_TYPE = 'application/pdf'
-const MAX_FILE_SIZE = 1_000_000
-const MAX_FILES = 3
+const MAX_FILE_SIZE = 5 * 1024 * 1024
+const MAX_FILES = 20
 const MIN_FILES = 1
 const EXPIRES_IN = '1hr'
 

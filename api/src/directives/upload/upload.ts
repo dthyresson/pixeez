@@ -103,7 +103,7 @@ const validateFiles = (
     logger.error({ maxFiles, fileCount }, 'Too many files')
     if (errorMessages.tooManyFiles) {
       if (typeof errorMessages.tooManyFiles === 'function') {
-        throw new ValidationError(errorMessages.tooManyFiles({ minFiles }))
+        throw new ValidationError(errorMessages.tooManyFiles({ maxFiles }))
       }
       throw new ValidationError(errorMessages.tooManyFiles)
     }

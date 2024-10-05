@@ -13,7 +13,7 @@ import { LoadingState } from 'src/components/CellStates/LoadingState'
 import JobStatus from './JobStatus'
 
 export const beforeQuery = (props: HistoriesQueryVariables) => {
-  return { variables: props }
+  return { variables: props, pollInterval: 1_250 }
 }
 
 export const QUERY: TypedDocumentNode<HistoriesQuery, HistoriesQueryVariables> =
