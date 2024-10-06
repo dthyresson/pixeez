@@ -63,7 +63,23 @@ bjd.id,
   bjd.lockedAt,
   bjd.lockedBy,
   bjd.failedAt,
-  bjd.lastError,
+  CASE
+    WHEN bjd.lastError IS NOT NULL THEN
+      TRIM(SUBSTR(
+        REPLACE(
+          REPLACE(
+            REPLACE(bjd.lastError, 'Error: ', ''),
+            'TypeError: ',
+            ''
+          ),
+          'ReferenceError: ',
+          ''
+        ),
+        1,
+        INSTR(bjd.lastError || CHAR(10), CHAR(10)) - 1
+      ))
+    ELSE NULL
+  END as lastError,
   p.id as picId,
   p.albumId,
   p.description,
@@ -82,7 +98,7 @@ bjd.id,
       ELSE NULL
     END as durationSeconds,
     CASE
-      WHEN bjd.failedAt IS NOT NULL THEN 'failed'
+      WHEN bjd.failedAt IS NOT NULL OR bjd.lastError IS NOT NULL THEN 'failed'
       WHEN bjd.lockedAt IS NOT NULL THEN 'running'
       WHEN bjd.runAt IS NOT NULL THEN 'scheduled'
       ELSE 'done'

@@ -1,3 +1,7 @@
+import {
+  LockClosedIcon,
+  ExclamationCircleIcon,
+} from '@heroicons/react/20/solid'
 import type { HistoriesQuery, HistoriesQueryVariables } from 'types/graphql'
 
 import type {
@@ -57,8 +61,9 @@ export const Success = ({
   histories,
 }: CellSuccessProps<HistoriesQuery, HistoriesQueryVariables>) => {
   return (
-    <div className="space-y-4">
+    <div className="max-h-[calc(100vh-200px)] space-y-4 overflow-y-auto">
       {histories.map((item) => {
+        const isLocked = item.lockedAt && item.lockedBy
         return (
           <div
             key={item.id}
@@ -105,24 +110,32 @@ export const Success = ({
                   <span className="font-semibold text-gray-700">Updated:</span>{' '}
                   {new Date(item.updatedAt).toLocaleString()}
                 </p>
-                <p>
-                  <span className="font-semibold text-gray-700">
-                    Locked At:
-                  </span>{' '}
-                  {item.lockedAt
-                    ? new Date(item.lockedAt).toLocaleString()
-                    : 'N/A'}
-                </p>
-                <p>
-                  <span className="font-semibold text-gray-700">
-                    Locked By:
-                  </span>{' '}
-                  {item.lockedBy || 'N/A'}
-                </p>
-                <p className="col-span-2">
-                  <span className="font-semibold text-gray-700">Error:</span>{' '}
-                  {item.lastError || 'None'}
-                </p>
+                {isLocked && (
+                  <div className="col-span-2 mt-2 flex items-center rounded-md bg-neutral-100 p-2 text-neutral-800">
+                    <LockClosedIcon className="mr-2 h-5 w-5" />
+                    <div>
+                      <p>
+                        <span className="font-semibold">Locked At:</span>{' '}
+                        {new Date(item.lockedAt).toLocaleString()}
+                      </p>
+                      <p>
+                        <span className="font-semibold">Locked By:</span>{' '}
+                        {item.lockedBy}
+                      </p>
+                    </div>
+                  </div>
+                )}
+                {item.lastError && (
+                  <div className="col-span-2 mt-2 flex items-center rounded-md bg-red-100 p-2 text-red-500">
+                    <ExclamationCircleIcon className="mr-2 h-5 w-5 flex-shrink-0" />
+                    <div className="flex-grow">
+                      <p className="word-break-break-word">
+                        <span className="font-semibold">Error:</span>{' '}
+                        {item.lastError}
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
