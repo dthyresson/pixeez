@@ -1,5 +1,8 @@
 import React from 'react'
 
+import type { GetJobs, GetJobsVariables } from 'types/graphql'
+
+import type { TypedDocumentNode } from '@redwoodjs/web'
 import { useQuery } from '@redwoodjs/web'
 
 type JobNameSelectListProps = {
@@ -7,7 +10,7 @@ type JobNameSelectListProps = {
   onJobChange: (jobName: string) => void
 }
 
-const GET_JOBS = gql`
+const GET_JOBS: TypedDocumentNode<GetJobs, GetJobsVariables> = gql`
   query GetJobs {
     jobCount {
       id
@@ -21,7 +24,7 @@ const JobNameSelectList = ({
   selectedJob,
   onJobChange,
 }: JobNameSelectListProps) => {
-  const { data } = useQuery(GET_JOBS)
+  const { data } = useQuery(GET_JOBS, { pollInterval: 7_250 })
 
   const handleJobChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onJobChange(event.target.value)
