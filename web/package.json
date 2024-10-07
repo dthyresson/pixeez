@@ -19,7 +19,6 @@
     "mermaid": "11.2.0",
     "react": "19.0.0-rc-8269d55d-20240802",
     "react-dom": "19.0.0-rc-8269d55d-20240802",
-    "react-dropzone": "^14.2.3",
     "react-markdown": "^9.0.1"
   },
   "devDependencies": {

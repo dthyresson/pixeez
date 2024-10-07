@@ -7,13 +7,10 @@ import {
   ValidationError,
   ValidatorDirectiveFunc,
 } from '@redwoodjs/graphql-server'
+import { DEFAULT_UPLOAD_TOKEN_HEADER_NAME } from '@redwoodjs/upload'
+import type { UploadConfig, UploadErrorMessages } from '@redwoodjs/upload'
 
 import { logger } from 'src/lib/logger'
-import { DEFAULT_UPLOAD_TOKEN_HEADER_NAME } from 'src/plugins/useRedwoodUpload'
-import type {
-  UploadConfig,
-  UploadErrorMessages,
-} from 'src/plugins/useRedwoodUpload'
 
 export const schema = gql`
   """

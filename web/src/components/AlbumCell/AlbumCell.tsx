@@ -12,14 +12,12 @@ import type {
 } from '@redwoodjs/web'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
+import { useUploadMutation, UploadFileComponent } from '@redwoodjs/web/upload'
 
 import { EmptyState } from 'src/components/CellStates/EmptyState'
 import { FailureState } from 'src/components/CellStates/FailureState'
 import { LoadingState } from 'src/components/CellStates/LoadingState'
 import { PicsGrid } from 'src/components/Pics/PicsGrid'
-import useUploadMutation from 'src/components/Uploads/useUploadMutation'
-
-import UploadFileComponent from './UploadFileComponent'
 
 const CREATE_PICS_MUTATION = gql`
   mutation CreatePicsMutation($input: CreatePicsInput!) {
@@ -136,6 +134,7 @@ export const Success = ({
           uploadButtonContent={
             <p className="m-4 text-blue-500">Click to upload</p>
           }
+          toast={toast}
         >
           {album.pics.length > 0 && <PicsGrid pics={album.pics as Pic[]} />}
         </UploadFileComponent>

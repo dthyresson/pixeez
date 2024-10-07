@@ -73,7 +73,7 @@ export const createPics: CreatePicsResolver = async ({ input }) => {
     input.originals.map(async (original) => {
       const path = await storage.writeFile(original)
 
-      // const path = await storage.findAdapter('s3').writeFil(original, {
+      // const path = await storage.findAdapter('s3').writeFile(original, {
       //   CacheControl: 'public, max-age=31536000',
       //   Metadata: {
       //     MadeWith: 'RedwoodJS',

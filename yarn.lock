@@ -766,12 +766,12 @@ __metadata:
   linkType: hard
 
 "@aws-sdk/types@npm:^3.222.0":
-  version: 3.649.0
-  resolution: "@aws-sdk/types@npm:3.649.0"
+  version: 3.664.0
+  resolution: "@aws-sdk/types@npm:3.664.0"
   dependencies:
-    "@smithy/types": "npm:^3.4.0"
+    "@smithy/types": "npm:^3.5.0"
     tslib: "npm:^2.6.2"
-  checksum: 10c0/1b98e2ba8bd621e905afb038113f5b8ed529e70054e412d6b7940c6a08c854f0d0bca5b4b14145acc8e9ff062b9bfd7ee61b8e11b3027b42daa816972d5e0e0e
+  checksum: 10c0/0f56e2dfc2990ded7fe3c3344a3ae0e21f835b4a251d309def04bf122b1da2336baf66fa78d6b9c4a82166d6ccd9cadcd4186f0c7bf7423e4db973dac63f2d74
   languageName: node
   linkType: hard
 
@@ -5847,7 +5847,7 @@ __metadata:
 
 "@redwoodjs/jobs@file:./tarballs/redwoodjs-jobs.tgz::locator=root-workspace-0b6124%40workspace%3A.":
   version: 8.0.0
-  resolution: "@redwoodjs/jobs@file:./tarballs/redwoodjs-jobs.tgz#./tarballs/redwoodjs-jobs.tgz::hash=2b1571&locator=root-workspace-0b6124%40workspace%3A."
+  resolution: "@redwoodjs/jobs@file:./tarballs/redwoodjs-jobs.tgz#./tarballs/redwoodjs-jobs.tgz::hash=a30c50&locator=root-workspace-0b6124%40workspace%3A."
   dependencies:
     "@redwoodjs/cli-helpers": "npm:8.0.0"
     "@redwoodjs/project-config": "npm:8.0.0"
@@ -5855,7 +5855,7 @@ __metadata:
   bin:
     rw-jobs: ./dist/bins/rw-jobs.js
     rw-jobs-worker: ./dist/bins/rw-jobs-worker.js
-  checksum: 10c0/6dba47f50d780c4bdcda6abe747e269600c5c98b1d5fd12e7531a24cbea5d660a93f212ef3466af99c0e335a09eef5202b0d45254344ad612f74b44e28fe921d
+  checksum: 10c0/4f303bf9efee139e3e5e93d1da7c3c23a51ef0d36883d9d09907dc7424a40ada26495b53afb35b44c796aec7c59aec89002cf9c076e001988287e6f233ae1ea4
   languageName: node
   linkType: hard
 
@@ -5958,13 +5958,13 @@ __metadata:
 
 "@redwoodjs/storage-adapter-memory@file:./tarballs/redwoodjs-storage-adapter-memory.tgz::locator=root-workspace-0b6124%40workspace%3A.":
   version: 8.0.0
-  resolution: "@redwoodjs/storage-adapter-memory@file:./tarballs/redwoodjs-storage-adapter-memory.tgz#./tarballs/redwoodjs-storage-adapter-memory.tgz::hash=a094f1&locator=root-workspace-0b6124%40workspace%3A."
+  resolution: "@redwoodjs/storage-adapter-memory@file:./tarballs/redwoodjs-storage-adapter-memory.tgz#./tarballs/redwoodjs-storage-adapter-memory.tgz::hash=51dc3b&locator=root-workspace-0b6124%40workspace%3A."
   dependencies:
     "@redwoodjs/storage-core": "npm:8.0.0"
     lru-cache: "npm:11.0.1"
     mime-types: "npm:2.1.35"
     uuid: "npm:10.0.0"
-  checksum: 10c0/c6a520493e4e3b12396ece9d549692ba0586f036cbc55f230f978935afb61847b67e7fd8f30b2e57f2ebfce41fafeb4fdf5d38bc2f03cae54102d345b8a9b8a1
+  checksum: 10c0/df04c42ca5e58656c720ab99c2c8c46871fc71319c200e02e3e30fea6596e014a6ebd067f08b85aee76ac11c3b5ce646f7354ed5da286d028296c6ce655b00fc
   languageName: node
   linkType: hard
 
@@ -6064,6 +6064,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@redwoodjs/upload@file:./tarballs/redwoodjs-upload.tgz::locator=root-workspace-0b6124%40workspace%3A.":
+  version: 8.0.0
+  resolution: "@redwoodjs/upload@file:./tarballs/redwoodjs-upload.tgz#./tarballs/redwoodjs-upload.tgz::hash=b6b4a4&locator=root-workspace-0b6124%40workspace%3A."
+  dependencies:
+    "@envelop/core": "npm:5.0.2"
+    "@redwoodjs/context": "npm:8.0.0"
+    "@redwoodjs/graphql-server": "npm:8.0.0"
+    jsonwebtoken: "npm:9.0.2"
+  checksum: 10c0/f1e2e5e98bd28d4edb4bebe980549a29763c18c93fc78806e8e43a76bd4adf9e8584ae822aabcb86d7affeddd0509bb9c29c61687eb67e134d40c80912548017
+  languageName: node
+  linkType: hard
+
 "@redwoodjs/vite@file:./tarballs/redwoodjs-vite.tgz::locator=root-workspace-0b6124%40workspace%3A.":
   version: 8.0.0
   resolution: "@redwoodjs/vite@file:./tarballs/redwoodjs-vite.tgz#./tarballs/redwoodjs-vite.tgz::hash=860263&locator=root-workspace-0b6124%40workspace%3A."
@@ -6133,7 +6145,7 @@ __metadata:
 
 "@redwoodjs/web@file:./tarballs/redwoodjs-web.tgz::locator=root-workspace-0b6124%40workspace%3A.":
   version: 8.0.0
-  resolution: "@redwoodjs/web@file:./tarballs/redwoodjs-web.tgz#./tarballs/redwoodjs-web.tgz::hash=135e6b&locator=root-workspace-0b6124%40workspace%3A."
+  resolution: "@redwoodjs/web@file:./tarballs/redwoodjs-web.tgz#./tarballs/redwoodjs-web.tgz::hash=4e1b11&locator=root-workspace-0b6124%40workspace%3A."
   dependencies:
     "@apollo/client": "npm:3.11.1"
     "@babel/runtime-corejs3": "npm:7.25.0"
@@ -6145,6 +6157,7 @@ __metadata:
     graphql: "npm:16.9.0"
     graphql-sse: "npm:2.5.3"
     graphql-tag: "npm:2.12.6"
+    react-dropzone: "npm:14.2.9"
     react-helmet-async: "npm:2.0.5"
     react-hot-toast: "npm:2.4.1"
     stacktracey: "npm:2.1.8"
@@ -6160,7 +6173,7 @@ __metadata:
     rwfw: ./dist/cjs/bins/rwfw.js
     storybook: ./dist/cjs/bins/storybook.js
     tsc: ./dist/cjs/bins/tsc.js
-  checksum: 10c0/2dea0133238a04e1d0936a54a100a74cce177a00cf7ce132c21cac30bc3c5a48a712a7db5d239d8d097a438e4d8ed4f701ea23124f09b0036a1285923f40d632
+  checksum: 10c0/6a73dfe820095839add71200cb8f84389ef9bab56e334d1a7cce1d41be161e9c41f7d69b77c3124e2dcdf37d4530094a7279815120d5c8b5342f195cc4366139
   languageName: node
   linkType: hard
 
@@ -6421,20 +6434,20 @@ __metadata:
   linkType: hard
 
 "@smithy/core@npm:^2.4.7":
-  version: 2.4.7
-  resolution: "@smithy/core@npm:2.4.7"
+  version: 2.4.8
+  resolution: "@smithy/core@npm:2.4.8"
   dependencies:
     "@smithy/middleware-endpoint": "npm:^3.1.4"
-    "@smithy/middleware-retry": "npm:^3.0.22"
+    "@smithy/middleware-retry": "npm:^3.0.23"
     "@smithy/middleware-serde": "npm:^3.0.7"
     "@smithy/protocol-http": "npm:^4.1.4"
-    "@smithy/smithy-client": "npm:^3.3.6"
+    "@smithy/smithy-client": "npm:^3.4.0"
     "@smithy/types": "npm:^3.5.0"
     "@smithy/util-body-length-browser": "npm:^3.0.0"
     "@smithy/util-middleware": "npm:^3.0.7"
     "@smithy/util-utf8": "npm:^3.0.0"
     tslib: "npm:^2.6.2"
-  checksum: 10c0/0d7760bbdad7c886e90d3122cd17660048725bc9013cddfe4920e0e7e979ac35ed4cf1658065b9639d2914fcbf69c1c2cd536b08e76681271ea25c05fc5ce0f6
+  checksum: 10c0/cb2a93fa3e6bb6f6a2e269d1f392fa729d5bb9a5acf05f7bbd1ba0b270e0741b9aed4bf69b436984f9c17d0b4b5d54ff22cbc46f7e0562c19822c29a1d9f156d
   languageName: node
   linkType: hard
 
@@ -6619,20 +6632,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@smithy/middleware-retry@npm:^3.0.22":
-  version: 3.0.22
-  resolution: "@smithy/middleware-retry@npm:3.0.22"
+"@smithy/middleware-retry@npm:^3.0.22, @smithy/middleware-retry@npm:^3.0.23":
+  version: 3.0.23
+  resolution: "@smithy/middleware-retry@npm:3.0.23"
   dependencies:
     "@smithy/node-config-provider": "npm:^3.1.8"
     "@smithy/protocol-http": "npm:^4.1.4"
     "@smithy/service-error-classification": "npm:^3.0.7"
-    "@smithy/smithy-client": "npm:^3.3.6"
+    "@smithy/smithy-client": "npm:^3.4.0"
     "@smithy/types": "npm:^3.5.0"
     "@smithy/util-middleware": "npm:^3.0.7"
     "@smithy/util-retry": "npm:^3.0.7"
     tslib: "npm:^2.6.2"
     uuid: "npm:^9.0.1"
-  checksum: 10c0/62e88bf5358eb843a21e812ff191d217bb241cb0e4115c2bb55635ef2e53ba4bfe8d704e42074faf9f5627af89f25faa6fb5f8eec5a5186f79f075afd18de511
+  checksum: 10c0/80e2a6e19439ecd138a15bd5d1a61d24c4e0a4d02dc28e0783bc3eb832215f8a25845231a7d6e2ad24fb00d8ff9db78fa04bfa91aae5619e1cee9dfa3be553e5
   languageName: node
   linkType: hard
 
@@ -6757,9 +6770,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@smithy/smithy-client@npm:^3.3.6":
-  version: 3.3.6
-  resolution: "@smithy/smithy-client@npm:3.3.6"
+"@smithy/smithy-client@npm:^3.3.6, @smithy/smithy-client@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "@smithy/smithy-client@npm:3.4.0"
   dependencies:
     "@smithy/middleware-endpoint": "npm:^3.1.4"
     "@smithy/middleware-stack": "npm:^3.0.7"
@@ -6767,16 +6780,7 @@ __metadata:
     "@smithy/types": "npm:^3.5.0"
     "@smithy/util-stream": "npm:^3.1.9"
     tslib: "npm:^2.6.2"
-  checksum: 10c0/82e07e629a93b16238071bb7a66cfba74eca85d9d7b63b60644d3feb62a9688a6b6608b152cbb3efd49b86022e0e10e56540ca2a6579859ee147f65850f6d124
-  languageName: node
-  linkType: hard
-
-"@smithy/types@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "@smithy/types@npm:3.4.0"
-  dependencies:
-    tslib: "npm:^2.6.2"
-  checksum: 10c0/d1830ab5ddce3bf0b93e627f7dae265f6ee371283dac24c3079e06094df9c9b2c7254e97c0a8789cf2491ea878013c02d0f4c9b4bbf800a062c755fffacbc9ec
+  checksum: 10c0/ed2bd1ad2e0ddc6f3eee5ec7697d2ece7b022a3528c5f20b9c2a4d1687635816500aae022ca315af14fb2045ebf2ad1bce43f97d2dc28f4185096843862bd7bb
   languageName: node
   linkType: hard
 
@@ -6859,30 +6863,30 @@ __metadata:
   linkType: hard
 
 "@smithy/util-defaults-mode-browser@npm:^3.0.22":
-  version: 3.0.22
-  resolution: "@smithy/util-defaults-mode-browser@npm:3.0.22"
+  version: 3.0.23
+  resolution: "@smithy/util-defaults-mode-browser@npm:3.0.23"
   dependencies:
     "@smithy/property-provider": "npm:^3.1.7"
-    "@smithy/smithy-client": "npm:^3.3.6"
+    "@smithy/smithy-client": "npm:^3.4.0"
     "@smithy/types": "npm:^3.5.0"
     bowser: "npm:^2.11.0"
     tslib: "npm:^2.6.2"
-  checksum: 10c0/8184572e333c34cfe3a4b86fa38e9b232ff8a8877dd18f650c9bfacdb45c2f65b7752bcb074a460c2e2b95f1ea95a33366c5cda8d267feb11fcdfa673d260835
+  checksum: 10c0/fec9d5d159e6db8ae9c3ac0785b571ed810bcd0e950658036ea9685c3d2cfe0e43649860785b18aec67e833a0d3354063515aa624507540f789227ea8ca626b5
   languageName: node
   linkType: hard
 
 "@smithy/util-defaults-mode-node@npm:^3.0.22":
-  version: 3.0.22
-  resolution: "@smithy/util-defaults-mode-node@npm:3.0.22"
+  version: 3.0.23
+  resolution: "@smithy/util-defaults-mode-node@npm:3.0.23"
   dependencies:
     "@smithy/config-resolver": "npm:^3.0.9"
     "@smithy/credential-provider-imds": "npm:^3.2.4"
     "@smithy/node-config-provider": "npm:^3.1.8"
     "@smithy/property-provider": "npm:^3.1.7"
-    "@smithy/smithy-client": "npm:^3.3.6"
+    "@smithy/smithy-client": "npm:^3.4.0"
     "@smithy/types": "npm:^3.5.0"
     tslib: "npm:^2.6.2"
-  checksum: 10c0/fd233529c5fe10c76905b2fa41523df6dc359de35c2c093a83f7281cfd287b4016ad7435399e366b5328414f39efb0d90ac931c96cffc23c2303021b7696362e
+  checksum: 10c0/84cf4608f5aa7e619d455ff6e159a9f80bc870c48c3ab1786590e0a14df1958502a093ca8681c123900a010d8d69a4d2740c528c07aa82366629fa9f1f6e1604
   languageName: node
   linkType: hard
 
@@ -8334,9 +8338,10 @@ __metadata:
     "@redwoodjs/graphql-server": "npm:8.3.0"
     "@redwoodjs/jobs": "npm:8.3.0"
     "@redwoodjs/realtime": "npm:8.3.0"
-    "@redwoodjs/storage-adapter-filesystem": ./tarballs/redwoodjs-storage-adapter-filesystem.tgz
-    "@redwoodjs/storage-adapter-memory": ./tarballs/redwoodjs-storage-adapter-memory.tgz
-    "@redwoodjs/storage-adapter-s3": ./tarballs/redwoodjs-storage-adapter-s3.tgz
+    "@redwoodjs/storage-adapter-filesystem": "npm:8.3.0"
+    "@redwoodjs/storage-adapter-memory": "npm:8.3.0"
+    "@redwoodjs/storage-adapter-s3": "npm:8.3.0"
+    "@redwoodjs/upload": "npm:8.3.0"
     "@types/qrcode-terminal": "npm:^0"
     "@unkey/ratelimit": "npm:0.4.4"
     exif-parser: "npm:0.1.12"
@@ -19112,16 +19117,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dropzone@npm:^14.2.3":
-  version: 14.2.3
-  resolution: "react-dropzone@npm:14.2.3"
+"react-dropzone@npm:14.2.9":
+  version: 14.2.9
+  resolution: "react-dropzone@npm:14.2.9"
   dependencies:
     attr-accept: "npm:^2.2.2"
     file-selector: "npm:^0.6.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">= 16.8 || 18.0.0"
-  checksum: 10c0/6433517c53309aca1bb4f4a535aeee297345ca1e11b123676f46c7682ffab34a3428cbda106448fc92b5c9a5e0fa5d225bc188adebcd4d302366bf6b1f9c3fc1
+  checksum: 10c0/07c69f5c43500edae8916af54bff53bd27e7a4ba127228d130a5346e49f41ff16b47357d97871b4167d6cd9e65e65b9052d1ea7e59d16caeabf1565a73026f58
   languageName: node
   linkType: hard
 
@@ -22300,7 +22305,6 @@ __metadata:
     postcss-loader: "npm:^8.0.1"
     react: "npm:19.0.0-rc-8269d55d-20240802"
     react-dom: "npm:19.0.0-rc-8269d55d-20240802"
-    react-dropzone: "npm:^14.2.3"
     react-markdown: "npm:^9.0.1"
     tailwindcss: "npm:^3.4.10"
   languageName: unknown
