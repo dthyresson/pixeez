@@ -5,6 +5,10 @@ import type {
   Album,
 } from 'types/graphql'
 
+import {
+  useUploadsMutation,
+  UploadFilesComponent,
+} from '@redwoodjs/uploads-web'
 import type {
   CellSuccessProps,
   CellFailureProps,
@@ -12,12 +16,12 @@ import type {
 } from '@redwoodjs/web'
 import { Metadata } from '@redwoodjs/web'
 import { toast } from '@redwoodjs/web/toast'
-import { useUploadMutation, UploadFileComponent } from '@redwoodjs/web/upload'
 
 import { EmptyState } from 'src/components/CellStates/EmptyState'
 import { FailureState } from 'src/components/CellStates/FailureState'
 import { LoadingState } from 'src/components/CellStates/LoadingState'
 import { PicsGrid } from 'src/components/Pics/PicsGrid'
+import { PreviewArea } from 'src/components/PreviewArea/PreviewArea'
 
 const CREATE_PICS_MUTATION = gql`
   mutation CreatePicsMutation($input: CreatePicsInput!) {
@@ -67,7 +71,7 @@ export const Failure = ({
 export const Success = ({
   album,
 }: CellSuccessProps<FindAlbumQuery, FindAlbumQueryVariables>) => {
-  const [createPics] = useUploadMutation(CREATE_PICS_MUTATION, {
+  const [createPics] = useUploadsMutation(CREATE_PICS_MUTATION, {
     onCompleted: () => {
       toast.success('Background removal in progress...', {
         duration: 2_500,
@@ -119,25 +123,29 @@ export const Success = ({
             </span>
           )}
         </h2>
-        <UploadFileComponent
-          className="m-8 rounded-lg border-2 border-dashed border-pink-300 p-8 text-center"
-          maxFiles={20}
-          onFileAccepted={handleFileAccepted}
-          dropzoneContent={
-            <p className="m-4 text-gray-500">
-              Drag and drop some 🖼️ pics here for {album.name} album
-            </p>
-          }
-          dropActiveContent={
-            <p className="m-4 text-pink-500">Drop your 🖼️ images here ...</p>
-          }
-          uploadButtonContent={
-            <p className="m-4 text-blue-500">Click to upload</p>
-          }
-          toast={toast}
-        >
-          {album.pics.length > 0 && <PicsGrid pics={album.pics as Pic[]} />}
-        </UploadFileComponent>
+        <div className="m-8 rounded-lg border-2 border-dashed border-pink-300 p-8 text-center">
+          <UploadFilesComponent
+            maxFiles={20}
+            onFileAccepted={handleFileAccepted}
+            SelectFilesButton={({ onClick }) => (
+              <div className="mb-2 mt-8 flex items-center justify-center gap-2">
+                <button
+                  onClick={onClick}
+                  className="flex items-center justify-center gap-2 rounded-md bg-teal-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-teal-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                  🖼️ Pick Pics
+                </button>
+              </div>
+            )}
+            toast={toast}
+            showPreviews={false}
+            previews={(files, removeFile) => (
+              <PreviewArea files={files} removeFile={removeFile} />
+            )}
+          >
+            {album.pics.length > 0 && <PicsGrid pics={album.pics as Pic[]} />}
+          </UploadFilesComponent>
+        </div>
       </div>
     </>
   )

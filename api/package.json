@@ -12,7 +12,7 @@
     "@redwoodjs/storage-adapter-filesystem": "8.3.0",
     "@redwoodjs/storage-adapter-memory": "8.3.0",
     "@redwoodjs/storage-adapter-s3": "8.3.0",
-    "@redwoodjs/upload": "8.3.0",
+    "@redwoodjs/uploads-graphql": "8.3.0",
     "@unkey/ratelimit": "0.4.4",
     "exif-parser": "0.1.12",
     "ioredis": "^5",

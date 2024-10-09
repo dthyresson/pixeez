@@ -7,8 +7,11 @@ import {
   ValidationError,
   ValidatorDirectiveFunc,
 } from '@redwoodjs/graphql-server'
-import { DEFAULT_UPLOAD_TOKEN_HEADER_NAME } from '@redwoodjs/upload'
-import type { UploadConfig, UploadErrorMessages } from '@redwoodjs/upload'
+import { DEFAULT_UPLOAD_TOKEN_HEADER_NAME } from '@redwoodjs/uploads-graphql'
+import type {
+  UploadConfig,
+  UploadErrorMessages,
+} from '@redwoodjs/uploads-graphql'
 
 import { logger } from 'src/lib/logger'
 
@@ -16,7 +19,7 @@ export const schema = gql`
   """
   Use @upload to validate file uploads with dynamic input and size constraints.
   """
-  directive @upload(variable: String!, fields: [String!]!) on FIELD_DEFINITION
+  directive @uploads(variable: String!, fields: [String!]!) on FIELD_DEFINITION
 `
 
 const validateUploadToken = (context: GlobalContext) => {
@@ -165,6 +168,6 @@ const validate: ValidatorDirectiveFunc = ({ directiveArgs, args, context }) => {
   }
 }
 
-const upload = createValidatorDirective(schema, validate)
+const uploads = createValidatorDirective(schema, validate)
 
-export default upload
+export default uploads

@@ -2434,6 +2434,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime-corejs3@npm:7.25.7":
+  version: 7.25.7
+  resolution: "@babel/runtime-corejs3@npm:7.25.7"
+  dependencies:
+    core-js-pure: "npm:^3.30.2"
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 10c0/37217edf5f02c0e7ccb78af380b26b06dadc9b031a1bcec22a9cfb540d85470b61ebe1e5cd7e32689a6c0f786015c2ee1a73a16852574c3a46341105e457a87c
+  languageName: node
+  linkType: hard
+
 "@babel/runtime@npm:^7.0.0, @babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.16.3, @babel/runtime@npm:^7.21.0, @babel/runtime@npm:^7.8.4":
   version: 7.25.6
   resolution: "@babel/runtime@npm:7.25.6"
@@ -5580,7 +5590,7 @@ __metadata:
 
 "@redwoodjs/cli@file:./tarballs/redwoodjs-cli.tgz::locator=root-workspace-0b6124%40workspace%3A.":
   version: 8.0.0
-  resolution: "@redwoodjs/cli@file:./tarballs/redwoodjs-cli.tgz#./tarballs/redwoodjs-cli.tgz::hash=bebdc1&locator=root-workspace-0b6124%40workspace%3A."
+  resolution: "@redwoodjs/cli@file:./tarballs/redwoodjs-cli.tgz#./tarballs/redwoodjs-cli.tgz::hash=5dab04&locator=root-workspace-0b6124%40workspace%3A."
   dependencies:
     "@babel/runtime-corejs3": "npm:7.25.0"
     "@opentelemetry/api": "npm:1.8.0"
@@ -5640,7 +5650,7 @@ __metadata:
     redwood: ./dist/index.js
     rw: ./dist/index.js
     rwfw: ./dist/rwfw.js
-  checksum: 10c0/e31a4b53118b2dc8a72640096111175d5dfbcf677b4f5bb9f72428da9e550f1548fc2cf8e7e7fafe8b06d6a36698046187d1050428bfdf402ee8517abe8b5b39
+  checksum: 10c0/82adf0b9279ac06801365c26b07e5d5d8fd1c24b34a7c61a823c99643c10b03c6677a39a57d62b9c075e1cc41a995a0d5ab468fb1e662cc5f221d42dcbc90117
   languageName: node
   linkType: hard
 
@@ -6064,15 +6074,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@redwoodjs/upload@file:./tarballs/redwoodjs-upload.tgz::locator=root-workspace-0b6124%40workspace%3A.":
+"@redwoodjs/uploads-graphql@file:./tarballs/redwoodjs-uploads-graphql.tgz::locator=root-workspace-0b6124%40workspace%3A.":
   version: 8.0.0
-  resolution: "@redwoodjs/upload@file:./tarballs/redwoodjs-upload.tgz#./tarballs/redwoodjs-upload.tgz::hash=b6b4a4&locator=root-workspace-0b6124%40workspace%3A."
+  resolution: "@redwoodjs/uploads-graphql@file:./tarballs/redwoodjs-uploads-graphql.tgz#./tarballs/redwoodjs-uploads-graphql.tgz::hash=1a70e3&locator=root-workspace-0b6124%40workspace%3A."
   dependencies:
-    "@envelop/core": "npm:5.0.2"
     "@redwoodjs/context": "npm:8.0.0"
     "@redwoodjs/graphql-server": "npm:8.0.0"
     jsonwebtoken: "npm:9.0.2"
-  checksum: 10c0/f1e2e5e98bd28d4edb4bebe980549a29763c18c93fc78806e8e43a76bd4adf9e8584ae822aabcb86d7affeddd0509bb9c29c61687eb67e134d40c80912548017
+  checksum: 10c0/2043806df046cdc6cbf91f40c3c182b1c27ca4bac8dd2a73c12dc0ec9f600c4611abe1f9a7324a1d3ea355eea6e298f8c08309a41a0cffb32bc214bdf9d84e4d
+  languageName: node
+  linkType: hard
+
+"@redwoodjs/uploads-web@file:./tarballs/redwoodjs-uploads-web.tgz::locator=root-workspace-0b6124%40workspace%3A.":
+  version: 8.0.0
+  resolution: "@redwoodjs/uploads-web@file:./tarballs/redwoodjs-uploads-web.tgz#./tarballs/redwoodjs-uploads-web.tgz::hash=ecc020&locator=root-workspace-0b6124%40workspace%3A."
+  dependencies:
+    "@apollo/client": "npm:3.11.1"
+    "@redwoodjs/web": "npm:8.0.0"
+    react-dropzone: "npm:14.2.3"
+    react-hot-toast: "npm:2.4.1"
+  checksum: 10c0/befddf4da18c12aced4316d577226c5995fcb2948e6ca11d23db5e47a9761d20f8edef3997f3462e22470a4cbbf7076d622ba95b5f459f34a461b0c4b2203d1b
   languageName: node
   linkType: hard
 
@@ -6145,10 +6166,10 @@ __metadata:
 
 "@redwoodjs/web@file:./tarballs/redwoodjs-web.tgz::locator=root-workspace-0b6124%40workspace%3A.":
   version: 8.0.0
-  resolution: "@redwoodjs/web@file:./tarballs/redwoodjs-web.tgz#./tarballs/redwoodjs-web.tgz::hash=4e1b11&locator=root-workspace-0b6124%40workspace%3A."
+  resolution: "@redwoodjs/web@file:./tarballs/redwoodjs-web.tgz#./tarballs/redwoodjs-web.tgz::hash=334615&locator=root-workspace-0b6124%40workspace%3A."
   dependencies:
     "@apollo/client": "npm:3.11.1"
-    "@babel/runtime-corejs3": "npm:7.25.0"
+    "@babel/runtime-corejs3": "npm:7.25.7"
     "@redwoodjs/auth": "npm:8.0.0"
     "@redwoodjs/server-store": "npm:8.0.0"
     "@whatwg-node/fetch": "npm:0.9.21"
@@ -6157,7 +6178,6 @@ __metadata:
     graphql: "npm:16.9.0"
     graphql-sse: "npm:2.5.3"
     graphql-tag: "npm:2.12.6"
-    react-dropzone: "npm:14.2.9"
     react-helmet-async: "npm:2.0.5"
     react-hot-toast: "npm:2.4.1"
     stacktracey: "npm:2.1.8"
@@ -6173,7 +6193,7 @@ __metadata:
     rwfw: ./dist/cjs/bins/rwfw.js
     storybook: ./dist/cjs/bins/storybook.js
     tsc: ./dist/cjs/bins/tsc.js
-  checksum: 10c0/6a73dfe820095839add71200cb8f84389ef9bab56e334d1a7cce1d41be161e9c41f7d69b77c3124e2dcdf37d4530094a7279815120d5c8b5342f195cc4366139
+  checksum: 10c0/a22733f4b90e87a6f6168fedc8e5027b4ea512ce4819da393461333221507a7b852d428d5eeaff7d79b9a9fcc4fb14d024f36d5335c021f5a0a06c9098bb9b93
   languageName: node
   linkType: hard
 
@@ -8341,7 +8361,7 @@ __metadata:
     "@redwoodjs/storage-adapter-filesystem": "npm:8.3.0"
     "@redwoodjs/storage-adapter-memory": "npm:8.3.0"
     "@redwoodjs/storage-adapter-s3": "npm:8.3.0"
-    "@redwoodjs/upload": "npm:8.3.0"
+    "@redwoodjs/uploads-graphql": "npm:8.3.0"
     "@types/qrcode-terminal": "npm:^0"
     "@unkey/ratelimit": "npm:0.4.4"
     exif-parser: "npm:0.1.12"
@@ -19117,16 +19137,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dropzone@npm:14.2.9":
-  version: 14.2.9
-  resolution: "react-dropzone@npm:14.2.9"
+"react-dropzone@npm:14.2.3":
+  version: 14.2.3
+  resolution: "react-dropzone@npm:14.2.3"
   dependencies:
     attr-accept: "npm:^2.2.2"
     file-selector: "npm:^0.6.0"
     prop-types: "npm:^15.8.1"
   peerDependencies:
     react: ">= 16.8 || 18.0.0"
-  checksum: 10c0/07c69f5c43500edae8916af54bff53bd27e7a4ba127228d130a5346e49f41ff16b47357d97871b4167d6cd9e65e65b9052d1ea7e59d16caeabf1565a73026f58
+  checksum: 10c0/6433517c53309aca1bb4f4a535aeee297345ca1e11b123676f46c7682ffab34a3428cbda106448fc92b5c9a5e0fa5d225bc188adebcd4d302366bf6b1f9c3fc1
   languageName: node
   linkType: hard
 
@@ -22294,6 +22314,7 @@ __metadata:
     "@heroicons/react": "npm:2.1.5"
     "@redwoodjs/forms": "npm:8.3.0"
     "@redwoodjs/router": "npm:8.3.0"
+    "@redwoodjs/uploads-web": "npm:8.3.0"
     "@redwoodjs/vite": "npm:8.3.0"
     "@redwoodjs/web": "npm:8.3.0"
     "@types/react": "npm:^18.2.55"

@@ -1,5 +1,5 @@
 import { createGraphQLHandler } from '@redwoodjs/graphql-server'
-import { useRedwoodUpload } from '@redwoodjs/upload'
+import { useRedwoodUploads } from '@redwoodjs/uploads-graphql'
 
 import directives from 'src/directives/**/*.{js,ts}'
 import sdls from 'src/graphql/**/*.sdl.{js,ts}'
@@ -16,7 +16,7 @@ export const handler = createGraphQLHandler({
   services,
   realtime,
   extraPlugins: [
-    useRedwoodUpload({
+    useRedwoodUploads({
       appName: 'pixeez',
       // uploadTokenHeaderName: 'x-upload-token-header-1',
       errorMessages: {

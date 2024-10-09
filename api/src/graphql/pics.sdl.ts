@@ -41,11 +41,11 @@ export const schema = gql`
   type Mutation {
     createPic(input: CreatePicInput!): Pic!
       @rateLimited(identifier: "createPic")
-      @upload(variable: "input", fields: ["originals"])
+      @uploads(variable: "input", fields: ["originals"])
 
     createPics(input: CreatePicsInput!): [Pic!]!
       @rateLimited(identifier: "createPics")
-      @upload(variable: "input", fields: ["originals"])
+      @uploads(variable: "input", fields: ["originals"])
 
     updatePic(id: ID!, input: UpdatePicInput!): Pic! @blocked
     deletePic(id: ID!): Pic! @blocked

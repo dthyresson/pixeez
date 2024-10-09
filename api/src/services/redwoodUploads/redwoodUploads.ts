@@ -1,7 +1,7 @@
 import { GetRedwoodUploadTokenResolver } from 'types/uploads'
 
-import { createUploadToken } from '@redwoodjs/upload'
-import type { UploadTokenPayload } from '@redwoodjs/upload'
+import { createUploadToken } from '@redwoodjs/uploads-graphql'
+import type { UploadTokenPayload } from '@redwoodjs/uploads-graphql'
 
 export const getRedwoodUploadToken: GetRedwoodUploadTokenResolver = async ({
   operationName,
